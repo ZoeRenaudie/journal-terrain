@@ -1,0 +1,25 @@
+:root {
+	/* Colors */
+	--accent: #3d3dfc;
+	--background: #ffff8b;
+	--lightAccent: #f4e64d; /** header*/
+	--lighterAccent: #ffff8b;  /** backgroud ?*/
+	--dark: #3d3dfc; /** lignes*/
+	--darker: #bebef8; /** polices titres*/ 
+	--slate: #005a6d; /** polices normales*/
+
+	--white: #fff;
+	--black: #152030;
+
+	--ink: var(--slate);
+	--paper: var(--background);
+
+	/**
+	 * These fonts are broken out into two separate variables from a previous iteration. I left
+	 * it in because it's nice to be able to split out the heading and body fonts.
+	 */
+	--accentFont: 'BBB Manifont Grotesk', sans-serif; /* titres */
+	--primaryFont: 'DM Sans', sans-serif;             /* texte courant */
+	--codeFont: 'Fira Code', monospace;
+}
+

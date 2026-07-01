@@ -1,0 +1,442 @@
+@prefix oex:    <https://w3id.org/OntoExhibit#> .
+@prefix crm:    <http://www.cidoc-crm.org/cidoc-crm/7.1.1/> .
+@prefix frbroo: <https://www.iflastandards.info/fr/frbr/frbroo#> .
+@prefix ex:     <https://example.org/feuxpales#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+
+#############################################################################
+# MAPPING ONTOEXHIBIT (OEX) - FEUX PÂLES
+# capcMusée d'art contemporain de Bordeaux, 7 décembre 1990 - 3 mars 1991
+#
+# Logique d'encodage : classes OEX déclarées en priorité ; CRM/FRBRoo
+# invoqués directement uniquement là où OEX délègue explicitement
+# (E21_Person, E53_Place, E74_Group, E12_Production, E65_Creation,
+# F11_Corporate_Body), conformément à l'alignement rdfs:subClassOf d'OEX.
+#
+# Sources : Renaudie, Z. (2017) Le monde de Feux pâles, Tome I (Mémoire)
+# et Tome II (Rapport documentaire de conservation-restauration).
+#############################################################################
+
+
+#############################################################################
+# 1. L'EXPOSITION ELLE-MÊME
+#############################################################################
+
+ex:FeuxPales a oex:Exhibition ;
+    rdfs:label "Feux pâles"@fr ;
+    oex:apelation "Feux pâles"@fr ;
+    rdfs:comment "Titre de travail : Ad Perpetuam Memorium. Exposition en 11 chapitres signée par le capcMusée et l'agence les ready-made appartiennent à tout le monde®, sur la socialité du système de l'art."@fr ;
+    oex:description "Exposition conçue par un artiste, plongeant le public dans des jeux de fiction et de références sur l'histoire de l'art et du musée."@fr ;
+    oex:hasVenue ex:CapcMusee ;
+    oex:hasLocation ex:GalerieFoy ;
+    oex:hasCommissioner ex:LesReadyMadeAgency ;
+    oex:hasCurator ex:JeanLouisFroment ;
+    oex:hasAssistantCurator ex:JeanMarcAvrilla ;
+    oex:hasCollaborator ex:PatriciaFalguieres ;
+    oex:hasCollaborator ex:SylvieCouderc ;
+    oex:hasConsultant ex:ClaireBurrus ;
+    oex:hasOpening ex:FeuxPalesOpening ;
+    oex:hasClosing ex:FeuxPalesClosing ;
+    oex:hasStartingDate ex:DateOuverture1990 ;
+    oex:hasEndingDate ex:DateCloture1991 ;
+    oex:hasPublication ex:FeuxPalesCatalogue ;
+    oex:hasCommunicationDispositif ex:FeuxPalesDepliant ;
+    oex:hasCommunicationDispositif ex:FeuxPalesDossierPresse ;
+    <https://w3id.org/OntoExhibit#hasNarrative/ThematicUnit> ex:Preambule, ex:Salle1, ex:Salle2, ex:Salle3,
+        ex:Salle4, ex:Salle5, ex:Salle6, ex:Salle7, ex:Salle8, ex:Salle9,
+        ex:Salle10, ex:Salle11 ;
+    oex:hasReenactment ex:OmbreDuJaseur ;
+    oex:hasRelatedConceptualizationMaterial ex:UnCabinetDAmateur ;
+    oex:hasDocumentationDispositif ex:ArchivesFeuxPales ;
+    oex:hasDocumentationDispositif ex:FondsPhilippeThomas .
+
+
+#############################################################################
+# 2. LIEU / INSTITUTION
+#############################################################################
+
+ex:CapcMusee a oex:Museum ;
+    rdfs:label "capcMusée d'art contemporain de Bordeaux"@fr ;
+    oex:name "capcMusée d'art contemporain de Bordeaux"@fr ;
+    oex:address "7, rue Ferrère, F-33000 Bordeaux, France"@fr ;
+    <http://www.w3.org/2003/01/geo/wgs84_pos#lat> "44.847139"^^xsd:double ;
+    <http://www.w3.org/2003/01/geo/wgs84_pos#long> "-0.572100"^^xsd:double ;
+    oex:isVenueOf ex:FeuxPales ;
+    oex:hasOrganizer ex:JeanLouisFroment .
+
+ex:GalerieFoy a oex:Spatial_Unit ;
+    rdfs:label "Galerie Foy, 2e étage"@fr ;
+    rdfs:comment "Espace d'exposition spécifique au sein du capcMusée, env. 900 m²."@fr ;
+    oex:isSpatialUnitOf ex:CapcMusee .
+
+# Les 11 chapitres + le préambule, modélisés comme unités narratives/thématiques
+# (oex:Narrative_Thematic_Unit, alignée sur la classe "chapter" d'OEX)
+
+ex:Preambule a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Entrée « préambule »"@fr .
+
+ex:Salle1 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 1 « Inventaires du mémorable »"@fr ;
+    oex:hasMainTopic ex:ThemeCabinetCuriosites .
+
+ex:Salle2 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 2 « Cabinets d'amateurs »"@fr .
+
+ex:Salle3 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 3 « L'art d'accommoder les restes »"@fr .
+
+ex:Salle4 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 4 « Le musée sans objet »"@fr .
+
+ex:Salle5 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 5 « Passif de la modernité »"@fr .
+
+ex:Salle6 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 6 « La chair est triste, hélas ! Et j'ai lu tous les livres »"@fr .
+
+ex:Salle7 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 7 « Respect de l'étiquette, intérêt du cartel »"@fr .
+
+ex:Salle8 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 8 « Le musée réfléchi »"@fr .
+
+ex:Salle9 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 9 « Mesure pour mesure »"@fr .
+
+ex:Salle10 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 10 « Parcelle à céder »"@fr .
+
+ex:Salle11 a oex:Narrative_Thematic_Unit, oex:chapter ;
+    rdfs:label "Salle 11 « L'Index »"@fr .
+
+ex:ThemeCabinetCuriosites a oex:Theme ;
+    rdfs:label "Cabinet de curiosités / Wunderkammer"@fr .
+
+
+#############################################################################
+# 3. TEMPORALITÉ
+#############################################################################
+
+ex:DateOuverture1990 a oex:Exact_Date ;
+    rdfs:label "7 décembre 1990"@fr ;
+    oex:isStartingDateOf ex:FeuxPales .
+
+ex:DateCloture1991 a oex:Exact_Date ;
+    rdfs:label "3 mars 1991"@fr ;
+    oex:isEndingDateOf ex:FeuxPales .
+
+ex:FeuxPalesOpening a oex:Opening ;
+    rdfs:label "Vernissage de Feux pâles"@fr ;
+    oex:isOpeningOf ex:FeuxPales ;
+    oex:hasTimeSpan ex:DateOuverture1990 .
+
+ex:FeuxPalesClosing a oex:Closing ;
+    rdfs:label "Clôture de Feux pâles"@fr ;
+    oex:isClosingOf ex:FeuxPales ;
+    oex:hasTimeSpan ex:DateCloture1991 .
+
+
+#############################################################################
+# 4. AGENTS — commissariat, conception, médiation
+#############################################################################
+
+# Note conceptuelle (PRISM) : Philippe Thomas opère doublement comme
+# E21_Person (individu biographique) et comme auteur-signataire au nom
+# d'une entité collective fictionnelle (l'agence). OEX ne dispose pas
+# nativement d'une classe pour cette dédoublement actantiel ; il est ici
+# rendu par deux entités liées (ex:PhilippeThomas / ex:LesReadyMadeAgency),
+# articulation qui sera affinée dans PRISM via les graphes-perspectives.
+
+ex:PhilippeThomas a crm:E21_Person ;
+    rdfs:label "Philippe Thomas (1951-1995)"@fr ;
+    oex:person_name "Philippe Thomas"@fr ;
+    rdfs:comment "Artiste invité sous couvert de l'agence les ready-made appartiennent à tout le monde®. Directeur de l'agence."@fr ;
+    oex:hasDeath ex:DeathPhilippeThomas ;
+    oex:isFounderOf ex:LesReadyMadeAgency .
+
+ex:LesReadyMadeAgency a oex:Company ;
+    rdfs:label "les ready-made appartiennent à tout le monde®"@fr ;
+    rdfs:comment "Agence dirigée par Philippe Thomas, sous le couvert de laquelle l'exposition est réalisée."@fr ;
+    oex:hasFounder ex:PhilippeThomas ;
+    oex:isCommissionerOf ex:FeuxPales .
+
+ex:ClaireBurrus a crm:E21_Person ;
+    rdfs:label "Claire Burrus"@fr ;
+    rdfs:comment "Galeriste, ayant droit de Philippe Thomas. Détentrice des archives personnelles et des droits de reproduction sur les fonds Thomas."@fr ;
+    oex:isConsultantOf ex:FeuxPales ;
+    oex:isOwnerOf ex:FondsPhilippeThomas .
+
+ex:JeanLouisFroment a crm:E21_Person ;
+    rdfs:label "Jean-Louis Froment"@fr ;
+    rdfs:comment "Directeur du capcMusée d'art contemporain de Bordeaux ; direction artistique de Feux pâles."@fr ;
+    oex:isCuratorOf ex:FeuxPales ;
+    oex:isOrganizerOf ex:CapcMusee .
+
+ex:JeanMarcAvrilla a crm:E21_Person ;
+    rdfs:label "Jean-Marc Avrilla"@fr ;
+    rdfs:comment "Commissaire d'exposition et assistant du conservateur."@fr ;
+    oex:isAssisantCuratorOf ex:FeuxPales .
+
+ex:SylvieCouderc a crm:E21_Person ;
+    rdfs:label "Sylvie Couderc"@fr ;
+    rdfs:comment "Responsable de la documentation et chargée de la collection du capcMusée."@fr ;
+    oex:isCollaboratorOf ex:FeuxPales .
+
+ex:PatriciaFalguieres a crm:E21_Person ;
+    rdfs:label "Patricia Falguières"@fr ;
+    rdfs:comment "Historienne de l'art invitée pour la conception de la salle « Inventaires du mémorable » (EHESS)."@fr ;
+    oex:isCollaboratorOf ex:FeuxPales ;
+    oex:isCollaboratorOf ex:Salle1 .
+
+ex:FredericDelpech a crm:E21_Person ;
+    rdfs:label "Frédéric Delpech"@fr ;
+    rdfs:comment "Photographe officiel de l'exposition."@fr ;
+    oex:isAuthorOf ex:VuesExposition .
+
+# Auteurs du catalogue (textes rédigés par Philippe Thomas sous leur nom,
+# à l'exception des textes signés par leurs auteurs réels — distinction
+# documentée au Tome II et essentielle pour PRISM/opacité)
+
+ex:JeanPhilippeAntoine a crm:E21_Person ;
+    rdfs:label "Jean-Philippe Antoine"@fr ;
+    rdfs:comment "Philosophe, auteur du texte « L'art d'accommoder les restes » dans le catalogue (texte signé par son auteur réel)."@fr ;
+    oex:isAuthorOf ex:FeuxPalesCatalogue .
+
+ex:JeanMarcPoinsot a crm:E21_Person ;
+    rdfs:label "Jean-Marc Poinsot"@fr ;
+    rdfs:comment "Historien de l'art, auteur du texte « Le musée sans objet : présentation du vide » (texte signé par son auteur réel)."@fr ;
+    oex:isAuthorOf ex:FeuxPalesCatalogue .
+
+ex:EricDuyckaerts a crm:E21_Person ;
+    rdfs:label "Éric Duyckaerts"@fr ;
+    rdfs:comment "Artiste et philosophe, auteur du texte « Mesure pour mesure » (texte signé par son auteur réel)."@fr ;
+    oex:isAuthorOf ex:FeuxPalesCatalogue .
+
+
+#############################################################################
+# 5. ÉVÉNEMENT BIOGRAPHIQUE (CRM direct)
+#############################################################################
+
+ex:DeathPhilippeThomas a crm:E69_Death ;
+    rdfs:label "Décès de Philippe Thomas, 1995"@fr ;
+    oex:isDeathOf ex:PhilippeThomas .
+
+
+#############################################################################
+# 6. DOCUMENTATION ÉDITORIALE / DE COMMUNICATION
+#############################################################################
+
+ex:FeuxPalesCatalogue a oex:Catalog ;
+    rdfs:label "Feux pâles [Texte imprimé] : une pièce à conviction"@fr ;
+    oex:description "176 p., ill. n. et coul., 28 cm. Impr. en Espagne. ISBN 2-87721-079-0."@fr ;
+    oex:isPublicationOf ex:FeuxPales ;
+    oex:hasPublisher ex:CapcMusee ;
+    oex:hasAuthor ex:JeanPhilippeAntoine, ex:JeanMarcPoinsot, ex:EricDuyckaerts ;
+    rdfs:comment "La plupart des textes signés (J.-L. Froment, S. Couderc, S. de Cosi, S. Mallarmé, J.-M. Avrilla, B. Edelman, J. Salomon) sont en réalité écrits par Philippe Thomas ; seuls les textes de Falguières, Antoine, Poinsot et Duyckaerts sont écrits par leurs signataires. Donnée cruciale pour la modélisation de l'opacité déclarée (PRISM)."@fr .
+
+ex:FeuxPalesDepliant a oex:Brochure ;
+    rdfs:label "Feux pâles : journal de l'exposition"@fr ;
+    oex:isCommunicationDispositifOf ex:FeuxPales .
+
+ex:FeuxPalesDossierPresse a oex:Press_Release ;
+    rdfs:label "Dossier de presse Feux pâles"@fr ;
+    rdfs:comment "Communiqué de presse du capc, archives capc."@fr ;
+    oex:isCommunicationDispositifOf ex:FeuxPales .
+
+ex:VuesExposition a oex:Visual_Information_Object ;
+    rdfs:label "Vues d'exposition de Feux pâles"@fr ;
+    rdfs:comment "Vues d'exposition, majoritairement © Frédéric Delpech / CAPC ou DR / archives Bibliothèque Kandinsky."@fr ;
+    oex:isAuthorOf ex:FeuxPales .
+
+
+#############################################################################
+# 7. ARCHIVES (oex:Archive)
+#############################################################################
+
+ex:FondsPhilippeThomas a oex:Archive ;
+    rdfs:label "Fonds d'archives de Philippe Thomas"@fr ;
+    oex:description "Bibliothèque Kandinsky, Centre de documentation et de recherche du MNAM-CCI. Accessible sur RDV (professionnels, master II ou 3e cycle). Certains documents (carnets de l'artiste) soumis à autorisation de Claire Burrus."@fr ;
+    oex:isOwnerOf ex:FondsPhilippeThomas ;
+    oex:isDocumentationDispositifOf ex:FeuxPales .
+
+ex:ArchivesFeuxPales a oex:Archive ;
+    rdfs:label "Archives de l'exposition Feux pâles"@fr ;
+    oex:description "Capc - Centre de documentation. Fiches de prêts, numérisation partielle des vues d'exposition. Accessible sur RDV avec justification."@fr ;
+    oex:isDocumentationDispositifOf ex:FeuxPales .
+
+ex:ArchivesOmbreDuJaseur a oex:Archive ;
+    rdfs:label "Archives de l'exposition L'Ombre du jaseur (d'après Feux pâles)"@fr ;
+    oex:description "Mamco de Genève - Administration. Fiches de prêts, vues d'exposition numériques. Accessible sur RDV avec justification."@fr ;
+    oex:isDocumentationDispositifOf ex:OmbreDuJaseur .
+
+
+#############################################################################
+# 8. RÉACTIVATION — L'OMBRE DU JASEUR (2014)
+#############################################################################
+
+ex:OmbreDuJaseur a oex:Exhibition ;
+    rdfs:label "L'Ombre du jaseur (d'après Feux pâles)"@fr ;
+    oex:apelation "L'Ombre du jaseur"@fr ;
+    rdfs:comment "Adaptation/réactivation de Feux pâles, et non reconstitution à l'identique."@fr ;
+    oex:hasVenue ex:Mamco ;
+    oex:hasCurator ex:ChristianBernard, ex:PaulBernard ;
+    oex:hasStartingDate ex:DateOuvertureOmbre2014 ;
+    oex:hasEndingDate ex:DateClotureOmbre2014 ;
+    oex:isReenactmentOf ex:FeuxPales ;
+    oex:hasDocumentationDispositif ex:ArchivesOmbreDuJaseur .
+
+ex:Mamco a oex:Museum ;
+    rdfs:label "Mamco, Genève"@fr ;
+    oex:isVenueOf ex:OmbreDuJaseur .
+
+ex:ChristianBernard a crm:E21_Person ;
+    rdfs:label "Christian Bernard"@fr ;
+    oex:isCuratorOf ex:OmbreDuJaseur .
+
+ex:PaulBernard a crm:E21_Person ;
+    rdfs:label "Paul Bernard"@fr ;
+    rdfs:comment "Curateur au Mamco, commissaire de la réactivation de 2014."@fr ;
+    oex:isCuratorOf ex:OmbreDuJaseur .
+
+ex:DateOuvertureOmbre2014 a oex:Exact_Date ;
+    rdfs:label "12 février 2014"@fr .
+
+ex:DateClotureOmbre2014 a oex:Exact_Date ;
+    rdfs:label "18 mai 2014"@fr .
+
+
+#############################################################################
+# 9. PRODUCTION ULTÉRIEURE — UN CABINET D'AMATEUR (1991)
+#############################################################################
+
+ex:UnCabinetDAmateur a oex:Conceptual_Work ;
+    rdfs:label "Un cabinet d'amateur"@fr ;
+    rdfs:comment "Œuvre créée par Philippe Thomas / les ready-made appartiennent à tout le monde® en 1991 pour la Caisse des dépôts et consignations, témoignant de Feux pâles : 12 photographies n. et b. de chaque salle, présentées sur chariot à étagères. N° inv. 2006.1.37, Musée d'art moderne et contemporain de Saint-Étienne Métropole (donation CDC, 2006). Existence d'une 2e version (collection B. Braun Melsungen AG)."@fr ;
+    oex:hasCreator ex:LesReadyMadeAgency ;
+    oex:isRelatedConceptualizationMaterialOf ex:FeuxPales .
+
+
+#############################################################################
+# 10. ÉCHANTILLON D'ŒUVRES EXPOSÉES (oex:Artwork)
+# Un sous-ensemble représentatif des 96 artefacts du catalogue,
+# couvrant la diversité des statuts d'objets traités par Feux pâles :
+# œuvre d'art, ready-made, objet de collection naturaliste, moulage,
+# document d'archive d'une autre exposition.
+#############################################################################
+
+ex:Fontaine1917 a oex:Artwork ;
+    rdfs:label "Fontaine"@fr ;
+    oex:description "Marcel Duchamp, 1917-1964. Readymade, 63 x 48 x 35 cm. Collection Arturo Schwarz, Milan. Salle 3 « L'art d'accommoder les restes »."@fr ;
+    oex:hasCreator ex:MarcelDuchamp ;
+    oex:hasOwner ex:ArturoSchwarzCollection ;
+    oex:isDisplayedAt ex:Salle3 .
+
+ex:BoiteEnValise a oex:Artwork ;
+    rdfs:label "La boîte-en-valise"@fr ;
+    oex:description "Marcel Duchamp, 1949. Valise en carton, 69 répliques + 1 original, 41 x 38 x 10,5 cm. Collection Stedelijk Museum, Amsterdam. Salle 8 « Le musée réfléchi »."@fr ;
+    oex:hasCreator ex:MarcelDuchamp ;
+    oex:hasLender ex:StedelijkMuseum ;
+    oex:isDisplayedAt ex:Salle8 .
+
+ex:MerdaDArtista a oex:Artwork ;
+    rdfs:label "Merda d'artista"@fr ;
+    oex:description "Piero Manzoni, 1961, édition n°14, 5 x 6,4 cm. Courtesy Hirschl & Adler Gallery, New York. Salle 3."@fr ;
+    oex:hasCreator ex:PieroManzoni ;
+    oex:isDisplayedAt ex:Salle3 .
+
+ex:DeuxCostumesFeutre a oex:Artwork ;
+    rdfs:label "Zwei Filzanzüge mit Filzwinkel"@fr ;
+    oex:description "Joseph Beuys, 1970-1979. 2 costumes en feutre sur cintres, vitrine 200 x 200 x 65 cm, 120 kg. Collection René Block, Berlin. Salle 3."@fr ;
+    oex:hasCreator ex:JosephBeuys ;
+    oex:hasLender ex:ReneBlockCollection ;
+    oex:isDisplayedAt ex:Salle3 .
+
+ex:MuseeAVendre a oex:Artwork ;
+    rdfs:label "Musée à vendre"@fr ;
+    oex:description "Marcel Broodthaers, 1971. Collage, photocopies, impressions typographiques, 81 x 130 cm. Collection Dr Speck, Cologne. Salle 9 « Mesure pour mesure »."@fr ;
+    oex:hasCreator ex:MarcelBroodthaers ;
+    oex:isDisplayedAt ex:Salle9 .
+
+ex:GuggenheimBoard a oex:Artwork ;
+    rdfs:label "Solomon R. Guggenheim Museum Board of Trustees"@fr ;
+    oex:description "Hans Haacke, 1974. 7 textes imprimés, cadres en cuivre, 61,5 x 51,5 x 2,7 cm chacun. Collection Daled, Bruxelles. Salle 9."@fr ;
+    oex:hasCreator ex:HansHaacke ;
+    oex:isDisplayedAt ex:Salle9 .
+
+ex:PropriétePrivee a oex:Artwork ;
+    rdfs:label "Propriété privée"@fr ;
+    oex:description "N.A Jedermann, 1990. Parquet flottant 30,525 m², trépied 134 x 42 x 2 cm. Collection capcMusée, n° inv. 1991-22. Salle 10 « Parcelle à céder »."@fr ;
+    oex:hasOwner ex:CapcMusee ;
+    oex:isDisplayedAt ex:Salle10 .
+
+ex:KlappaltarchenAutel a oex:Artwork ;
+    rdfs:label "Klappaltärchen [Autel portatif]"@fr ;
+    oex:description "Nuremberg, vers 1520. Agent doré, cornaline, perle, 9,2 x 7,5 cm. Collection Kunsthistorisches Museum, Vienne (Kunstkammer, 896). Salle 1 « Inventaires du mémorable »."@fr ;
+    oex:hasOwner ex:KunsthistorischesMuseum ;
+    oex:isDisplayedAt ex:Salle1 .
+
+ex:Platon a oex:Artwork ;
+    rdfs:label "Platon (moulage)"@fr ;
+    oex:description "Moulage plâtre, 51 x 24 cm, 8 kg, d'après l'original du Musée de Berlin. Collection des moulages, Institut d'archéologie classique de Strasbourg. Salle 1."@fr ;
+    oex:isDisplayedAt ex:Salle1 ;
+    rdfs:comment "Objet de statut médiat (copie/moulage d'une œuvre antique), illustrant la diversité ontologique des artefacts exposés dans Feux pâles."@fr .
+
+
+#############################################################################
+# 11. CRÉATEURS DES ŒUVRES (échantillon)
+#############################################################################
+
+ex:MarcelDuchamp a crm:E21_Person ; rdfs:label "Marcel Duchamp"@fr ;
+    oex:isCreatorOf ex:Fontaine1917, ex:BoiteEnValise .
+
+ex:PieroManzoni a crm:E21_Person ; rdfs:label "Piero Manzoni"@fr ;
+    oex:isCreatorOf ex:MerdaDArtista .
+
+ex:JosephBeuys a crm:E21_Person ; rdfs:label "Joseph Beuys"@fr ;
+    oex:isCreatorOf ex:DeuxCostumesFeutre .
+
+ex:MarcelBroodthaers a crm:E21_Person ; rdfs:label "Marcel Broodthaers"@fr ;
+    oex:isCreatorOf ex:MuseeAVendre .
+
+ex:HansHaacke a crm:E21_Person ; rdfs:label "Hans Haacke"@fr ;
+    oex:isCreatorOf ex:GuggenheimBoard .
+
+
+#############################################################################
+# 12. PRÊTEURS / PROPRIÉTAIRES INSTITUTIONNELS (échantillon)
+#############################################################################
+
+ex:ArturoSchwarzCollection a oex:Collector ;
+    rdfs:label "Collection Arturo Schwarz, Milan"@fr ;
+    oex:isOwnerOf ex:Fontaine1917 .
+
+ex:ReneBlockCollection a oex:Collector ;
+    rdfs:label "Collection René Block, Berlin"@fr ;
+    oex:isLenderOf ex:DeuxCostumesFeutre .
+
+ex:StedelijkMuseum a oex:Museum ;
+    rdfs:label "Stedelijk Museum, Amsterdam"@fr ;
+    oex:isLenderOf ex:BoiteEnValise .
+
+ex:KunsthistorischesMuseum a oex:Museum ;
+    rdfs:label "Kunsthistorisches Museum, Vienne"@fr ;
+    oex:isOwnerOf ex:KlappaltarchenAutel .
+
+
+#############################################################################
+# 13. ÉLÉMENTS MUSÉOGRAPHIQUES (échantillon — Non_Produced_Material_Object)
+#############################################################################
+
+ex:CimaisesExposition a oex:Non_Produced_Material_Object ;
+    rdfs:label "Cimaises"@fr ;
+    oex:description "Bois couvert de tissu, peint en blanc ; n'avaient pas été construites pour l'occasion."@fr ;
+    oex:isDisplayedAt ex:FeuxPales .
+
+ex:ChaisesSurveillants a oex:Non_Produced_Material_Object ;
+    rdfs:label "Chaises pour surveillants de salles"@fr ;
+    oex:description "Attribuées à Robert Mallet-Stevens, version en laque époxy gris anthracite."@fr ;
+    rdfs:comment "Attribution à vérifier — donnée incertaine au sens du code couleur du Tome II (PRISM : déclarer l'incertitude comme donnée positive plutôt que l'omettre)."@fr ;
+    oex:isDisplayedAt ex:FeuxPales .

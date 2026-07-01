@@ -1,0 +1,55 @@
+/* Conteneur des notes */
+:global(.footnotes) {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #ccc);
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Liste des notes */
+:global(.footnotes ol) {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+/* Chaque note */
+:global(.footnotes li) {
+    margin-bottom: 0.5rem;
+    scroll-margin-top: 5rem; /* ← hauteur approximative du header */
+}
+
+/* Paragraphes dans les notes */
+:global(.footnotes li p) {
+    margin: 0;
+}
+
+/* Lien retour vers le texte */
+:global(.footnotes .data-footnote-backref),
+:global(.footnotes a.footnote-backref) {
+    text-decoration: none;
+    margin-left: 0.25rem;
+    font-size: 0.85em;
+    color: var(--accent, #0070f3);
+}
+
+/* Superscript dans le texte */
+:global(sup) {
+    line-height: 0;
+}
+
+/* Lien de référence dans le texte */
+:global(a[data-footnote-ref]),
+:global(a.footnote-ref) {
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--accent, #0070f3);
+}
+
+/* Hover */
+:global(a[data-footnote-ref]:hover),
+:global(a.footnote-ref:hover),
+:global(.footnotes .data-footnote-backref:hover) {
+    text-decoration: underline;
+}

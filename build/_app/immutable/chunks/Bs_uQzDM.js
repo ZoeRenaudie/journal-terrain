@@ -1,0 +1,2 @@
+import"./CWj6FrbW.js";import"./69_IOA4Y.js";import{f as r,a}from"./B-YcwRjg.js";const o={title:"jour 01 février 2024",date:"2024-02-01",updated:"2024-02-01",categories:["journal"],excerpt:"Chaos"},{title:d,date:m,updated:c,categories:l,excerpt:u}=o;var p=r(`<p>On est déjà en février. Le temps et les projets passent trop vite.
+J’aimerais être une personne tempérée, il est pourtant clair que je performe dans le chaos.</p>`);function f(e){var t=p();a(e,t)}export{f as default,o as metadata};
