@@ -1,4 +1,4 @@
-.callout {
+.pullquote {
   background: var(--lightAccent);
   padding: 2rem 1rem;
   width: calc(100% + 2rem);
@@ -64,6 +64,7 @@
 .blog-layout {
   position: relative;
   display: block;
+  min-height: 100%;
 }
 
 /* Menu latéral commun (catégories & thèmes) */
@@ -290,4 +291,30 @@
     gap: 0.25rem 1rem;
     position: static;
   }
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightAccent);
+  gap: 1rem;
+}
+
+.post-nav a {
+  font-size: 0.9rem;
+  font-family: var(--primaryFont);
+  text-decoration: none;
+  color: var(--slate);
+  max-width: 45%;
+}
+
+.post-nav a:hover {
+  color: var(--accent);
+}
+
+.post-nav__next {
+  margin-left: auto;
+  text-align: right;
 }

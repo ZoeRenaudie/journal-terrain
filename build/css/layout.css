@@ -107,3 +107,51 @@ li {
 .icon-link:hover::before {
 	opacity: 1;
 }
+
+/* Markdown tables */
+:global(table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+}
+
+:global(th),
+:global(td) {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+:global(th) {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+:global(tr:nth-child(even)) {
+  background-color: #f9fafb;
+}
+
+.callout {
+  border-left: 4px solid var(--callout-color, #ccc);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+  background: color-mix(in srgb, var(--callout-color, #ccc) 10%, transparent);
+}
+
+.callout-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.callout-blue   { --callout-color: #2ea8e5; }
+.callout-green  { --callout-color: #5fb236; }
+.callout-orange { --callout-color: #f19837; }
+.callout-red    { --callout-color: #ff6666; }
+.callout-purple { --callout-color: #ffd400; }
+.callout-yellow { --callout-color: #a28ae5; }
+.callout-default { --callout-color: #aaaaaa; }
