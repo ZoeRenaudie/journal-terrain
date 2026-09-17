@@ -1,3 +1,5 @@
+import { tagByPrefix } from '$lib/modelling/tags.js'
+
 export const load = async () => {
 	const docs = await Promise.all(
 		Object.entries(
@@ -10,26 +12,25 @@ export const load = async () => {
 				.replace('/src/lib/modelling/', '')
 				.replace(/\.md$/, '')
 
-			return { ...metadata, slug }
+			return { ...metadata, tags: metadata.tags ?? [], slug }
 		})
 	)
 
 	// Group by case, then by type
 	const sorted = docs.sort((a, b) => {
-		// READMEs / index pages first within their group
-		if (a.type === 'index') return -1
-		if (b.type === 'index') return 1
+		// index pages first within their group
+		if (tagByPrefix(a.tags, 'type') === 'index') return -1
+		if (tagByPrefix(b.tags, 'type') === 'index') return 1
 		return (a.slug ?? '').localeCompare(b.slug ?? '')
 	})
 
-	    // Entrée statique pour le graphe RDF interactif
-    const graphEntry = {
-        title: 'Graphe RDF — Feux pâles',
-        type: 'graph',
-        slug: '../graph',   // chemin relatif depuis /modelling/
-        external: false
-    }
+	// Entrée statique pour le graphe RDF interactif
+	const graphEntry = {
+		title: 'Graphe RDF — Feux pâles',
+		tags: ['type:graph'],
+		slug: '../graph', // chemin relatif depuis /modelling/
+		external: false
+	}
 
-    return { docs: [...sorted, graphEntry] }
-
+	return { docs: [...sorted, graphEntry] }
 }

@@ -1,0 +1,1722 @@
+@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix lrmoo:   <http://iflastandards.info/ns/lrm/lrmoo/> .
+@prefix crminf:  <http://www.ics.forth.gr/isl/CRMinf/> .
+@prefix aaao:    <http://www.ics.forth.gr/isl/AAAO/> .
+@prefix curate:  <http://example.org/ontology/curate#> .
+@prefix ex:      <https://feuxpales.example.org/id/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sari: <http://w3id.org/sari#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix display: <https://w3id.org/display#> .
+@prefix la: <https://linked.art/ns/terms/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix aat: <http://vocab.getty.edu/aat/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+
+
+########################################################
+# Métadonnées du graphe
+########################################################
+
+ex:Etude_RDF_2026 a rdfs:Graph ;
+  rdfs:label "Graphe CIDOC-CRM : *Feux Pâles*"@fr ;
+  rdfs:comment "Modélisation Feux Pâles de Philippe Thomas, ses activations et de leurs relations avec les œuvres, acteurs et archives."@fr ;
+  crm:P1_is_identified_by ex:graph_id ;
+  crm:P2_has_type ex:type_graph ;
+  crm:P4_has_time-span ex:graph_timespan .
+
+ex:graph_id a crm:E42_Identifier ;
+  rdf:value "feux-pales-exhibition-2026" .
+
+ex:type_graph a crm:E55_Type ;
+  rdfs:label "Graphe CIDOC-CRM"@fr .
+
+ex:graph_timespan a crm:E52_Time-Span ;
+  crm:P81a_begin_of_the_begin "2026-07-10T00:00:00"^^xsd:dateTime ;
+  crm:P81b_end_of_the_end "2026-07-10T00:00:00"^^xsd:dateTime .
+
+
+# autor ?
+
+# feux pales cidoc transferé
+
+# importer curate et beliefs 
+
+########################################################
+# Fiche Expo
+########################################################
+
+ex:feux_pales_concept a crm:E28_Conceptual_Object ;
+  rdfs:label "Feux Pâles" ;
+  crm:P1_is_identified_by ex:appellation_FeuxPales ;
+  crm:P3_has_note "Œuvre conceptuelle de Philippe Thomas, existant tant qu'elle est mémorisée ou documentée."@fr .
+
+
+# --- Exposition 1 : Feux Pâles (CAPC, 1990-1991) ---
+ex:feux_pales_expo a crm:E7_Activity ;
+  rdfs:label "Exposition Feux pâles"@fr ;
+  crm:P1_is_identified_by ex:appellation_FeuxPales ;
+  crm:P17_was_motivated_by ex:commande_feux_pales ;
+  crm:P2_has_type aat:300417758 ;  # aat : art exhibition
+  crm:P2_has_type ex:typo_expo_temporaire ;
+  crm:P1_is_identified_by ex:appellation_FeuxPales ;
+  crm:P14_carried_out_by ex:philippe_thomas ;
+  crm:P14.1_in_the_role_of ex:role_commissaire ;  # Rôle : commissaire d'exposition
+  crm:P7_took_place_at ex:place001 ;
+  crm:P4_has_time-span ex:time_span_1990_1991 ;
+  crm:P129_is_about ex:feux_pales_concept ;  # L'exposition traite du concept "Feux Pâles"
+  crm:P16_used_specific_object ex:accrochage_feuxPales ;
+  crm:P12_occurred_in_the_presence_of ex:philippe_thomas, ex:claire_burrus, ex:jean_louis_froment, ex:martine_paen .
+
+# --- Exposition 2 : L'Ombre du jaseur (2014)---
+ex:ombreJaseur_expo a crm:E7_Activity ;
+  rdfs:label "L'Ombre du jaseur (d'après Feux Pâles)" ;
+  crm:P2_has_type ex:type_adaptation ;  # Type : adaptation
+  crm:P136_was_based_on ex:feux_pales_concept ;  # Basée sur le concept "Feux Pâles"
+  crm:P16_used_specific_object ex:archive_capc ; 
+  crm:P16_used_specific_object ex:accrochage_OmbreJaseur ;
+  crm:P3_has_note "Philippe Thomas n'a pas participé à cette itération."@fr ;
+  crm:P12_occurred_in_the_presence_of ex:claire_burrus, ex:paul_bernard, ex:martine_paen, ex:emeline_jaret .
+
+# --- Un Cabinet d'amateur ---
+ex:cabinet_amateur a crm:E7_Activity ;
+  rdfs:label "Cabinet d'amateur" ;
+  crm:P2_has_type ex:type_adaptation ;  
+  crm:P2_has_type ex:type_documentation ; 
+  crm:P136_was_based_on ex:feux_pales_concept ; 
+  crm:P4_has_time_span ex:timespan004 .
+
+# --- Étude de conservation ---
+ex:etude_conservation a crm:E7_Activity ;
+  rdfs:label "Étude de conservation" ;
+  crm:P2_has_type ex:type_conservation ;  
+  crm:P2_has_type ex:type_documentation ; 
+  crm:P136_was_based_on ex:feux_pales_concept ;  
+  crm:P16_used_specific_object ex:archive_capc ; 
+  crm:P16_used_specific_object ex:archives_bk ;
+  crm:P4_has_time_span ex:time_span_2016_2017 ;
+  crm:P94_has_created ex:rapport_conservation ;
+  crm:P11_had_participant ex:zoe_renaudie, ex:claire_burrus, ex:emeline_jaret, ex:martine_paen, ex:paul_bernard.
+
+########################################################
+# Lieux
+########################################################
+
+ex:capc a crm:E53_Place ;
+  rdfs:label "CAPC Musée d'art contemporain de Bordeaux" ;
+  crm:P168_place_is_defined_by "POINT(-0.572157 44.8486403)"^^geosparql:wktLiteral .
+
+########################################################
+# Temps
+########################################################
+
+# normaliser dates
+
+ex:time_span_1990_1991 a crm:E52_Time-Span ;
+  crm:P82_at_some_time_within "1990-1991" ; 
+  crm:P82a_begin_of_the_begin "1990-12-07" ; 
+  crm:P82b_end_of_the_end "1991-03-03" ;  
+  rdfs:label "7 décembre 1990 - 3 mars 1991" ;
+  rdf:value "du 7/12/1990 au 03/03/1991" ;
+  crm:P81a_begin_of_the_begin "1990-12-07T00:00:00"^^xsd:dateTime ;
+  crm:P81b_end_of_the_end "1991-03-03T00:00:00"^^xsd:dateTime .
+
+ex:time_span_1990 a crm:E52_Time-Span ;
+  crm:P82_at_some_time_within "1990" ; 
+  crm:P82a_begin_of_the_begin "1990" ;   
+  rdfs:label "1990" .
+
+ex:time_span_début_projet a crm:E52_Time-Span ;
+  crm:P81a_begin_of_the_begin "1990-05-07T00:00:00"^^xsd:dateTime ;
+  crm:P3_has_note "Date des premiers documents à confirmer."@fr .
+
+ex:time_span_2016_2017 a crm:E52_Time-Span ;
+  crm:P81a_begin_of_the_begin "2016-10-01T00:00:00"^^xsd:dateTime ;
+  crm:P81b_end_of_the_end "2017-06-01T00:00:00"^^xsd:dateTime ;
+  crm:P3_has_note "Dates à confirmer."@fr . # belief
+
+ex:naissance_philippe_thomas a crm:E63_Beginning_of_Existence ;
+  rdfs:label "Naissance de Philippe Thomas" ;
+  crm:P98_brought_into_life ex:philippe_thomas ;
+  crm:P4_has_time-span "1951-07-07" ;
+  crm:P7_took_place_at ex:lieu_nice .
+
+ex:mort_philippe_thomas a crm:E69_Death ;
+  rdfs:label "Mort de Philippe Thomas" ;
+  crm:P100_was_death_of ex:philippe_thomas ;
+  crm:P4_has_time-span "1995-09-02" ;
+  crm:P7_took_place_at ex:lieu_paris .
+
+ex:philippe_thomas a crm:E21_Person ;
+  rdfs:label "Philippe Thomas" ;
+  crm:P98i_was_born ex:naissance_philippe_thomas ;
+  crm:P100i_died_in ex:mort_philippe_thomas .
+
+########################################################
+# Acteurs
+########################################################
+
+ex:philippe_thomas a crm:E21_Person ;
+  rdfs:label "Philippe Thomas"@fr ;
+  crm:P3_has_note "Le nom de cette personne n'apparait pas dans l'exposition Feux Pâles". 
+
+ex:claire_burrus a crm:E21_Person ;
+  rdfs:label "Claire Burrus"@fr .
+
+ex:jean_louis_froment a crm:E21_Person ;
+  rdfs:label "Jean-Louis Froment"@fr .
+
+ex:sylvie_couderc a crm:E21_Person ;
+  rdfs:label "Sylvie Couderc"@fr .
+
+ex:jean_marc_avrilla a crm:E21_Person ;
+  rdfs:label "Jean-Marc Avrilla"@fr .
+
+ex:paul_bernard a crm:E21_Person ;
+  rdfs:label "Paul Bernard"@fr .
+
+ex:capc a crm:E74_Group ;
+  rdfs:label "capcMusée d'art contemporain, Bordeaux"@fr ;
+  crm:P107_has_current_or_former_member ex:jean_louis_froment, ex:martine_paen.
+
+ex:mamco a crm:E74_Group ;
+  rdfs:label "MAMCO"@fr ;
+  crm:P107_has_current_or_former_member ex:paul_bernard.
+
+
+ex:agence_rmatlm a crm:E74_Group ;
+  rdfs:label "les ready-made appartiennent à tout le monde®"@fr ;
+  rdfs:label "Readymades belong to everyone®"@en .
+
+ex:ifp a crm:E74_Group ;
+  rdfs:label "Information Fiction Publicité (IFP)"@fr .
+
+ex:stephane_wargnier a crm:E21_Person ;
+  rdfs:label "Stéphane Wargnier"@fr .
+
+ex:lidewij_edelkoort a crm:E21_Person ;
+  rdfs:label "Lidewij Edelkoort"@fr .
+
+ex:michel_tournereau a crm:E21_Person ;
+  rdfs:label "Michel Tournereau (collectionneur)"@fr .
+
+ex:bertrand_lavier a crm:E21_Person ;
+  rdfs:label "Bertrand Lavier"@fr .
+
+ex:vladimir_nabokov a crm:E21_Person ;
+  rdfs:label "Vladimir Nabokov"@fr .
+
+ex:patricia_falguieres a crm:E21_Person ;
+  rdfs:label "Patricia Falguières"@fr .
+
+ex:jean_philippe_antoine a crm:E21_Person ;
+  rdfs:label "Jean-Philippe Antoine"@fr .
+
+ex:jean_marc_poinsot a crm:E21_Person ;
+  rdfs:label "Jean-Marc Poinsot"@fr .
+
+ex:eric_duyckaerts a crm:E21_Person ;
+  rdfs:label "Éric Duyckaerts"@fr .
+
+ex:emeline_jaret a crm:E21_Person ;
+  rdfs:label "Emeline Jaret"@fr .  # vérifier orthographe
+
+ex:zoe_renaudie a crm:E21_Person ;
+  rdfs:label "Zoë Renaudie"@fr .  
+
+ex:serigraphe a crm:E39_Actor ;
+  crm:P3_has_note "serigraphe inconnu"@fr . # belief : lacune
+
+ex:martine_paen a crm:E39_Actor ;
+  rdfs:label "Martine Paen" ;
+  crm:P14.1_in_the_role_of ex:role_archiviste.
+
+# artistes expo #########################################
+
+ex:domenico_remps a crm:E21_Person ;
+  rdfs:label "Domenico Remps"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:hieronymus_janssen a crm:E21_Person ;
+  rdfs:label "Hieronymus Janssen"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:sylvie_couderc a crm:E21_Person ;
+  rdfs:label "Sylvie Couderc"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:gerard_thomas a crm:E21_Person ;
+  rdfs:label "Gérard Thomas (peintre, homonyme)"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:yan_thomas a crm:E21_Person ;
+  rdfs:label "Yan Thomas (juriste)"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:filipzac a crm:E21_Person ;
+  rdfs:label "Filipzac (source citée)"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:marcel_duchamp a crm:E21_Person ;
+  rdfs:label "Marcel Duchamp"@fr ;
+  crm:P2_has_type ex:artiste_expose .  
+
+ex:daniel_spoerri a crm:E21_Person ;
+  rdfs:label "Daniel Spoerri"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:joseph_beuys a crm:E21_Person ;
+  rdfs:label "Joseph Beuys"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:dieter_roth a crm:E21_Person ;
+  rdfs:label "Dieter Roth"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:piero_manzoni a crm:E21_Person ;
+  rdfs:label "Piero Manzoni"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:jean_philippe_antoine a crm:E21_Person ;
+  rdfs:label "Jean-Philippe Antoine"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+ex:jean_marc_avrilla a crm:E21_Person ;
+  rdfs:label "Jean-Marc Avrilla"@fr ;
+  crm:P2_has_type ex:artiste_expose .
+
+########################################################
+# Archives
+########################################################
+
+ex:rapport_conservation a crm:E73_Information_Object ;
+  rdfs:label "Rapport de conservation" ;
+  dcterms:description "Document produit lors de l'étude de conservation." .
+
+
+
+
+# capc ##################################################
+
+ex:archives_capc a crm:E78_Curated_Holding ;
+  rdfs:label "Archives de Feux Pâles au Capc"@fr ;
+  crm:P129_is_about ex:feux_pales_concept ;
+  crm:P46_is_composed_of ex:ad_perpetuam_memoriam, ex:catalogue_feux_pales, ex:journal_exposition .
+
+ex:ad_perpetuam_memoriam a crm:E31_Document ;
+  rdfs:label "Ad Perpetuam Memoriam (titre de travail / projet rédigé par Philippe Thomas)"@fr .
+
+ex:catalogue_feux_pales a crm:E31_Document ;
+  rdfs:label "Feux pâles : une pièce à conviction (catalogue, capc, 1990)"@fr .
+
+ex:catalogue_feux_pales_ref a crm:E73_Information_Object ;
+  rdf:value "https://www.worldcat.org/title/feux-pales/oclc/22208499" ;
+  crm:P67_refers_to ex:catalogue_feux_pales .
+
+ex:plan_artiste a crm:E73_Information_Object ;
+  rdfs:label "plan" .
+
+ex:journal_exposition a crm:E31_Document ;
+  rdfs:label "Journal d'exposition de Feux pâles"@fr .
+
+# bk ##################################################
+
+ex:archives_bk a crm:E78_Curated_Holding ;
+  rdfs:label "Archives de la BK"@fr .
+
+ex:carnet_tho_109 a crm:E31_Document ;
+  rdfs:label "Carnet BK THO 109 (notes de Philippe Thomas)"@fr .
+
+
+########################################################
+# Inspirations
+########################################################
+
+ex:feu_pale_nabokov a crm:E73_Information_Object ; # ou conceptual object ?
+  rdfs:label "Feu pâle (Nabokov)"@fr ; 
+  crm:P3_has_note "Roman de Vladimir Nabokov (1962), source d'inspiration pour Philippe Thomas (fictionnalisme et titre)."@fr ;
+  crm:P129_is_about ex:fictionnalisme ;
+  crm:P1_is_identified_by ex:appellation_FeuPale .  
+
+ex:appellation_FeuPale a crm:E41_Appellation ;
+  rdf:value "Feu pâle"@fr ;
+  rdfs:value "Pale Fire"@en ;
+  crm:P3_has_note "Titre du roman de Vladimir Nabokov (1962)."@fr .
+
+ex:feux_pales_concept crm:P15_was_influenced_by ex:nabokov_feu_pale ;
+  crm:P3_has_note "Inspiration du titre et du concept de fictionnalisme."@fr .
+
+ex:fictionnalisme a crm:E28_Conceptual_Object ;
+  rdfs:label "Fictionnalisme"@fr ;
+  crm:P1_is_identified_by ex:appela003 .
+
+ex:appela003 a crm:E41_Appellation ;
+  rdf:value "Fictionnalisme"@fr .
+
+########################################################
+# Things
+########################################################
+
+# mapper avec l'encodage de display 
+
+ex:scarabattolo_remps a crm:E22_Human-Made_Object ;
+  rdfs:label "Scarabattolo (trompe-l'œil, Domenico Remps)"@fr .
+
+ex:c_plinii_ouvrage a crm:E31_Document ;
+  rdfs:label "Ouvrage (fermé) de C. Plinii, exposé salle 1"@fr .
+
+ex:fountain_duchamp a crm:E22_Human-Made_Object ;
+  rdfs:label "Fountain (ready-made, Marcel Duchamp, 1917-1964)"@fr .
+
+ex:tableau_piege_spoerri a crm:E22_Human-Made_Object ;
+  rdfs:label "Tableau piège (Daniel Spoerri)"@fr .
+
+ex:saucisse_litteraire_roth a crm:E22_Human-Made_Object ;
+  rdfs:label "Saucisse littéraire (Dieter Roth)"@fr .
+
+ex:merda_artista_manzoni a crm:E22_Human-Made_Object ;
+  rdfs:label "Merda d'artista (Piero Manzoni)"@fr .
+
+ex:code_barre_concept a crm:E22_Human-Made_Object ; 
+  rdfs:label "(R)" ;
+  crm:P129_is_about crm:E89_Propositional_Object .
+
+ex:code_barre_concept a crm:E89_Propositional_Object ; 
+  rdfs:label "(R)" ;
+  crm:P1_is_identified_by ex:appellation_codebarre ;
+  crm:P2_has_type aat:300387357 .
+
+ex:appellation_codebarre a crm:E41_Appellation ;
+  rdf:value "(R)" .
+
+
+########################################################
+# Situation des acteurs
+########################################################
+
+ex:classif_oeuvre a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : c'est une oeuvre" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;  
+  aaao:ZP12_ascribes_classification ex:type_expo_oeuvre ;  
+  aaao:ZP4_holds_for ex:claire_burrus, ex:emeline_jaret, ex:zoe_renaudie ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_nonoeuvre a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : ce n'est pas une oeuvre" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;  
+  aaao:ZP12_ascribes_classification ex:type_expo_nonoeuvre ;  
+  aaao:ZP4_holds_for ex:martine_paen, ex:paul_bernard ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_burrus a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : œuvre non reproductible" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;  
+  aaao:ZP12_ascribes_classification ex:type_non_reproductible ;  
+  aaao:ZP4_holds_for ex:claire_burrus ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_jaret a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : reconstitution exige un accompagnement documentaire rigoureux" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;
+  aaao:ZP12_ascribes_classification ex:type_reconstitution_rigoureuse ;
+  aaao:ZP4_holds_for ex:emeline_jaret ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_capc a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : pas de statut particulier dans la programmation de l'ère Froment" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;
+  aaao:ZP12_ascribes_classification ex:type_pas_de_statut ;
+  aaao:ZP4_holds_for ex:martine_paen ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_mamco a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : interprétation libre, non une reconstitution" ;
+  aaao:ZP11_has_classificatory_subject ex:accrochage_OmbreJaseur ;
+  aaao:ZP12_ascribes_classification ex:type_interpretation_libre ;
+  aaao:ZP4_holds_for ex:mamco , ex:claire_burrus, ex:emeline_jaret ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+ex:classif_user a aaao:ZE4_Classificatory_Status ;
+  rdfs:label "Classification : toutes les positions sont valables" ;
+  aaao:ZP11_has_classificatory_subject ex:feux_pales_concept ;
+  aaao:ZP12_ascribes_classification ex:type_positions_valables ;
+  aaao:ZP4_holds_for ex:user ;
+  crm:P17_was_motivated_by ex:etude_conservation .
+
+
+########################################################
+########################################################
+# Attributions
+########################################################
+########################################################
+
+ex:a1 a crm:E13_Attribute_Assignment ;
+  crm:P140_assigned_attribute_to ex:feux_pales_expo ;
+  crm:P177_assigned_property_of_type "P4_has_time-span" ;
+  crm:P141_assigned "7 décembre 1990 - 3 mars 1991" ;
+  crm:P14_carried_out_by ex:capc ;
+  crm:P4_has_time-span ex:time_span_1990_1991 ;
+  dcterms:source ex:rapport_conservation, ex:catalogue_feux_pales .
+
+ex:a2 a crm:E13_Attribute_Assignment ;
+  crm:P140_assigned_attribute_to ex:feux_pales_expo ;
+  crm:P177_assigned_property_of_type "P7_took_place_at" ;
+  crm:P141_assigned "capcMusée d'art contemporain, entrepôt Lainé, galerie Foy, 2e étage, 12 salles (dont préambule), 963 m²" ;
+  crm:P4_has_time-span "1990" ;
+  dcterms:source "installée dans la galerie Foy au deuxième étage" ;
+  dcterms:source ex:rapport_conservation, ex:catalogue_feux_pales .
+
+ex:a3 a crm:E13_Attribute_Assignment ;
+  crm:P140_assigned_attribute_to ex:feux_pales_expo ;
+  crm:P177_assigned_property_of_type "role: commissaire d'exposition" ;
+  crm:P141_assigned "Philippe Thomas, sous couvert de l'agence rmatlm" ;
+  crm:P14_carried_out_by ex:philippe_thomas ;
+  dcterms:source "le commissaire d'exposition est l'artiste Philippe Thomas" ;
+  dcterms:source ex:rapport_conservation, ex:catalogue_feux_pales .
+
+ex:a5 a crm:E13_Attribute_Assignment ;
+  crm:P140_assigned_attribute_to ex:feux_pales_expo ;
+  crm:P177_assigned_property_of_type "scénographie / mobilier scénographique" ;
+  crm:P141_assigned "conçu par Jean-Louis Froment pour l'exposition" ;
+  crm:P14_carried_out_by ex:jean_louis_froment ;
+  dcterms:source "mobilier scénographique ... dessiné par Jean-Louis Froment" ;
+  dcterms:source ex:rapport_conservation, ex:archive_capc . # retrouver et préciser le document
+
+ex:accrochage_feuxPales a la:Set ;
+  rdfs:label "Accrochage de l'exposition *Feux Pâles* (CAPC, 1990-1991)" ;
+  crm:P4_has_time-span ex:time_span_1990_1991 ;
+  crm:P7_took_place_at ex:place001 ;  
+  crm:P14_carried_out_by ex:philippe_thomas ;  
+  crm:P14.1_in_the_role_of ex:role_commissaire ;  
+  crm:P53_has_former_or_current_owner ex:capc .
+
+ex:commande_feux_pales a crm:E7_Activity ;
+  rdfs:label "Commande de l'exposition Feux pâles" ;
+  crm:P14_carried_out_by ex:jean_louis_froment ;
+  crm:P14_carried_out_by ex:agence_rmatlm ; 
+  crm:P4_has_time-span "1990" ;
+  dcterms:source ex:rapport_conservation ;
+  crm:P3_has_note "Commande de Jean-Louis Froment à l'agence rmatlm pour l'exposition" .
+
+ex:feux_pales_expo crm:P16_used_specific_object ex:ensemble_cartels_feux_pales ;
+  crm:P16_used_specific_object ex:collection_feux_pales_96_objets .
+
+########################################################
+# Scéno
+########################################################
+
+ex:conception_cartels_feux_pales a crm:E7_Activity ;
+  rdfs:label "Conception des cartels de l'exposition Feux pâles" ;
+  crm:P14_carried_out_by ex:philippe_thomas ;
+  crm:P4_has_time-span "1990" ; 
+  dcterms:source ex:rapport_conservation ;
+  crm:P3_has_note "Cartels simples conçus par Philippe Thomas" .
+
+ex:ensemble_cartels_feux_pales a crm:E22_Man-Made_Object ;
+  rdfs:label "Ensemble des cartels de Feux pâles" ;
+  crm:P108_was_produced_by ex:conception_cartels_feux_pales .
+
+ex:collection_feux_pales_96_objets a crm:E27_Site ; # Ou E78_Collection si défini dans votre extension
+  rdfs:label "Collection des 96 biens de Feux pâles" ;
+  crm:P3_has_note "96 biens culturels, 82 artistes/auteurs/artisans (dont 5 fictifs, 40 anonymes), dates identifiées de 1520 à 1990" .
+
+########################################################
+# Productions
+########################################################
+
+########################################################
+# Narrations
+########################################################
+
+
+
+########################################################
+# Préambule
+########################################################
+
+ex:space0000  rdfs:label              "Préambule" ;
+  bot:adjacentZone        ex:space0001 ; # Symmetric
+  display:containsexhibit ex:exhibit0001 , # inféré?
+                          ex:exhibit0002 ,
+                          ex:exhibit0003 ,
+                          ex:exhibit0004 ;
+  display:adjacentexhibit ex:element0004 ,
+                          ex:element0005 ,
+                          ex:element0006 ,
+                          ex:element0007 ,
+                          ex:element0057 ;
+  .
+
+ex:element0057
+  rdf:type          display:Element ;
+  rdfs:label        "Mur du bâtiment qui sépare space0000 et space0001" ;
+  crm:P2_has_type   aat:300002469 ;
+  bot:hasSubElement ex:element0058 ,
+                    ex:element0059 ;
+  .
+
+ex:element0058
+  rdf:type          display:Element ;
+  rdfs:label        "Ouverture dans le mur, à la **gauche** du code-barres (exhibit0001)" ;
+  crm:P2_has_type   aat:300002767 ;
+  display:leftOf    ex:element0004 ;
+  .
+
+ex:element0059
+  rdf:type          display:Element ;
+  rdfs:label        "Ouverture dans le mur, à la **droite** du code-barres (exhibit0001)" ;
+  crm:P2_has_type   aat:300002767 ;
+  display:rightOf   ex:element0004 ;
+  .
+
+ex:exhibit0001 a display:exhibit ;
+  display:faces ex:element0005 .
+
+ex:exhibit0002 a display:exhibit ;
+  rdf:value "Feux pâles" ;
+  display:above ex:exhibit0001 .
+
+ex:exhibit0003 a display:exhibit ;
+  rdfs:label "Crédits" ;
+  rdf:value "Exposition réalisée avec le concours de l’agence les readymade appartiennent à tout le monde ®" ;
+  display:below ex:exhibit0001 .
+
+# Sommaire de l’exposition
+ex:exhibit0004 a display:exhibit .
+
+ex:element0004
+  rdf:type        display:Element ;
+  rdfs:label      "Cimaise du code-barres" ;
+  crm:P2_has_type aat:300375221 ;
+  rdfs:comment    "Cloison (cimaise) qui sert de support à ex:exhibit0001. Identifié comme mur A dans le rapport" ;
+  .
+
+ex:element0005 a display:Element ;
+  rdfs:label "Cimaise du préambule" .
+
+ex:element0006 a display:Element ;
+  rdfs:label "cimaise faisant face au mur de la porte d’entrée" .
+
+ex:element0007 a display:Element ;
+  rdfs:label "mur de la porte d’entrée" ;
+  display:faces ex:element0006 ;
+  bot:hasSubElement ex:element0008 .
+
+ex:element0008 a display:Element ;
+  rdfs:label "Porte d’entrée" .
+
+########################################################
+# Salle 1
+########################################################
+
+ex:space0001
+  rdf:type                    display:exhibitionSpace ;
+  rdfs:label                  "salle 1 : Inventaire du mémorable" ;
+  bot:adjacentZone            ex:space0005 ; # Symmetric
+  display:hasexhibitionSpace  ex:space0002 , # transitive par bot:containsZone
+                              ex:space0003 ,
+                              ex:space0004 ;
+  .
+
+ex:space0002 display:adjacentexhibit ex:element0010 ;
+  rdfs:label "haut de la salle 1" .
+
+ex:space0003 a display:exhibitionSpace ;
+  rdfs:label "espace Remps" ;
+  display:adjacentexhibit ex:element0009 ,
+    ex:element0010 ,
+    ex:element0011 ,
+    ex:element0012 ;
+  display:containsexhibit ex:display001 . 
+  
+ex:display001 rdfs:label "Display contenu dans space0003 (espace Remps)" ;
+  display:includes ex:scarabattolo_remps ,
+    ex:exhibit0006 ,
+    ex:exhibit0007 ,
+    ex:exhibit0008 ,
+    ex:exhibit0009 ,
+    ex:exhibit0010 ,
+    ex:exhibit0011 ,
+    ex:exhibit0012 .
+
+ex:scarabattolo_remps
+    display:faces ex:element0013 .
+
+ex:element0013 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ;
+  rdfs:label "vitrine vis-à-vis Remps" .
+
+ex:element0015 a display:Element .
+
+ex:element0015 display:contains ex:display002 .
+ex:display002 a display:Display ;
+  display:includes ex:exhibit0058 ,
+    ex:exhibit0059 ,
+    ex:exhibit0060 ,
+    ex:exhibit0061 ,
+    ex:exhibit0062 .
+
+ex:element0014 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ; rdfs:label "Socle de Platon" .
+
+ex:exhibit0006 a display:exhibit ;
+  rdfs:label "Buste de Platon" ;
+  display:liesOn ex:element0014 ;
+  display:inFrontOf ex:element0010 ;
+  display:leftOf ex:element0015 .
+
+ex:exhibit0007 a display:exhibit ;
+  rdfs:label "Buste de Simonide" ;
+  display:between ex:element0015 , ex:element0013 . # between
+
+ex:exhibit0008 a display:exhibit ;
+  rdfs:label "Buste d’Aristote" ;
+  display:between ex:element0016 , ex:element0013 . # between
+
+ex:exhibit0009 a display:exhibit ;
+  rdfs:label "Buste de Quintilien" ;
+  display:faces ex:exhibit0006 ;
+  display:rightOf ex:element0016 .
+
+ex:element0016 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ;
+  rdfs:label "vitrine (vers le bas du plan)" ;
+  display:faces ex:element0015 ;
+  display:leftOf ex:exhibit0009 .
+
+ex:space0004 a display:exhibitionSpace ;
+  rdfs:label "bas de la salle 1" ;
+  display:adjacentexhibit ex:element0012 .
+
+ex:element0009 a display:Element ;
+  rdfs:label "cimaise Remps" .
+
+ex:element0010 a display:Element ;
+  rdfs:label "cimaise de la salle 1" .
+
+ex:element0011 a display:Element ;
+  rdfs:label "cimaise de la salle 1" .
+
+ex:element0012 a display:Element ;
+  rdfs:label "cimaise de la salle 1" .
+
+########################################################
+# Salle 2
+########################################################
+
+ex:space0005 a display:exhibitionSpace ;
+  rdfs:label "salle 2 : Le cabinets d’amateurs" ;
+  display:containsexhibit ex:exhibit0021 ,
+    ex:exhibit0022 ,
+    ex:exhibit0023 ,
+    ex:exhibit0024 ,
+    ex:exhibit0025 .
+
+ex:exhibit0021
+  display:inFrontOf ex:element0024 .
+
+ex:exhibit0023 rdfs:label "Francken" ;
+  display:inFrontOf ex:exhibit0024 ,
+    ex:exhibit0025 .
+ex:exhibit0024 rdfs:label "Pannini" .
+ex:exhibit0025 rdfs:label "Thomas" .
+
+ex:element0021 a display:Element ;
+  rdfs:label "cimaise de la salle 2 haut" .
+
+ex:element0022 a display:Element ;
+  rdfs:label "cimaise de la salle 2 gauche" .
+
+ex:element0023 a display:Element ;
+  rdfs:label "cimaise de la salle 2 bas" .
+
+ex:element0024 a display:Element ;
+  rdfs:label "cimaise de la salle 2 droite" .
+
+########################################################
+# Salle 3
+########################################################
+
+ex:space0006 a display:exhibitionSpace ;
+  rdfs:label "salle 3 : L’art d’accommoder les restes" ;
+  display:hasexhibitionSpace ex:space0007 ,
+    ex:space0008 ,
+    ex:space0009 .
+
+ex:space0007 rdfs:label "haut de la salle 3" .
+ex:space0008 rdfs:label "milieu de la salle 3 (espace Spoerri)" .
+ex:space0009 rdfs:label "bas de la salle 3" .
+
+ex:space0008 display:containsexhibit ex:exhibit0013 ,
+  ex:exhibit0013 ,
+  ex:exhibit0014 ,
+  ex:exhibit0015 ,
+  ex:exhibit0016 ,
+  ex:exhibit0017 .
+
+ex:element0018 a display:Element .
+ex:element0019 a display:Element .
+
+ex:exhibit0013 rdfs:label "Spoerri" ;
+  display:rightOf ex:exhibit0014 ;
+  display:faces ex:exhibit0015 .
+ex:exhibit0014 rdfs:label "Roth" ;
+  display:liesOn ex:element0028 .
+ex:element0028 a display:Element ;
+  rdfs:label "socle" ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" .
+
+# Duchamp
+# Ne peut pas relever du point de vue (personne qui regarde)
+ex:exhibit0015 display:liesOn ex:element0029 .
+ex:element0029 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ,
+    "socle sur lequel est posé Fontaine (Duchamp), dans la salle 3" ;
+  rdfs:label "socle de fontaine" .
+
+# Manzoni
+ex:exhibit0016 rdfs:label "Manzoni" ;
+  display:inFrontOf ex:element0019 ;
+  display:liesOn ex:element0027 .
+ex:element0027 a display:Element ;
+  rdfs:label "socle" ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" .
+
+# Beuys
+ex:exhibit0017 rdfs:label "Beuys" ;
+  display:containedIn ex:element0020 .
+ex:element0020 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ;
+  display:inFrontOf ex:element0018 .
+
+########################################################
+# Salle 4
+########################################################
+
+ex:space0010 a display:exhibitionSpace ;
+  rdfs:label "salle 4 : Le musée sans objet" ;
+  display:containsexhibit ex:exhibit0026 ,
+    ex:exhibit0027 ,
+    ex:exhibit0028 ,
+    ex:exhibit0029 ,
+    ex:exhibit0030 .
+
+ex:exhibit0026 rdfs:label "Klein" .
+ex:exhibit0027 rdfs:label "Wilson" .
+ex:exhibit0028 rdfs:label "Dibbets" .
+ex:exhibit0029 rdfs:label "Long" .
+ex:exhibit0030 rdfs:label "Smithson" .
+
+ex:element0025 a display:Element ;
+  rdfs:comment "n’est pas typé actuellement (2024-11-22)" ;
+  rdfs:label "vitrine archive" ;
+  display:inFrontOf ex:element0026 ;
+  display:contains ex:exhibit0026 ,
+    ex:exhibit0027 ,
+    ex:exhibit0028 ,
+    ex:exhibit0029 ,
+    ex:exhibit0030 .
+
+ex:element0026 a display:Element ;
+  rdfs:label "cimaise de la salle 4" .
+
+########################################################
+# Salle 5
+########################################################
+
+ex:space0011 a display:exhibitionSpace ;
+  rdfs:label "salle 5 : Passif de la modernité" ;
+  display:containsexhibit ex:exhibit0031 ,
+    ex:exhibit0032 ,
+    ex:exhibit0033 ,
+    ex:exhibit0034 ,
+    ex:exhibit0035 .
+
+ex:exhibit0031 rdfs:label "McCollum" ;
+  display:inFrontOf ex:exhibit0027 . # corr. : ?
+
+ex:exhibit0032 rdfs:label "Richter 1" .
+
+ex:exhibit0033 rdfs:label "Richter 2" .
+ex:interface0033 rdfs:comment "L’utilisation des interfaces permet de complexifier les relations, c’est-à-dire d’aller au-delà de la relation binaire du triplet RDF. Ainsi, nous pouvons impliquer plus de deux entités dans la relation si nécessaire." .
+
+ex:exhibit0034 rdfs:label "Clairet" ;
+  display:rightOf ex:exhibit0027 .
+
+ex:exhibit0035 rdfs:label "Charlton" .
+
+ex:element0030 a display:Element .
+
+ex:element0031 a display:Element .
+
+ex:element0032 a display:Element .
+
+ex:element0033 a display:Element .
+
+#vérifier les interfaces. Ne serait-il pas plus clair de mettre les Interfaces PathWay au meme endroit en dehors des salles?
+  # C’est fait partiellement, en même temps que la rectification en lot des interfaces pour v0.1.0-alpha. Pour des raisons techniques, toutes les interfaces sont maintenant regroupées. Voir /queries/0.1.0-alpha/construct-interfaces.rq
+#Faut-il déclarer que exhibit0027 est sur un mur ou il est suffisant qu’il soit face à exhibit0026?
+  # L’un n’empêche pas l’autre. Ça dépendra du contexte de la description.
+# solution proposée serait hasHangingInterface avec domain exhibit
+# similaire à pathwayInterfaceOf plus haut
+  # Voir v0.1.0-alpha de l’ontologie
+
+########################################################
+# Salle 6
+########################################################
+
+ex:space0012 a display:exhibitionSpace ;
+  rdfs:label "salle 6 : La chair est triste, hélas ! Et j’ai lu tous les livres...." .
+
+ex:space0013 rdfs:label "haut de la salle 6" .
+
+ex:space0014 rdfs:label "milieu de la salle 6" ;
+  display:containsexhibit ex:exhibit0036 ,
+  ex:exhibit0037 ,
+  ex:exhibit0038 ,
+  ex:exhibit0039 ,
+  ex:exhibit0040 .
+
+ex:space0015 rdfs:label "bas de la salle 6" .
+
+ex:exhibit0036 rdfs:label "Dimitrijevic" .
+
+ex:exhibit0037 display:leftOf ex:exhibit0041 .
+
+ex:exhibit0038 rdfs:label "Lévine 1" .
+
+ex:exhibit0039 rdfs:label "Lévine 2";
+  display:rightOf ex:exhibit0038 ;
+  display:leftOf ex:exhibit0040 ;
+  #IsBetween?
+  display:faces ex:exhibit0036 .
+
+ex:exhibit0040 rdfs:label "Linke" .
+
+ex:element0040 a display:Element .
+ex:element0041 a display:Element .
+ex:element0042 a display:Element .
+
+########################################################
+# Salle 7
+########################################################
+
+ex:space0016 rdfs:label "salle 7 : Respect de l’étiquette, intérêt du cartel" ;
+  display:containsexhibit ex:exhibit0042 . 
+
+ex:exhibit0042 rdfs:label "Souvenir écran" .
+#au mileu de la salle au sol. 
+
+########################################################
+# Salle 8
+########################################################
+
+ex:space0017 a display:exhibitionSpace ;
+  rdfs:label "salle 8 : Le musée réfléchi" .
+
+ex:space0018 rdfs:label "haut de la salle 8" ;
+  display:adjacentexhibit ex:element0054 .
+
+ex:element0054 a display:Element ;
+  display:isBehind ex:exhibit0043 ;
+  display:faces ex:element0055 ;
+  rdfs:label "Cimaise du haut (perspective plan, cf. Renaudie), salle 8" .
+
+ex:exhibit0046 display:inFrontOf ex:element0055 ;
+  rdfs:label "Broodthaers, salle 8" .
+
+ex:element0055 a display:Element ;
+  rdfs:label "Cimaise Broodthaers, salle 8" .
+
+ex:space0019 a display:exhibitionSpace ;
+  rdfs:label "milieu de salle 8" ;
+  display:containsexhibit ex:exhibit0043 ,
+  ex:exhibit0044 ,
+  ex:exhibit0045 ,
+  ex:exhibit0046 .
+  
+ex:exhibit0043 rdfs:label "Duchamp 1";
+  display:leftOf ex:exhibit0044 ;
+  display:faces ex:exhibit0046 .
+
+ex:exhibit0044 rdfs:label "Duchamp 2" .
+
+ex:exhibit0045 rdfs:label "Venazzo" .
+
+ex:space0020 rdfs:label "bas de la salle 8" .
+
+ex:element0043 a display:Element .
+ex:element0044 a display:Element .
+ex:element0045 a display:Element .
+
+#Pathway
+
+########################################################
+# Salle 9
+########################################################
+
+ex:space0021 a display:exhibitionSpace ;
+  rdfs:label "salle 9 : Mesure pour mesure" ;
+  display:containsexhibit ex:exhibit0047 ,
+    ex:exhibit0048 ,
+    ex:exhibit0049 ,
+    ex:exhibit0050 ;
+  display:intersectingexhibit ex:exhibit0051 .
+
+ex:exhibit0047 rdfs:label "Haacke" .
+ex:exhibit0048 rdfs:label "Manzoni 1" .
+ex:exhibit0049 rdfs:label "Duchamp 3" .
+ex:exhibit0050 rdfs:label "Broodthaers (salle 9)" .
+ex:exhibit0051 rdfs:label "Parcelle à céder" .
+
+ex:element0046 a display:Element .
+ex:element0047 a display:Element .
+ex:element0048 a display:Element .
+
+ex:element0049 a display:Element ;
+  display:inFrontOf ex:element0047 ;
+  display:contains ex:exhibit0048 ,
+    ex:exhibit0049 , ex:exhibit0065 .
+    
+#Pathway
+
+########################################################
+# Salle 10
+########################################################
+
+ex:space0022 a display:exhibitionSpace ;
+  rdfs:label "salle 10 : De la propriété littéraire et artistique" ;
+  display:intersectingexhibit ex:exhibit0051 .
+
+#Pathway
+
+########################################################
+# Salle 11
+########################################################
+
+ex:space0023 a display:exhibitionSpace ;
+  rdfs:label "salle 11 : L’index" .
+
+ex:space0025 rdfs:label "milieu 11" ;
+  display:containsexhibit ex:exhibit0052 ,
+    ex:exhibit0053 ,
+    ex:exhibit0054 ,
+    ex:exhibit0055 ,
+    ex:exhibit0056 ,
+    ex:exhibit0057 .
+
+ex:exhibit0052 rdfs:label "Blondeau" ;
+  display:rightOf ex:exhibit0053 ;
+  display:faces ex:exhibit0055 .
+
+ex:exhibit0053 rdfs:label "Morris" .
+
+ex:exhibit0054 rdfs:label "Ready-made" ;
+    display:faces ex:exhibit0055 ;
+    display:faces ex:exhibit0057 .
+
+ex:exhibit0055 rdfs:label "Ready-made 2" .
+  #au milieu de la piece au sol. Faces Salomon?
+
+# Salomon
+ex:exhibit0056 display:faces ex:exhibit0055 ;
+  display:faces ex:exhibit0052 .
+
+ex:exhibit0057 rdfs:label "Löcher" ;
+  display:faces ex:exhibit0055 . 
+
+ex:element0050 a display:Element .
+ex:element0051 a display:Element .
+ex:element0052 a display:Element .
+ex:element0053 a display:Element .
+
+ex:space0024 rdfs:label "haut de la salle 11" .
+ex:space0026 rdfs:label "bas de la salle 11" .
+
+#j’ai laissé les isleft/rightOf en fonction du regardeur parce que nous avons commencé comme ça, malgré la problématique que cela pose.
+
+########################################################
+# Espaces déservants
+########################################################
+
+ex:space0999 a display:exhibitionSpace ;
+  rdfs:label "Espace desservant Francken" ;
+  bot:intersectsZone ex:space0002 , # Symmetric. # Si un espace est contenu dans un espace, on intersectionne dans l’espace contenu au plus bas niveau (plus précis que l’intersection de haut niveau, avec lequelle on ne saurait pas dans quel espace de plus bas niveau on passe).
+    ex:space0005 ,
+    ex:space0007 ,
+    ex:space0010 ,
+    ex:space0011 ,
+    ex:space0013 ,
+    ex:space0016 ,
+    ex:space0018 ,
+    ex:space0021 ,
+    ex:space0022 ,
+    ex:space0024 .
+
+ex:space0998 a display:exhibitionSpace ;
+  rdfs:label "Espace desservant Thomas-Pannini" ;
+  bot:intersectsZone ex:space0004 ;
+  bot:intersectsZone ex:space0005 ;
+  bot:intersectsZone ex:space0009 .
+
+ex:space0997 a display:exhibitionSpace ;
+  rdfs:label "Espace desservant Broodthaers" ;
+  rdfs:comment "Description inachevée; il n’est pas clair que la notion d’espace deservant nous sera utile." .
+
+########################################################
+# Vérifications Espaces
+########################################################
+
+# adjacences
+# bot:adjacentZone is Symmetric
+
+ex:space0006  bot:adjacentZone ex:space0005 ,
+  ex:space0010 .
+ex:space0011 bot:adjacentZone ex:space0010 ,
+  ex:space0012 .
+ex:space0016 bot:adjacentZone ex:space0012 ,
+  ex:space0017 .
+ex:space0021 bot:adjacentZone ex:space0017 ,
+  ex:space0022 .
+ex:space0022 bot:adjacentZone ex:space0023 .
+
+# salle 8
+
+ex:space0017 display:hasexhibitionSpace ex:space0018 ,
+  ex:space0019 ,
+  ex:space0020 .
+
+# si omis, sera inféré
+ex:space0020 a display:exhibitionSpace .
+
+#salle 10
+
+# à vérifier
+#ex:interface0027 a display:PathwayInterface ;
+#  rdfs:label "Interface de circulation côté Haake" ;
+#  bot:interfaceOf ex:space0021 ,
+#    ex:space0022 .
+# pas la subtilité du pilier au milieu.
+# il faudrait créer deux interfaces de circulation dans ce cas :
+#ex:interface0032 a display:PathwayInterface ;
+#  rdfs:label "Interface de circulation côté Broodthaers" ;
+#  bot:interfaceOf ex:space0021 ,
+#    ex:space0022 .
+
+# salle 11
+
+ex:space0023 display:hasexhibitionSpace ex:space0024 ,
+  ex:space0025 ,
+  ex:space0026 .
+
+#########################################################
+# Interfaces selon Display                              #
+#########################################################
+
+#########################################################
+# exemple complet, interface0000, interface0001
+
+ex:interface0000
+  rdf:type                    display:PathwayInterface ;
+  rdfs:label                  "Interface de circulation du préambule (1/2)" ;
+  display:interfaceOfSpace    ex:space0000 ,
+                              ex:space0002 ;
+  display:interfaceProvidedBy ex:element0058 ;
+  .
+
+ex:interface0001
+  rdf:type                    display:PathwayInterface ;
+  rdfs:label                  "Interface de circulation du préambule (2/2)" ;
+  display:interfaceOfSpace    ex:space0000 ,
+                              ex:space0004 ;
+  display:interfaceProvidedBy ex:element0059 ;
+  .
+
+ex:interface0018
+  rdf:type                  display:PathwayInterface ;
+  rdfs:label                "Interface de circulation pour space0016 et space0015" ;
+  display:interfaceOfSpace  ex:space0015 ,
+                            ex:space0016 ;
+  .
+
+ex:interface0012
+  rdf:type                    display:HangingInterface;
+  rdfs:label                  "Interface d’accrochage exhibit0023-element0021";
+  display:interfaceOfexhibit  ex:exhibit0023 ,
+                              ex:element0021 ;
+  display:interfaceProvidedBy ex:element0056 ;
+  .
+
+ex:element0056
+  rdfs:label      "Dispositif d’accrochage pour exhibit0023 (exemple non validé)" ;
+  crm:P2_has_type aat:300048964 ;
+  .
+
+ex:interface0007
+  rdf:type                    display:HangingInterface ;
+  rdfs:label                  "Interface d’accrochage exhibit0001-element0004" ;
+  display:interfaceOfexhibit  ex:exhibit0001 ,
+                              ex:element0004 ;
+  display:interfaceProvidedBy ex:element0060 ;
+  .
+
+ex:element0060
+  rdf:type        display:Element ;
+  rdfs:label      "`Picture rail` pour exhibit0001 (code-barres)" ;
+  crm:P2_has_type aat:300002687 ;
+  .
+
+ex:interface0031 a display:PathwayInterface;
+  display:interfaceOfSpace ex:space0026 , ex:space0025 .
+
+ex:interface0008
+  display:interfaceOfexhibit  ex:exhibit0013 ,
+                              ex:element0017 ;
+  .
+
+ex:interface0009 a display:PathwayInterface;
+  display:interfaceOfSpace ex:space0007 , ex:space0008 .
+
+ex:interface0003 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0005 , ex:space0002 .
+
+ex:interface0028 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0022 , ex:space0024 .
+
+ex:interface0022 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0010 , ex:space0011 .
+
+ex:interface0019 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0016 et space0018";
+        display:interfaceOfSpace ex:space0018 , ex:space0016 .
+
+ex:interface0013
+  rdf:type                    display:HangingInterface ;
+  rdfs:label                  "Interface d’accrochage exhibit0021-element0022" ;
+  display:interfaceOfexhibit  ex:exhibit0021 ,
+                              ex:element0022;
+  .
+
+ex:interface0032 a display:PathwayInterface;
+        rdfs:label "Interface de circulation côté Broodthaers";
+        display:interfaceOfSpace ex:space0021 , ex:space0022 .
+
+ex:interface0004 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0004 , ex:space0003 .
+
+ex:interface0029 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0026 , ex:space0022 .
+
+ex:interface0023 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0011 , ex:space0013 .
+
+ex:interface0033 a display:HangingInterface;
+  rdfs:label "Interface d’accrochage de Richter";
+  display:interfaceOfexhibit ex:exhibit0033,ex:element0031;
+  .
+
+ex:interface0005 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0004 , ex:space0005 .
+
+ex:interface0024
+  rdf:type                  display:PathwayInterface ;
+  rdfs:label                "Interface de circulation pour space0015 et space0011" ;
+  display:interfaceOfSpace  ex:space0015 ,
+                            ex:space0011 ;
+  .
+
+ex:interface0015 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0013 et space0014";
+        display:interfaceOfSpace ex:space0013 , ex:space0014 .
+
+ex:interface0006 a display:HangingInterface;
+  display:interfaceOfexhibit ex:scarabattolo_remps,ex:element0009;
+  .
+
+ex:interface0025 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0018 , ex:space0021 .
+
+ex:interface0016 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0015 et space0014";
+        display:interfaceOfSpace ex:space0015 , ex:space0014 .
+
+ex:interface0010 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0009 , ex:space0008.
+
+
+ex:interface0026 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0021 , ex:space0020 .
+
+ex:interface0020 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0016 et space0020";
+        display:interfaceOfSpace ex:space0016 , ex:space0020 .
+
+ex:interface0017 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0016 et space0013";
+        display:interfaceOfSpace ex:space0016 , ex:space0013 .
+
+ex:interface0011 a display:PathwayInterface;
+        rdfs:label "Interface de circulation pour space0009 et space0005";
+        display:interfaceOfSpace ex:space0005 , ex:space0009 .
+
+ex:interface0030 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0025 , ex:space0024 .
+
+ex:interface0002 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0002 , ex:space0003 .
+
+ex:interface0027 a display:PathwayInterface;
+        rdfs:label "Interface de circulation côté Haake";
+        display:interfaceOfSpace ex:space0021 , ex:space0022 .
+
+ex:interface0021 a display:PathwayInterface;
+        display:interfaceOfSpace ex:space0007 , ex:space0010 .
+
+########################################################
+# display:Element as seen by CIDOC
+########################################################
+
+ex:element0004 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0005 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0006 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0023 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0048 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0042 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0033 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0052 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0024 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0043 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0053 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0044 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0010 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0026 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0045 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0017 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0011 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0030 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0021 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0046 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0040 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0018 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0012 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0031 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0009 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0050 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0022 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0047 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0041 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0019 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0032 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+ex:element0051 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300375221 .
+
+########################################################
+# display:exhibit as seen by CIDOC
+########################################################
+
+ex:exhibit0049 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0008 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0036 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0023 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0051 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0010 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0029 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0057 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0016 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0044 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0003 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0031 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0009 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0037 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0024 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0052 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0011 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0058 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0017 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0045 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0004 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0032 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0060 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0038 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0025 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0053 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0012 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0040 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0059 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0046 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:scarabattolo_remps crm:P2_has_type aat:300133025 .
+
+ex:exhibit0033 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0061 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0039 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0026 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0054 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0013 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0041 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0047 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0006 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0034 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0062 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+# voir exhibit-0021.ttl
+# ex:exhibit0021 a crm:E22_Human-Made_Object ;
+#   crm:P2_has_type aat:300133025 .
+
+ex:exhibit0027 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0055 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0014 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0042 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0048 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0007 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0035 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+# voir exhibit-0022.ttl
+# ex:exhibit0022 a crm:E22_Human-Made_Object ;
+#   crm:P2_has_type aat:300133025 .
+
+ex:exhibit0050 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0028 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0056 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0043 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0002 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+ex:exhibit0030 a crm:E22_Human-Made_Object ;
+  crm:P2_has_type aat:300133025 .
+
+
+########################################################
+# Put exhibits in the Feux pâles set
+# FP set brings together exhibits as proposed by PT 
+########################################################
+
+ex:exhibit0037 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0024 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0052 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0011 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0058 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0017 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0045 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0004 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0032 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0060 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0038 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0025 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0053 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0012 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0040 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0059 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0046 la:member_of ex:accrochage_feuxPales .
+ex:scarabattolo_remps la:member_of ex:accrochage_feuxPales .
+ex:exhibit0033 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0061 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0039 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0026 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0054 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0013 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0047 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0006 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0034 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0062 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0021 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0027 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0055 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0014 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0042 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0001 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0048 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0007 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0035 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0022 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0050 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0028 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0056 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0015 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0043 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0002 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0030 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0049 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0008 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0036 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0023 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0051 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0010 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0029 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0057 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0016 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0044 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0003 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0031 la:member_of ex:accrochage_feuxPales .
+ex:exhibit0009 la:member_of ex:accrochage_feuxPales .
+
+
+
+########################################################
+########################################################
+# Accrochage de l'Ombre du Jaseur
+########################################################
+########################################################
+
+ex:accrochage_OmbreJaseur a la:set ;
+    rdfs:label "Accrochage de l'exposition Ombre du jaseur au MAMCO" ;
+    crm:P4_has_time-span ex:time_span_2014 ;  
+    crm:P7_took_place_at ex:place002 ;      
+    crm:P14_carried_out_by ex:agent003 ;   
+    crm:P14.1_in_the_role_of ex:role_commissaire ;
+    crm:P136_was_based_on ex:accrochage_feuxPales .
+
+
+
+
+########################################################
+# Appellations, Types et Rôles
+########################################################
+
+# appellations #########################################
+
+ex:appellation_FeuxPales a crm:E41_Appellation ;
+    rdf:value "Feux Pâles" .
+
+# types ################################################
+
+# Mapper les vocab aat
+
+ex:typo_expo_temporaire a crm:E55_Type ;
+    rdfs:label "exposition temporaire"@fr . 
+
+ex:type_adaptation a crm:E55_Type ;
+    rdfs:label "adaptation de l'exposition"@fr .
+
+# --- Types d'objets ---
+ex:type_oeuvre a crm:E55_Type ;
+    rdfs:label "œuvre d'art"@fr .
+
+ex:type_archives a crm:E55_Type ;
+    rdfs:label "archive"@fr .
+
+ex:capc_type a crm:E55_Type ;
+    rdfs:label "Musée"@fr .
+
+ex:type_non_reproductible a crm:E55_Type ;
+    rdfs:label "Non-reproducible work" .
+
+# --- classifications ---
+
+ex:type_reconstitution_rigoureuse a crm:E55_Type ;
+    rdfs:label "Reconstitution exige un accompagnement documentaire rigoureux" .
+
+ex:type_pas_de_statut a crm:E55_Type ;
+    rdfs:label "Pas de statut particulier dans la programmation de l'ère Froment" .
+
+ex:type_interpretation_libre a crm:E55_Type ;
+    rdfs:label "Interprétation libre, non une reconstitution" .
+
+ex:type_positions_valables a crm:E55_Type ;
+    rdfs:label "Toutes les positions sont valables" .
+
+ex:type_expo_oeuvre a crm:E55_Type ;
+  rdfs:label "Feux pâles est une oeuvre" .
+
+ex:type_expo_nonoeuvre a crm:E55_Type ;
+  rdfs:label "Feux pâles n'est pas une oeuvre, c'est une exposition" .
+
+# rôles ################################################
+
+ex:role_archiviste a crm:E55_Type ;
+    rdfs:label "archiviste"@fr . # aat
+
+ex:role_commissaire a crm:E55_Type ;
+    rdfs:label "commissaire d'exposition"@fr .
+
+ex:role_artiste a crm:E55_Type ;
+    rdfs:label "artiste" .
+
+ex:role_directeur a crm:E55_Type ;
+    rdfs:label "directeur de musée"@fr .
+
+ex:role_galeriste a crm:E55_Type ;
+    rdfs:label "galeriste"@fr .
+
+ex:role_photographe a crm:E55_Type ;
+    rdfs:label "photographe"@fr .
+
+ex:role_historienne a crm:E55_Type ;
+    rdfs:label "historienne de l'art"@fr .
+
+ex:role_serigraphe a crm:E55_Type ;
+    rdfs:label "sérigraphe"@fr .
+
+ex:role_ayantdroit a crm:E55_Type ;
+    rdfs:label "ayant-droit"@fr .
+
+# Langues ##############################################
+ex:lgfr a crm:E56_Language ;
+    rdfs:label "français" .

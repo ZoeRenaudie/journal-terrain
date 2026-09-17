@@ -1,0 +1,265 @@
+@prefix lmroo: <http://linked.art/ns/terms/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix exhib: <http://zoerenaudie.com/data/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix aaao: <http://ontology.tno.nl/aaao#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#############################################
+# 1. Œuvre conceptuelle (LMRoo F1 Work + CIDOC-CRM E28)
+#############################################
+exhib:feuxPales a lmroo:F1_Work, crm:E28_Conceptual_Object ;
+    rdfs:label "Feux Pâles" ;
+    lmroo:has_expression exhib:feuxPales_capc_1990 ;
+    lmroo:has_expression exhib:feuxPales_ombre_jaseur ;
+    lmroo:has_expression exhib:feuxPales_cabinet_amateur ;
+    lmroo:has_expression exhib:feuxPales_etude_conservation ;
+    crm:P1_is_identified_by exhib:appela001 ;
+    crm:P3_has_note "Œuvre conceptuelle de Philippe Thomas, existant tant qu'elle est mémorisée ou documentée."@fr .
+
+exhib:appela001 a crm:E41_Appellation ;
+    rdf:value "Feux Pâles" .
+
+#############################################
+# 2. Expressions (LMRoo F2 Expression)
+#############################################
+exhib:feuxPales_capc_1990 a lmroo:F2_Expression ;
+    rdfs:label "Feux Pâles (CAPC, 1990-1991)" ;
+    lmroo:has_manifestation exhib:accrochage_feuxPales ;
+    lmroo:has_manifestation exhib:catalogue_feuxPales ;
+    crm:P4_has_time-span exhib:timespan_1990_1991 .
+
+exhib:feuxPales_ombre_jaseur a lmroo:F2_Expression ;
+    rdfs:label "L'Ombre du jaseur (d'après Feux Pâles)" ;
+    lmroo:has_manifestation exhib:accrochage_ombre_jaseur ;
+    crm:P136_was_based_on exhib:feuxPales_capc_1990 ;
+    crm:P3_has_note "Réinterprétation de Feux Pâles, basée sur les archives du CAPC."@fr .
+
+exhib:feuxPales_cabinet_amateur a lmroo:F2_Expression ;
+    rdfs:label "Cabinet d'amateur" ;
+    lmroo:has_manifestation exhib:accrochage_cabinet_amateur ;
+    crm:P136_was_based_on exhib:feuxPales .
+
+exhib:feuxPales_etude_conservation a lmroo:F2_Expression ;
+    rdfs:label "Étude de conservation" ;
+    lmroo:has_manifestation exhib:document_etude_conservation ;
+    crm:P136_was_based_on exhib:feuxPales .
+
+#############################################
+# 3. Manifestations (LMRoo F3 Manifestation)
+#############################################
+exhib:accrochage_feuxPales a lmroo:F3_Manifestation ;
+    rdfs:label "Accrochage de Feux Pâles au CAPC" ;
+    lmroo:has_item exhib:exhibit0001 ;
+    lmroo:has_item exhib:exhibit0002 .
+
+exhib:catalogue_feuxPales a lmroo:F3_Manifestation ;
+    rdfs:label "Catalogue Feux Pâles" ;
+    lmroo:has_item exhib:trace0001 .
+
+exhib:accrochage_ombre_jaseur a lmroo:F3_Manifestation ;
+    rdfs:label "Accrochage de L'Ombre du jaseur" ;
+    lmroo:has_item exhib:exhibit0001 ;
+    lmroo:has_item exhib:exhibit0003 .
+
+exhib:accrochage_cabinet_amateur a lmroo:F3_Manifestation ;
+    rdfs:label "Accrochage du Cabinet d'amateur" ;
+    lmroo:has_item exhib:exhibit0001 ;
+    lmroo:has_item exhib:exhibit0004 .
+
+exhib:document_etude_conservation a lmroo:F3_Manifestation ;
+    rdfs:label "Document : Étude de conservation" ;
+    lmroo:has_item exhib:trace0003 .
+
+#############################################
+# 4. Items (LMRoo F5 Item + CIDOC-CRM E24/E22)
+#############################################
+exhib:exhibit0001 a lmroo:F5_Item, crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "code-barre" ;
+    crm:P2_has_type exhib:obj_type01 ;
+    crm:P108i_was_produced_by exhib:prod001 ;
+    crm:P70i_is_documented_in exhib:trace0001 ;
+    crm:P129_is_about exhib:concept_oe_01 ;
+    crm:P129_is_about exhib:feuxPales .
+
+exhib:exhibit0002 a lmroo:F5_Item, crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "Œuvre 2" .
+
+exhib:exhibit0003 a lmroo:F5_Item, crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "Nouvelle œuvre (2023)" .
+
+exhib:exhibit0004 a lmroo:F5_Item, crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "Nouvelle œuvre (Cabinet d'amateur)" .
+
+exhib:trace0001 a lmroo:F5_Item, crm:E31_Document ;
+    rdfs:label "Catalogue Feux Pâles" .
+
+exhib:trace0003 a lmroo:F5_Item, crm:E73_Information_Object ;
+    rdfs:label "Document : Plan ou rapport de conservation" .
+
+#############################################
+# 5. Curated Holdings (CIDOC-CRM E78)
+#############################################
+exhib:accrochage_feuxPales a crm:E78_Curated_Holding ;
+    rdfs:label "Accrochage de l'exposition *Feux Pâles* (CAPC, 1990-1991)" ;
+    crm:P4_has_time-span exhib:timespan_1990_1991 ;
+    crm:P7_took_place_at exhib:place001 ;
+    crm:P14_carried_out_by exhib:agent001 ;
+    crm:P14.1_in_the_role_of exhib:role1 ;
+    crm:P53_has_former_or_current_owner exhib:capc ;
+    crm:P46_is_composed_of exhib:exhibit0001 ;
+    crm:P46_is_composed_of exhib:exhibit0002 .
+
+exhib:accrochage_ombre_jaseur a crm:E78_Curated_Holding ;
+    rdfs:label "Accrochage de l'exposition *L'Ombre du jaseur*" ;
+    crm:P4_has_time-span exhib:timespan002 ;
+    crm:P7_took_place_at exhib:place002 ;
+    crm:P14_carried_out_by exhib:agent003 ;
+    crm:P14.1_in_the_role_of exhib:role1 ;
+    crm:P136_was_based_on exhib:accrochage_feuxPales ;
+    crm:P46_is_composed_of exhib:exhibit0001 ;
+    crm:P46_is_composed_of exhib:exhibit0003 .
+
+#############################################
+# 6. Événements (CIDOC-CRM E7 Activity)
+#############################################
+exhib:exhib01 a crm:E7_Activity ;
+    rdfs:label "Exposition Feux Pâles (CAPC, 1990-1991)" ;
+    crm:P2_has_type exhib:typo_ex ;
+    crm:P1_is_identified_by exhib:appela001 ;
+    crm:P16_used_specific_object exhib:accrochage_feuxPales ;
+    crm:P14_carried_out_by exhib:agent001 ;
+    crm:P14.1_in_the_role_of exhib:role1 ;
+    crm:P7_took_place_at exhib:place001 ;
+    crm:P4_has_time-span exhib:timespan_1990_1991 ;
+    crm:P129_is_about exhib:feuxPales .
+
+exhib:exhib02 a crm:E7_Activity ;
+    rdfs:label "L'Ombre du jaseur (d'après Feux Pâles)" ;
+    crm:P2_has_type exhib:type_adaptation ;
+    crm:P136_was_based_on exhib:feuxPales ;
+    crm:P16_used_specific_object exhib:accrochage_ombre_jaseur ;
+    crm:P16_used_specific_object exhib:trace0002 ;
+    crm:P3_has_note "Philippe Thomas n'a pas participé à cette itération."@fr .
+
+exhib:exhib03 a crm:E7_Activity ;
+    rdfs:label "Étude de conservation" ;
+    crm:P2_has_type exhib:type_conservation ;
+    crm:P2_has_type exhib:type_documentation ;
+    crm:P136_was_based_on exhib:feuxPales ;
+    crm:P16_used_specific_object exhib:trace0002 ;
+    crm:P4_has_time-span exhib:timespan003 .
+
+exhib:exhib04 a crm:E7_Activity ;
+    rdfs:label "Cabinet d'amateur" ;
+    crm:P2_has_type exhib:type_adaptation ;
+    crm:P2_has_type exhib:type_documentation ;
+    crm:P136_was_based_on exhib:feuxPales ;
+    crm:P16_used_specific_object exhib:accrochage_cabinet_amateur ;
+    crm:P4_has_time-span exhib:timespan004 .
+
+#############################################
+# 7. Acteurs (CIDOC-CRM E21/E39/E74)
+#############################################
+exhib:agent001 a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" ;
+    rdf:value "Les ready-made appartiennent à tout le monde (r)" .
+
+exhib:agent002 a crm:E74_Group ;
+    rdfs:label "Équipe du CAPC" .
+
+exhib:agent003 a crm:E21_Person ;
+    rdfs:label "Commissaire de L'Ombre du jaseur" .
+
+exhib:capc a crm:E74_Group ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux"@fr .
+
+#############################################
+# 8. Lieux (CIDOC-CRM E53) et Temps (CIDOC-CRM E52)
+#############################################
+exhib:place001 a crm:E53_Place ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux"@fr .
+
+exhib:place002 a crm:E53_Place ;
+    rdfs:label "Lieu de L'Ombre du jaseur"@fr .
+
+exhib:timespan_1990_1991 a crm:E52_Time-Span ;
+    rdfs:label "du 7/12/1990 au 03/03/1991" ;
+    rdf:value "du 7/12/1990 au 03/03/1991" ;
+    crm:P81a_begin_of_the_begin "1990-12-07T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "1991-03-03T00:00:00"^^xsd:dateTime .
+
+exhib:timespan002 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "2023-01-01T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "2023-12-31T00:00:00"^^xsd:dateTime .
+
+exhib:timespan003 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "2016-10-01T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "2017-06-01T00:00:00"^^xsd:dateTime ;
+    crm:P3_has_note "Dates à confirmer."@fr .
+
+exhib:timespan004 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "2020-01-01T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "2020-12-31T00:00:00"^^xsd:dateTime .
+
+#############################################
+# 9. Productions (CIDOC-CRM E12/E65)
+#############################################
+exhib:prod001 a crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agent001 ;
+    crm:P14.1_in_the_role_of exhib:role2 .
+
+exhib:prod002 a crm:E65_Creation ;
+    crm:P14_carried_out_by exhib:actor04 ;
+    crm:P14.1_in_the_role_of exhib:role8 .
+
+#############################################
+# 10. Archives et Documents (CIDOC-CRM E78/E31/E73)
+#############################################
+exhib:trace0002 a crm:E78_Collection ;
+    rdfs:label "Archives du CAPC" ;
+    crm:P129_is_about exhib:exhib01 ;
+    crm:P46_is_composed_of exhib:trace0001 ;
+    crm:P46_is_composed_of exhib:trace0003 .
+
+exhib:ref001 a crm:E73_Information_Object ;
+    rdf:value "https://www.worldcat.org/title/feux-pales/oclc/22208499" .
+
+exhib:ref001 crm:P67_refers_to exhib:trace0001 .
+
+#############################################
+# 11. Types et Rôles (CIDOC-CRM E55)
+#############################################
+exhib:typo_ex a crm:E55_Type ;
+    rdfs:label "exposition temporaire"@fr .
+
+exhib:type_adaptation a crm:E55_Type ;
+    rdfs:label "adaptation de l'exposition"@fr .
+
+exhib:type_conservation a crm:E55_Type ;
+    rdfs:label "conservation"@fr .
+
+exhib:type_documentation a crm:E55_Type ;
+    rdfs:label "documentation"@fr .
+
+exhib:obj_type01 a crm:E55_Type ;
+    rdfs:label "œuvre d'art"@fr .
+
+exhib:role1 a crm:E55_Type ;
+    rdfs:label "commissaire d'exposition"@fr .
+
+exhib:role2 a crm:E55_Type ;
+    rdfs:label "artiste" .
+
+exhib:role8 a crm:E55_Type ;
+    rdfs:label "sérigraphe"@fr .
+
+#############################################
+# 12. Concepts (CIDOC-CRM E28)
+#############################################
+exhib:concept_oe_01 a crm:E28_Conceptual_Object ;
+    rdfs:label "(R)" .
+
+exhib:appela002 a crm:E41_Appellation ;
+    rdf:value "(R)" .

@@ -1,14 +1,16 @@
 <script>
 	import { onMount, tick } from 'svelte';
+	import { tagByPrefix } from '$lib/modelling/tags.js';
 
 	let { data } = $props();
 
-	const { title, description, type, experiment, ontologies, ruptures, date, status, lang } = data.meta;
+	const { title, description, date, status, tags } = data.meta;
 	const { DocContent } = data;
 
-	// Normalise arrays that may come as YAML strings
-	const ontologyList = Array.isArray(ontologies) ? ontologies : (ontologies ? [ontologies] : []);
-	const ruptureList  = Array.isArray(ruptures)   ? ruptures   : (ruptures   ? [ruptures]   : []);
+	const lang = tagByPrefix(tags, 'lang');
+
+	// Tags shown in the header: everything except lang:xx (shown separately in the footer)
+	const visibleTags = (tags ?? []).filter(t => !t.startsWith('lang:'));
 
 	let docContentEl;
 
@@ -55,12 +57,6 @@
 
 	<header class="doc-header">
 		<div class="doc-meta">
-			{#if type}
-				<span class="badge badge--type">{type}</span>
-			{/if}
-			{#if experiment}
-				<span class="badge badge--experiment">exp. {experiment.toUpperCase()}</span>
-			{/if}
 			{#if status && status !== 'published'}
 				<span class="badge badge--status">{status}</span>
 			{/if}
@@ -73,11 +69,8 @@
 		{/if}
 
 		<div class="doc-tags">
-			{#each ontologyList as ontology}
-				<span class="tag tag--ontology">{ontology}</span>
-			{/each}
-			{#each ruptureList as rupture}
-				<span class="tag tag--rupture">{rupture}</span>
+			{#each visibleTags as tag}
+				<span class="badge">{tag}</span>
 			{/each}
 		</div>
 	</header>
@@ -133,22 +126,18 @@
 		flex-wrap: wrap;
 	}
 
-	.badge,
-	.tag {
+	.badge {
 		display: inline-block;
 		padding: 0.2em 0.55em;
 		border-radius: 3px;
 		font-size: 0.75rem;
 		font-family: var(--mono, monospace);
 		line-height: 1.4;
+		background: #f0f0f0;
+		color: #333;
 	}
 
-	.badge--type       { background: var(--accent-light, #eeedfe); color: var(--accent, #534ab7); }
-	.badge--experiment { background: #e1f5ee; color: #085041; }
-	.badge--status     { background: #faeeda; color: #412402; }
-
-	.tag--ontology { background: #f0f0f0; color: #333; }
-	.tag--rupture  { background: #fcebeb; color: #501313; }
+	.badge--status { background: #faeeda; color: #412402; }
 
 	.doc-content {
 		line-height: 1.75;

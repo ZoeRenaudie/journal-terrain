@@ -1,0 +1,5 @@
+The Architecture of Knowledge Ontology (ArCo) serves as the foundational ontology of the Architecture of Knowledge (ArCo) Network. It serves to import all other modules and delineates top-level distinctions within the Cultural Heritage domain. Alongside the Core ontology, ArCo defines foundational concepts that serve as the backbone of the entire network. The ArCo top-level ontology also includes the following sub-ontologies: Archive, Catalogue and catalogue records, Cataloguing campaign, Clothing description, Construction description, Context description, Cultural events and exhibitions, Denotative description, Locations and geometry, Musical Instrument, Natural specimen description.
+The ArCo Network has been developed to create a standard to expose cultural heritage data, and in particular to publish the data of the General Catalogue (1, 2) of the Central Institute for Catalogues and Documentation (Istituto Centrale per il Catalogo e la Documentazione, ICCD) according to the Linked Open Data standard.
+
+
+https://h-setis.cnr.it/ontologies/42

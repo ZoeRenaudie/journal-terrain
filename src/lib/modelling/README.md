@@ -1,10 +1,10 @@
 ---
 title: "Ontological Modelling Experiments for Exhibitions"
-slug: modelling
-type: index
 date: 2026-07-29
-lang: en-fr
 status: published
+tags:
+  - type:index
+  - lang:en-fr
 description: "Doctoral research mapping the structural limits of heritage ontologies applied to exhibition documentation. Case study: Feux pâles (capcMusée, 1990–91)."
 ---
 

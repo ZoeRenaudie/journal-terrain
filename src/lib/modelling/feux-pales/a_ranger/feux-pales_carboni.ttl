@@ -1,0 +1,88 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix crm: <http://http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix exhib: <http://zoerenaudie.com/data/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#############################################
+# D'après le graphe de Nicolas Carboni
+#############################################
+
+exhib:exhib1 a crm:E7_Activity ;
+    rdfs:label "expo" ;
+    rdf:value "Feux pâles" ;
+    crm:P16_used_specific_object exhib:exhibit0001 ;
+    crm:p14_carried_out_by exhib:agent001 ;
+    crm:P7_took_place_at exhib:place001 ;
+    crm:P4_has_time_span exhib:timespan001 ;
+    crm:P2_has_type exhib:typo_ex .
+
+exhib:place001 a crm:E53_Place ;
+    rdf:value "Capc Musée d'art contemporain de Bordeaux" ;
+    crm:P168_place_is_defined_by "POINT(-0.572157 44.8486403)"^^geosparql:wktLiteral .
+
+exhib:timespan001 a crm:E52_Time_Span ;
+    rdfs:label "du 7/12/1990 au 03/03/1991" ;
+    rdf:value "du 7/12/1990 au 03/03/1991" ;
+    crm:P81a_begin_of_the_begin "1990-12-07T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "1991-03-03T00:00:00"^^xsd:dateTime .
+
+exhib:exhibit0001 a crm:E22_Man_Made_Object ;
+    rdf:value "code-barre" ;
+    crm:p108i_was_produced_by exhib:prod001 ;
+    crm:P70i_is_documented_in exhib:trace0001 .
+
+exhib:prod001 a crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agent001 .
+
+exhib:typo_ex a crm:E55_Type ;
+    rdfs:label "exposition temporaire" .
+#comment insérer vocabulaire Getty
+
+exhib:agent001 a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" ;
+    rdf:value "Les ready-made appartiennent à tout le monde (r)" .
+
+crm:PC14_carried_out_by crm:P01_has_domain exhib:exhib01 ;
+    crm:P14_1_in_the_role_of  exhib:role1 ;
+    crm:P02_has_range exhib:agent001 .
+
+crm:PC14_carried_out_by crm:P01_has_domain exhib:exhibit0001 ;
+    crm:P14_1_in_the_role_of  exhib:role2 ;
+    crm:P02_has_range exhib:agent001 .
+# me permet de declarer les différents rôles que peut avoir un Philippe Thomas dans l'expo.
+# comment montrer que Philippe Thomas est absent de exhib02 ?
+
+exhib:role1 a crm:E55_Type ;
+    rdfs:label "commissaire" .
+
+exhib:role2 a crm:E55_Type ;
+    rdfs:label "artiste" .
+
+exhib:role3 a crm:E55_Type ;
+    rdfs:label "directeur de l'institution" .
+
+exhib:exhib01 crm:P20_had_specific_purpose exhib:prod001 .
+
+exhib:prod001 crm:P14_carried_out_by exhib:agent002 . 
+
+crm:P14_1_in_the_role_of crm:P01_has_domain exhib:prod001 ;
+    crm:P02_has_range  exhib:agent002 ;
+    crm:P14_1_in_the_role_of exhib:role3 .
+
+exhib:trace0001 crm:129_is_about exhib:exhibit0001 ;
+    rdfs:label "catalogue" ;
+    rdf:value "Feux pâles" ;
+    crm:P67i_is_referred_to_by exhib:ref001 ;
+    a crm:E31_Document.
+# permet de dire que l'oeuvre est citée dans le catalogue
+# si elle est aussi dans le curatorial holding ca veut dire qu'elle est bien dans cette itération 1 de l'exposition @DH
+    
+exhib:ref001 a crm:E73_Information_Object ; 
+    rdf:value "https://www.worldcat.org/title/feux-pales/oclc/22208499" .
+
+# il manque le E31 P70i_is_documented_in exhib:ref001 pour relier le catalogue à l'artiste parce que Philippe thomas cache son nom.
+
+# avoir des itérations et les typer ? itinérance vs v1, v2 vs itération
+

@@ -1,0 +1,192 @@
+@prefix oex: <https://iarthis-lab.github.io/OntoExhibit/ontology#> .
+@prefix exhib: <http://zoerenaudie.com/data/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#############################################
+# 1. Œuvre (OEx:Artwork)
+#############################################
+# --- Œuvre conceptuelle "Feux Pâles" ---
+exhib:feuxPales a oex:Artwork ;
+    rdfs:label "Feux Pâles" ;
+    oex:hasTitle exhib:appela001 ;
+    oex:hasDescription "Œuvre conceptuelle de Philippe Thomas, existant tant qu'elle est mémorisée ou documentée."@fr .
+
+exhib:appela001 a oex:Title ;
+    rdf:value "Feux Pâles" .
+
+#############################################
+# 2. Expositions (OEx:Exhibition)
+#############################################
+# --- Exposition 1 : Feux Pâles au CAPC (1990-1991) ---
+exhib:exhibition_feuxPales_capc a oex:Exhibition ;
+    rdfs:label "Exposition Feux Pâles (CAPC, 1990-1991)" ;
+    oex:hasTitle exhib:appela001 ;
+    oex:hasExhibitionComponent exhib:accrochage_feuxPales ;
+    oex:hasExhibitionComponent exhib:catalogue_feuxPales ;
+    oex:hasCurator exhib:agent001 ;
+    oex:hasArtist exhib:agent001 ;
+    oex:hasVenue exhib:place001 ;
+    oex:startDate "1990-12-07"^^xsd:date ;
+    oex:endDate "1991-03-03"^^xsd:date .
+
+# --- Exposition 2 : L'Ombre du jaseur ---
+exhib:exhibition_ombre_jaseur a oex:Exhibition ;
+    rdfs:label "L'Ombre du jaseur (d'après Feux Pâles)" ;
+    oex:hasExhibitionComponent exhib:accrochage_ombre_jaseur ;
+    oex:hasCurator exhib:agent003 ;
+    oex:hasVenue exhib:place002 ;
+    oex:startDate "2023-01-01"^^xsd:date ;
+    oex:endDate "2023-12-31"^^xsd:date ;
+    oex:isBasedOn exhib:exhibition_feuxPales_capc .
+
+# --- Exposition 3 : Cabinet d'amateur ---
+exhib:exhibition_cabinet_amateur a oex:Exhibition ;
+    rdfs:label "Cabinet d'amateur" ;
+    oex:hasExhibitionComponent exhib:accrochage_cabinet_amateur ;
+    oex:hasVenue exhib:place001 ;
+    oex:startDate "2020-01-01"^^xsd:date ;
+    oex:endDate "2020-12-31"^^xsd:date ;
+    oex:isBasedOn exhib:feuxPales .
+
+# --- Exposition 4 : Étude de conservation ---
+exhib:exhibition_etude_conservation a oex:Exhibition ;
+    rdfs:label "Étude de conservation" ;
+    oex:hasExhibitionComponent exhib:document_etude_conservation ;
+    oex:hasVenue exhib:place001 ;
+    oex:startDate "2016-10-01"^^xsd:date ;
+    oex:endDate "2017-06-01"^^xsd:date ;
+    oex:isBasedOn exhib:feuxPales .
+
+#############################################
+# 3. Composants d'expositions (OEx:ExhibitionComponent)
+#############################################
+# --- Accrochage de Feux Pâles au CAPC ---
+exhib:accrochage_feuxPales a oex:ExhibitionComponent ;
+    rdfs:label "Accrochage de Feux Pâles au CAPC" ;
+    oex:isComposedOf exhib:exhibit0001 ;
+    oex:isComposedOf exhib:exhibit0002 .
+
+# --- Catalogue de Feux Pâles ---
+exhib:catalogue_feuxPales a oex:ExhibitionComponent ;
+    rdfs:label "Catalogue Feux Pâles" ;
+    oex:isComposedOf exhib:trace0001 .
+
+# --- Accrochage de L'Ombre du jaseur ---
+exhib:accrochage_ombre_jaseur a oex:ExhibitionComponent ;
+    rdfs:label "Accrochage de L'Ombre du jaseur" ;
+    oex:isComposedOf exhib:exhibit0001 ;
+    oex:isComposedOf exhib:exhibit0003 .
+
+# --- Accrochage du Cabinet d'amateur ---
+exhib:accrochage_cabinet_amateur a oex:ExhibitionComponent ;
+    rdfs:label "Accrochage du Cabinet d'amateur" ;
+    oex:isComposedOf exhib:exhibit0001 ;
+    oex:isComposedOf exhib:exhibit0004 .
+
+# --- Document : Étude de conservation ---
+exhib:document_etude_conservation a oex:ExhibitionComponent ;
+    rdfs:label "Document : Étude de conservation" ;
+    oex:isComposedOf exhib:trace0003 .
+
+#############################################
+# 4. Items (OEx:Artwork, OEx:Documentation, etc.)
+#############################################
+# --- Œuvre "code-barre" (Artwork) ---
+exhib:exhibit0001 a oex:Artwork ;
+    rdfs:label "code-barre" ;
+    oex:hasDescription "Œuvre physique réutilisée dans plusieurs accrochages."@fr ;
+    oex:hasProduction exhib:prod001 .
+
+# --- Autre œuvre ---
+exhib:exhibit0002 a oex:Artwork ;
+    rdfs:label "Œuvre 2" .
+
+# --- Nouvelle œuvre dans L'Ombre du jaseur ---
+exhib:exhibit0003 a oex:Artwork ;
+    rdfs:label "Nouvelle œuvre (2023)" .
+
+# --- Nouvelle œuvre dans Cabinet d'amateur ---
+exhib:exhibit0004 a oex:Artwork ;
+    rdfs:label "Nouvelle œuvre (Cabinet d'amateur)" .
+
+# --- Catalogue (Documentation) ---
+exhib:trace0001 a oex:Documentation ;
+    rdfs:label "Catalogue Feux Pâles" .
+
+# --- Plan ou rapport (Documentation) ---
+exhib:trace0003 a oex:Documentation ;
+    rdfs:label "Document : Plan ou rapport de conservation" .
+
+#############################################
+# 5. Itinéraires (OEx:Itinerary)
+#############################################
+# --- Itinéraire de Feux Pâles ---
+exhib:itinerary_feuxPales a oex:Itinerary ;
+    rdfs:label "Itinéraire de Feux Pâles" ;
+    oex:hasExhibition exhib:exhibition_feuxPales_capc ;
+    oex:hasExhibition exhib:exhibition_ombre_jaseur ;
+    oex:hasExhibition exhib:exhibition_cabinet_amateur .
+
+# --- Lien avec les expositions ---
+exhib:exhibition_feuxPales_capc oex:hasItinerary exhib:itinerary_feuxPales .
+exhib:exhibition_ombre_jaseur oex:hasItinerary exhib:itinerary_feuxPales .
+exhib:exhibition_cabinet_amateur oex:hasItinerary exhib:itinerary_feuxPales .
+
+#############################################
+# 6. Acteurs (OEx:Artist, OEx:Curator, OEx:Institution)
+#############################################
+# --- Philippe Thomas (Artiste + Commissaire) ---
+exhib:agent001 a oex:Artist, oex:Curator ;
+    rdfs:label "Philippe Thomas" ;
+    oex:hasDescription "Les ready-made appartiennent à tout le monde (r)" .
+
+# --- Équipe du CAPC (Institution) ---
+exhib:capc a oex:Institution ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux"@fr .
+
+# --- Commissaire de L'Ombre du jaseur ---
+exhib:agent003 a oex:Curator ;
+    rdfs:label "Commissaire de L'Ombre du jaseur" .
+
+#############################################
+# 7. Lieux (OEx:Museum, OEx:Gallery)
+#############################################
+# --- CAPC (Musée) ---
+exhib:place001 a oex:Museum ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux"@fr .
+
+# --- Lieu de L'Ombre du jaseur (Galerie) ---
+exhib:place002 a oex:Gallery ;
+    rdfs:label "Lieu de L'Ombre du jaseur"@fr .
+
+#############################################
+# 8. Productions (OEx:ProductionProcess)
+#############################################
+# --- Production de "code-barre" ---
+exhib:prod001 a oex:ProductionProcess ;
+    rdfs:label "Production de code-barre" ;
+    oex:hasProducer exhib:agent001 ;
+    oex:hasRole exhib:role_artiste .
+
+# --- Rôle : Artiste ---
+exhib:role_artiste a oex:Role ;
+    rdfs:label "artiste"@fr .
+
+#############################################
+# 9. Concepts (OEx:ExhibitionConcept)
+#############################################
+# --- Concept de "fictionnalisme" ---
+exhib:fictionnalisme a oex:ExhibitionConcept ;
+    rdfs:label "Fictionnalisme"@fr .
+
+# --- Lien avec l'œuvre ---
+exhib:feuxPales oex:isAbout exhib:fictionnalisme .
+
+# --- Lien avec le livre de Nabokov ---
+exhib:nabokov_feu_pale a oex:ExhibitionConcept ;
+    rdfs:label "Feu pâle (Nabokov)" ;
+    oex:hasDescription "Roman de Vladimir Nabokov (1962), source d'inspiration pour Philippe Thomas (fictionnalisme et titre)."@fr .
+
+exhib:feuxPales oex:isInfluencedBy exhib:nabokov_feu_pale .

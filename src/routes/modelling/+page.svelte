@@ -1,24 +1,43 @@
 <script>
+	import { tagByPrefix } from '$lib/modelling/tags.js';
+	import OntologyCaseMatrix from '$lib/modelling/OntologyCaseMatrix.svelte';
+	import DocSearch from '$lib/modelling/DocSearch.svelte';
+
 	let { data } = $props();
 	const { docs } = data;
 
-	// Separate index doc from the rest
-	const index = docs.find(d => d.type === 'index')
-	const cases = docs.filter(d => d.type !== 'index')
+	// Separate the site-level index doc from the rest
+	const index = docs.find(d => tagByPrefix(d.tags, 'type') === 'index');
+	const cases = docs.filter(d => tagByPrefix(d.tags, 'type') !== 'index');
 
-	// Group remaining docs by case
-	const grouped = cases.reduce((acc, doc) => {
-		const key = doc.caseStudy ?? 'other'
-		if (!acc[key]) acc[key] = []
-		acc[key].push(doc)
-		return acc
-	}, {})
+	let searchText = $state('');
+	let activeTags = $state([]);
 
-	// Badge colour by type
-	const typeColour = {
-		modelling:    'badge--type',
-		data:         'badge--data',
-		requirements: 'badge--requirements',
+	const filtered = $derived(
+		cases.filter((doc) => {
+			const q = searchText.trim().toLowerCase();
+			const matchesText =
+				!q ||
+				(doc.title ?? '').toLowerCase().includes(q) ||
+				(doc.description ?? '').toLowerCase().includes(q);
+			const matchesTags = activeTags.every((tag) => (doc.tags ?? []).includes(tag));
+			return matchesText && matchesTags;
+		})
+	);
+
+	// Group filtered docs by the case:xxx tag
+	const grouped = $derived(
+		filtered.reduce((acc, doc) => {
+			const key = tagByPrefix(doc.tags, 'case') ?? 'other';
+			if (!acc[key]) acc[key] = [];
+			acc[key].push(doc);
+			return acc;
+		}, {})
+	);
+
+	// Tags shown per doc: everything except case:xxx (already the section heading)
+	function visibleTags(tags) {
+		return (tags ?? []).filter((t) => !t.startsWith('case:'));
 	}
 </script>
 
@@ -38,6 +57,14 @@
 		</header>
 	{/if}
 
+	<OntologyCaseMatrix docs={cases} bind:activeTags />
+
+	<DocSearch docs={cases} bind:searchText bind:activeTags />
+
+	{#if filtered.length === 0}
+		<p class="empty-state">Aucun document ne correspond à ces filtres.</p>
+	{/if}
+
 	{#each Object.entries(grouped) as [caseName, caseDocs]}
 		<section class="case-section">
 			<h2 class="case-title">{caseName}</h2>
@@ -52,17 +79,9 @@
 							{/if}
 						</a>
 						<div class="doc-tags">
-							{#if doc.type}
-								<span class="badge {typeColour[doc.type] ?? 'badge--type'}">{doc.type}</span>
-							{/if}
-							{#if doc.experiment}
-								<span class="badge badge--experiment">exp. {doc.experiment.toUpperCase()}</span>
-							{/if}
-							{#if Array.isArray(doc.ontologies)}
-								{#each doc.ontologies as onto}
-									<span class="badge badge--ontology">{onto}</span>
-								{/each}
-							{/if}
+							{#each visibleTags(doc.tags) as tag}
+								<span class="badge">{tag}</span>
+							{/each}
 						</div>
 					</li>
 				{/each}
@@ -80,7 +99,7 @@
 	}
 
 	.index-header {
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
 		border-bottom: 1px solid var(--border, #e2e2e2);
 		padding-bottom: 1.5rem;
 	}
@@ -89,6 +108,12 @@
 		color: var(--text-light, #555);
 		font-style: italic;
 		max-width: 65ch;
+	}
+
+	.empty-state {
+		color: var(--text-light, #888);
+		font-style: italic;
+		padding: 1.5rem 0;
 	}
 
 	.case-section {
@@ -114,10 +139,9 @@
 
 	.doc-item {
 		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 0.6rem 0;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 0.7rem 0;
 		border-bottom: 1px solid var(--border, #f0f0f0);
 	}
 
@@ -127,7 +151,6 @@
 		gap: 0.15rem;
 		text-decoration: none;
 		color: inherit;
-		flex: 1;
 	}
 
 	.doc-link:hover .doc-title {
@@ -147,7 +170,6 @@
 		display: flex;
 		gap: 0.3rem;
 		flex-wrap: wrap;
-		flex-shrink: 0;
 	}
 
 	.badge {
@@ -157,11 +179,7 @@
 		font-size: 0.7rem;
 		font-family: var(--mono, monospace);
 		white-space: nowrap;
+		background: #f0f0f0;
+		color: #444;
 	}
-
-	.badge--type         { background: #eeedfe; color: #534ab7; }
-	.badge--data         { background: #e1f5ee; color: #085041; }
-	.badge--requirements { background: #faeeda; color: #412402; }
-	.badge--experiment   { background: #e1f5ee; color: #085041; }
-	.badge--ontology     { background: #f0f0f0; color: #444; }
 </style>

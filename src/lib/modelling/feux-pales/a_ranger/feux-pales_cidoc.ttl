@@ -1,0 +1,331 @@
+#############################################
+# Métadonnées du graphe
+#############################################
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix ex: <http://zoerenaudie.com/data/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix aat: <http://vocab.getty.edu/aat/> . 
+@prefix wikidata: <https://www.wikidata.org/wiki/> .
+
+
+#############################################
+# 1. Concepts et œuvres (E28, E22, E24)
+#############################################
+
+# --- Œuvre conceptuelle "Feux Pâles" ---
+ex:feuxPales a crm:E28_Conceptual_Object ;
+    rdfs:label "Feux Pâles" ;
+    crm:P1_is_identified_by ex:appela001 ;
+    crm:P3_has_note "Œuvre conceptuelle de Philippe Thomas, existant tant qu'elle est mémorisée ou documentée."@fr .
+
+ex:appela001 a crm:E41_Appellation ;
+    rdf:value "Feux Pâles" .
+
+# --- Œuvre littéraire : "Feux pâles" de Nabokov ---
+ex:nabokov_feu_pale a crm:E73_Information_Object ;
+    rdfs:label "Feu pâle (Nabokov)" ;
+    crm:P3_has_note "Roman de Vladimir Nabokov (1962), source d'inspiration pour Philippe Thomas (fictionnalisme et titre)."@fr ;
+    crm:P129_is_about ex:fictionnalisme ;
+    crm:P1_is_identified_by ex:appela004 .  
+
+# --- Appellation (titre du livre) ---
+ex:appela004 a crm:E41_Appellation ;
+    rdf:value "Feu pâle"@fr ;
+    crm:P3_has_note "Titre français du roman de Vladimir Nabokov (1962)."@fr .
+
+# --- Lien d'inspiration avec *Feux Pâles* de Philippe Thomas ---
+ex:feuxPales crm:P15_was_influenced_by ex:nabokov_feu_pale ;
+                crm:P3_has_note "Inspiration du titre et du concept de fictionnalisme."@fr .
+
+# --- Concept de "fictionnalisme" ---
+ex:fictionnalisme a crm:E28_Conceptual_Object ;
+    rdfs:label "Fictionnalisme"@fr ;
+    crm:P1_is_identified_by ex:appela003 .
+
+ex:appela003 a crm:E41_Appellation ;
+    rdf:value "Fictionnalisme"@fr .
+
+# --- Œuvre physique "code-barre" ---
+ex:concept_oe_01 a crm:E28_Conceptual_Object ; # d'abord un concept
+    rdfs:label "(R)" ;
+    crm:P1_is_identified_by ex:appela002 .
+
+ex:appela002 a crm:E41_Appellation ;
+    rdf:value "(R)" .
+
+#############################################
+# 2. Activations
+#############################################
+
+# --- Exposition 1 : Feux Pâles (CAPC, 1990-1991) ---
+ex:exhib01 a crm:E7_Activity ;
+    rdfs:label "Feux Pâles (exposition)" ;
+    crm:P2_has_type ex:typo_ex ;  # Type : exposition temporaire
+    crm:P1_is_identified_by ex:appela001 ;
+    crm:P16_used_specific_object ex:exhibit0001 ;
+    crm:P14_carried_out_by ex:agent001 ;
+    crm:P14.1_in_the_role_of ex:role1 ;  # Rôle : commissaire d'exposition
+    crm:P7_took_place_at ex:place001 ;
+    crm:P4_has_time-span ex:timespan001 ;
+    crm:P129_is_about ex:feuxPales ;  # L'exposition traite du concept "Feux Pâles"
+    crm:P20_had_specific_purpose ex:prod001 ; # vérifier usage
+    crm:P16_used_specific_object ex:accrochage_feuxPales .  
+# est un curatorial holding
+
+# --- Exposition 2 : L'Ombre du jaseur ---
+ex:exhib02 a crm:E7_Activity ;
+    rdfs:label "L'Ombre du jaseur (d'après Feux Pâles)" ;
+    crm:P2_has_type ex:type_adaptation ;  # Type : adaptation
+    crm:P136_was_based_on ex:feuxPales ;  # Basée sur le concept "Feux Pâles"
+    crm:P16_used_specific_object ex:trace0002 ;  # Utilise les archives du CAPC
+    crm:P16_used_specific_object ex:accrochage_OmbreJaseur ;
+    crm:P3_has_note "Philippe Thomas n'a pas participé à cette itération."@fr .
+# est un curatorial holding
+
+# --- Cabinet d'amateur ---
+ex:exhib04 a crm:E7_Activity ;
+    rdfs:label "Cabinet d'amateur" ;
+    crm:P2_has_type ex:type_adaptation ;  
+    crm:P2_has_type ex:type_documentation ; 
+    crm:P136_was_based_on ex:feuxPales ; 
+    crm:P4_has_time_span ex:timespan004 .
+# est un oeuvre a deux exemplaires
+
+# --- Étude de conservation ---
+ex:exhib03 a crm:E7_Activity ;
+    rdfs:label "Étude de conservation" ;
+    crm:P2_has_type ex:type_conservation ;  
+    crm:P2_has_type ex:type_documentation ; 
+    crm:P136_was_based_on ex:feuxPales ;  
+    crm:P16_used_specific_object ex:trace0002 ;  # Utilise les archives du CAPC
+    crm:P4_has_time_span ex:timespan003 .
+# est un document
+
+#############################################
+# 7. Curated Holding
+#############################################
+
+# --- Curated Holding : Accrochage de "Feux Pâles" au CAPC ---
+ex:accrochage_feuxPales a crm:E78_Curated_Holding ;
+    rdfs:label "Accrochage de l'exposition *Feux Pâles* (CAPC, 1990-1991)" ;
+    crm:P4_has_time-span ex:timespan001 ;  # Même time-span que l'exposition
+    crm:P7_took_place_at ex:place001 ;      # Même lieu que l'exposition
+    crm:P14_carried_out_by ex:agent001 ;   # Commissaire : Philippe Thomas
+    crm:P14.1_in_the_role_of ex:role1 ;     # Rôle : commissaire
+    crm:P53_has_former_or_current_owner ex:capc ;  # Propriétaire : CAPC
+    crm:P3_has_note "À compléter avec le contenu de feux-pales_display."@fr .
+
+# --- Composition du Curated Holding ---
+ex:accrochage_feuxPales crm:P46_is_composed_of ex:exhibit0001 ;
+                          crm:P46_is_composed_of ex:exhibit0002 .
+
+ex:accrochage_feuxPales crm:P46_is_composed_of ex:trace0001 . # pour dire que l'accrochage fait partie de l'exposition. 
+
+# --- Curated Holding : Accrochage de "L'Ombre du jaseur" au MAMCO ---
+ex:accrochage_OmbreJaseur a crm:E78_Curated_Holding ;
+    rdfs:label "Accrochage de l'exposition Ombre du jaseur au MAMCO" ;
+    crm:P4_has_time-span ex:timespan002 ;  
+    crm:P7_took_place_at ex:place002 ;      
+    crm:P14_carried_out_by ex:agent003 ;   
+    crm:P14.1_in_the_role_of ex:role1 ;
+    crm:P136_was_based_on ex:accrochage_feuxPales .
+
+# --- Composition du Curated Holding ---
+ex:accrochage_feuxPales crm:P46_is_composed_of ex:exhibit0001 ;
+                          crm:P46_is_composed_of ex:exhibit0002 .
+
+
+#############################################
+# 7. Expôts
+#############################################
+
+ex:exhibit0001 a crm:E24_Physical_Human-Made_Thing ;
+    rdfs:label "code-barre" ;
+    crm:P2_has_type ex:obj_type01 ;  # Type : œuvre d'art
+    crm:P108i_was_produced_by ex:prod001 ;
+    crm:P70i_is_documented_in ex:trace0001 ;
+    crm:P129_is_about ex:concept_oe_01 ;  
+    crm:P129_is_about ex:feuxPales ;  # L'œuvre est liée au concept "Feux Pâles" aussi parce que c'est le code barre de l'exposition.
+    crm:P94i_was_created_by ex:prod002 .
+
+#############################################
+# 2. Productions
+#############################################
+
+# --- Production de l'œuvre "code-barre" ---
+ex:prod001 a crm:E12_Production ;
+    crm:P14_carried_out_by ex:agent001 ;
+    crm:P14.1_in_the_role_of ex:role2 .  # Rôle : artiste
+
+# --- Production d'un objet physique (exemple) ---
+ex:prod002 a crm:E65_Creation ;  # Création d'une œuvre conceptuelle ou immatérielle
+    crm:P14_carried_out_by ex:actor04 ;
+    crm:P14.1_in_the_role_of ex:role8 .  # Rôle : sérigraphe
+
+# --- Création des archives (exemple) ---
+ex:crea03 a crm:E65_Creation ;
+    crm:P14_carried_out_by ex:actor05 ;
+    crm:P14.1_in_the_role_of ex:role9 ;  # Rôle : archiviste
+    crm:P4_has_time-span ex:timespan002 ;
+    crm:P63_used_specific_object ex:trace0003 .  # Utilise un plan (exemple)
+
+#############################################
+# 3. Acteurs
+#############################################
+
+# --- Philippe Thomas ---
+ex:agent001 a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" ;
+    rdf:value "Les ready-made appartiennent à tout le monde (r)" .
+
+# --- Équipe de capc ---
+ex:agent002 a crm:E74_Group ;
+    rdfs:label "Équipe du capc" .
+
+# --- Sérigraphe inconnu ---
+ex:actor04 a crm:E39_Actor ;
+    crm:P3_has_note "serigraphe inconnu"@fr .
+
+# --- Archiviste (Martine Paen) ---
+ex:actor05 a crm:E39_Actor ;
+    rdfs:label "Martine Paen" .
+
+
+#############################################
+# 4. Lieux (E53) et temps (E52)
+#############################################
+
+# --- Lieu : CAPC Musée d'art contemporain de Bordeaux ---
+ex:place001 a crm:E53_Place ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux" ;
+    crm:P168_place_is_defined_by "POINT(-0.572157 44.8486403)"^^geosparql:wktLiteral .
+
+# --- Time-Span : Feux Pâles (1990-1991) ---
+ex:timespan001 a crm:E52_Time-Span ;
+    rdfs:label "du 7/12/1990 au 03/03/1991" ;
+    rdf:value "du 7/12/1990 au 03/03/1991" ;
+    crm:P81a_begin_of_the_begin "1990-12-07T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "1991-03-03T00:00:00"^^xsd:dateTime .
+
+# --- Time-Span : Création des archives ---
+ex:timespan002 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "1990-05-07T00:00:00"^^xsd:dateTime ;
+    crm:P3_has_note "Date des premiers documents à confirmer."@fr .
+
+# --- Time-Span : Étude de conservation-restauration (2017) ---
+ex:timespan003 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "2016-10-01T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "2017-06-01T00:00:00"^^xsd:dateTime ;
+    crm:P3_has_note "Dates à confirmer."@fr .
+
+
+
+#############################################
+# 5. Archives
+#############################################
+
+# --- Archives du CAPC ---
+ex:trace0002 a crm:E78_Collection ;  # Collection curatée (archives)
+    rdfs:label "Archives du CAPC" ;
+    crm:P129_is_about ex:exhib01 ;
+    crm:P46_is_composed_of ex:trace0001, ex:trace0003.
+
+#############################################
+# 5. Traces
+#############################################  
+
+# --- Catalogue "Feux Pâles" ---
+
+ex:trace0001 a crm:E31_Document ;
+    rdfs:label "Catalogue Feux pâles" ;
+    rdf:value "Catalogue Feux pâles" .
+
+# --- Référence externe (WorldCat) ---
+ex:ref001 a crm:E73_Information_Object ;
+    rdf:value "https://www.worldcat.org/title/feux-pales/oclc/22208499" .
+
+ex:ref001 crm:P67_refers_to ex:trace0001 .
+
+# --- Plan ---
+ex:trace0003 a crm:E73_Information_Object ;
+    rdfs:label "plan" .
+
+#############################################
+# 6. Types (E55) et langues (E56)
+#############################################
+
+# --- Types d'expositions ---
+ex:typo_ex a crm:E55_Type ;
+    rdfs:label "exposition temporaire"@fr .
+
+ex:type_adaptation a crm:E55_Type ;
+    rdfs:label "adaptation de l'exposition"@fr .
+
+ex:type_augmentation a crm:E55_Type ;
+    rdfs:label "augmentation de l'exposition"@fr .
+
+# --- Types d'objets ---
+ex:obj_type01 a crm:E55_Type ;
+    rdfs:label "œuvre d'art"@fr .
+
+ex:typo_traces_01 a crm:E55_Type ;
+    rdfs:label "archive" .
+
+# --- Types de données ---
+ex:type_incertitude a crm:E55_Type ;
+    rdfs:label "donnée incertaine"@fr .
+
+ex:type_donnee_perimee a crm:E55_Type ;
+    rdfs:label "donnée périmée"@fr .
+
+ex:type_cession_paternite a crm:E55_Type ;
+    rdfs:label "cession de paternité artistique"@fr .
+
+# --- Rôles ---
+ex:role1 a crm:E55_Type ;
+    rdfs:label "commissaire d'exposition"@fr .
+
+ex:role2 a crm:E55_Type ;
+    rdfs:label "artiste" .
+
+ex:role3 a crm:E55_Type ;
+    rdfs:label "directeur de musée"@fr .
+
+ex:role4 a crm:E55_Type ;
+    rdfs:label "galeriste"@fr .
+
+ex:role5 a crm:E55_Type ;
+    rdfs:label "photographe"@fr .
+
+ex:role6 a crm:E55_Type ;
+    rdfs:label "historienne de l'art"@fr .
+
+ex:role7 a crm:E55_Type ;
+    rdfs:label "agence artistique fictionnelle"@fr .
+
+ex:role8 a crm:E55_Type ;
+    rdfs:label "sérigraphe"@fr .
+
+ex:role9 a crm:E55_Type ;
+    rdfs:label "archiviste"@fr .
+
+ex:role10 a crm:E55_Type ;
+    rdfs:label "ayant-droit"@fr .
+
+# --- Langues ---
+ex:lgfr a crm:E56_Language ;
+    rdfs:label "français" .
+
+#############################################
+# 8. Notes et TODO (pour développement futur)
+#############################################
+
+# --- TODO : Intégrer la thèse comme source ---
+# ex:these a crm:E31_Document ;
+#     rdfs:label "Thèse sur les expositions de Philippe Thomas" ;
+#     crm:P129_is_about ex:feuxPales .
+

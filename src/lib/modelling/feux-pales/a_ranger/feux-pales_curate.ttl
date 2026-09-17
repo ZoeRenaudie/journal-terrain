@@ -1,0 +1,273 @@
+@prefix curate: <http://example.org/curate#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix oex: <https://iarthis-lab.github.io/OntoExhibit/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#############################################
+# 1. Heritage Objects (Livre de Nabokov, Feux Pâles)
+#############################################
+fp:nabokov_feu_pale a crm:E73_Information_Object, curate:HeritageObject ;
+    rdfs:label "Feu pâle (Nabokov, 1962)" ;
+    crm:P1_is_identified_by fp:titre_nabokov .
+
+fp:titre_nabokov a crm:E35_Title ;
+    crm:P190_has_symbolic_content "Feu pâle"@fr .
+
+fp:feuxPales a crm:E28_Conceptual_Object, curate:HeritageObject ;
+    rdfs:label "Feux Pâles" ;
+    crm:P1_is_identified_by fp:titre_feuxPales .
+
+fp:titre_feuxPales a crm:E35_Title ;
+    crm:P190_has_symbolic_content "Feux Pâles"@fr .
+
+#############################################
+# 2. Story : Enquête sur le fictionnalisme
+#############################################
+fp:enquete_fictionnalisme a curate:Story ;
+    rdfs:label "Enquête sur le fictionnalisme de Philippe Thomas"@fr ;
+    curate:hasEvent fp:lecture_livre_nabokov ;
+    curate:hasEvent fp:creation_feuxPales ;
+    curate:hasEvent fp:interview_philippe_thomas .
+
+#############################################
+# 3. Events
+#############################################
+fp:lecture_livre_nabokov a crm:E5_Event, curate:Event ;
+    rdfs:label "Lecture de *Feu pâle* par Philippe Thomas"@fr ;
+    crm:P14_carried_out_by fp:philippe_thomas ;
+    crm:P12_occurred_in_the_presence_of fp:nabokov_feu_pale ;
+    curate:hasFacet fp:facet_inspiration_litteraire .
+
+fp:creation_feuxPales a crm:E65_Creation, curate:Event ;
+    rdfs:label "Création de *Feux Pâles*"@fr ;
+    crm:P94_has_created fp:feuxPales ;
+    crm:P14_carried_out_by fp:philippe_thomas ;
+    curate:hasFacet fp:facet_fictionnalisme .
+
+fp:interview_philippe_thomas a crm:E7_Activity, curate:Event ;
+    rdfs:label "Interview avec Philippe Thomas sur le fictionnalisme"@fr ;
+    crm:P14_carried_out_by fp:interviewer ;
+    crm:P11_had_participant fp:philippe_thomas .
+
+#############################################
+# 4. Plot : Le livre comme clé d'enquête
+#############################################
+fp:plot_fictionnalisme a curate:Plot ;
+    rdfs:label "Le livre *Feu pâle* comme clé du fictionnalisme"@fr ;
+    curate:interprets fp:enquete_fictionnalisme ;
+    curate:hasPlotRelation fp:relation_livre_fictionnalisme .
+
+fp:relation_livre_fictionnalisme a curate:PlotRelation ;
+    rdfs:label "Le livre *Feu pâle* inspire le concept de fictionnalisme"@fr ;
+    curate:hasJustification fp:justification_livre_fictionnalisme .
+
+fp:justification_livre_fictionnalisme a curate:Justification ;
+    rdfs:label "Le titre *Feux Pâles* est directement inspiré du roman de Nabokov, et le concept de fictionnalisme y est central."@fr .
+
+#############################################
+# 5. Facets
+#############################################
+fp:facet_inspiration_litteraire a curate:Facet ;
+    rdfs:label "Inspiration littéraire"@fr .
+
+fp:facet_fictionnalisme a curate:Facet ;
+    rdfs:label "Fictionnalisme"@fr .
+
+#############################################
+# 6. Narrative : Exposition Feux Pâles
+#############################################
+fp:narrative_exposition_feuxPales a curate:Narrative ;
+    rdfs:label "Exposition *Feux Pâles* (CAPC, 1990-1991)"@fr ;
+    curate:presents fp:enquete_fictionnalisme ;
+    curate:presents fp:plot_fictionnalisme ;
+    curate:hasNarrativeComponent fp:accrochage_feuxPales ;
+    curate:hasNarrativeComponent fp:catalogue_feuxPales .
+
+#############################################
+# 7. Narrative Components (Accrochage, Catalogue)
+#############################################
+fp:accrochage_feuxPales a oex:ExhibitionComponent ;
+    rdfs:label "Accrochage de *Feux Pâles* au CAPC"@fr ;
+    oex:isComposedOf fp:oeuvre_01_rmbe ;
+    oex:isComposedOf fp:oeuvre_02_klappaltarchen .
+
+fp:catalogue_feuxPales a oex:ExhibitionComponent, crm:E31_Document ;
+    rdfs:label "Catalogue *Feux Pâles*"@fr .
+
+#############################################
+# 8. Acteurs
+#############################################
+fp:philippe_thomas a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" ;
+    rdf:value "Les ready-made appartiennent à tout le monde (r)" .
+
+fp:interviewer a crm:E21_Person ;
+    rdfs:label "Interviewer" .
+
+    @prefix curate: <http://example.org/curate#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix aaao: <http://ontology.tno.nl/aaao#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#############################################
+# 1. Heritage Object : code-barre
+#############################################
+fp:exhibit0001 a curate:HeritageObject, crm:E22_Human-Made_Object ;
+    rdfs:label "code-barre" ;
+    crm:P1_is_identified_by fp:titre_codebarre ;
+    crm:P1_is_identified_by fp:inv_codebarre ;
+    crm:P2_has_type fp:type_oeuvre ;
+    crm:P2_has_type fp:type_scenographique ;
+    crm:P2_has_type fp:type_titre ;
+    crm:P43_has_dimension fp:dim_codebarre ;
+    crm:P45_consists_of fp:mat_codebarre .
+
+#############################################
+# 2. Types multiples
+#############################################
+fp:type_oeuvre a crm:E55_Type ;
+    rdfs:label "œuvre d'art"@fr .
+
+fp:type_scenographique a crm:E55_Type ;
+    rdfs:label "élément scénographique"@fr .
+
+fp:type_titre a crm:E55_Type ;
+    rdfs:label "titre d'exposition"@fr .
+
+#############################################
+# 3. Story : Histoire du code-barre
+#############################################
+fp:story_codebarre a curate:Story ;
+    rdfs:label "Histoire du code-barre (1990-1991)"@fr ;
+    curate:hasEvent fp:conception_codebarre ;
+    curate:hasEvent fp:transaction_fictionnelle ;
+    curate:hasEvent fp:exposition_codebarre ;
+    curate:hasFacet fp:facet_hybridite ;
+    curate:hasFacet fp:facet_authorship ;
+    curate:hasFacet fp:facet_transaction_fictionnelle .
+
+#############################################
+# 4. Events
+#############################################
+fp:conception_codebarre a crm:E65_Creation, curate:Event ;
+    rdfs:label "Conception du code-barre"@fr ;
+    crm:P94_has_created fp:exhibit0001 ;
+    crm:P4_has_time-span fp:timespan_1990 .
+
+fp:transaction_fictionnelle a crm:E8_Acquisition, curate:Event ;
+    rdfs:label "Transaction fictionnelle : livraison du code-barre"@fr ;
+    crm:P24_transferred_title_of fp:exhibit0001 ;
+    crm:P23_transferred_title_from fp:agence_rmbe ;
+    crm:P28_transferred_title_to fp:capc ;
+    crm:P4_has_time-span fp:timespan_1990 ;
+    curate:hasFacet fp:facet_transaction_fictionnelle .
+
+fp:exposition_codebarre a crm:E7_Activity, curate:Event ;
+    rdfs:label "Exposition du code-barre dans *Feux Pâles*"@fr ;
+    crm:P16_used_specific_object fp:exhibit0001 ;
+    crm:P7_took_place_at fp:capc ;
+    crm:P4_has_time-span fp:timespan_1990_1991 .
+
+#############################################
+# 5. Facets
+#############################################
+fp:facet_hybridite a curate:Facet ;
+    rdfs:label "Statut hybride du code-barre"@fr ;
+    crm:P3_has_note "Le code-barre est à la fois : 1) une œuvre d'art, 2) un élément scénographique, 3) le titre de l'exposition *Feux Pâles*."@fr .
+
+fp:facet_authorship a curate:Facet ;
+    rdfs:label "Authorship multiple"@fr ;
+    crm:P3_has_note "Le code-barre est : 1) signé par le CAPC, 2) conçu par Philippe Thomas, 3) produit par l'agence."@fr .
+
+fp:facet_transaction_fictionnelle a curate:Facet ;
+    rdfs:label "Transaction fictionnelle"@fr ;
+    crm:P3_has_note "L'agence livre le code-barre au CAPC dans le cadre d'une performance artistique."@fr .
+
+#############################################
+# 6. Plot : Interprétation du code-barre
+#############################################
+fp:plot_codebarre a curate:Plot ;
+    rdfs:label "Le code-barre comme clé du fictionnalisme"@fr ;
+    curate:interprets fp:story_codebarre ;
+    curate:hasPlotRelation fp:relation_codebarre_fictionnalisme ;
+    curate:hasPlotRelation fp:relation_codebarre_hybridite .
+
+fp:relation_codebarre_fictionnalisme a curate:PlotRelation ;
+    rdfs:label "Le code-barre incarne le fictionnalisme"@fr ;
+    curate:hasJustification fp:justification_fictionnalisme .
+
+fp:justification_fictionnalisme a curate:Justification ;
+    rdfs:label "Le code-barre est signé 'CAPC' mais conçu par Thomas via son agence fictionnelle, illustrant le concept de fictionnalisme."@fr .
+
+fp:relation_codebarre_hybridite a curate:PlotRelation ;
+    rdfs:label "Le code-barre a un statut hybride"@fr ;
+    curate:hasJustification fp:justification_hybridite .
+
+fp:justification_hybridite a curate:Justification ;
+    rdfs:label "Le code-barre est à la fois une œuvre, un élément scénographique, et le titre de l'exposition."@fr .
+
+#############################################
+# 7. Narrative : Exposition Feux Pâles
+#############################################
+fp:narrative_feuxPales a curate:Narrative ;
+    rdfs:label "Exposition *Feux Pâles* (CAPC, 1990-1991)"@fr ;
+    curate:presents fp:story_codebarre ;
+    curate:presents fp:plot_codebarre ;
+    curate:hasNarrativeComponent fp:accrochage_feuxPales .
+
+fp:accrochage_feuxPales a curate:NarrativeComponent ;
+    rdfs:label "Accrochage de *Feux Pâles*"@fr ;
+    curate:hasHeritageObject fp:exhibit0001 .
+
+#############################################
+# 8. Acteurs
+#############################################
+fp:agence_rmbe a crm:E74_Group ;
+    rdfs:label "Les ready-made appartiennent à tout le monde (r)" ;
+    crm:P3_has_note "Agence artistique fictionnelle de Philippe Thomas. Propriétaire fictionnel du code-barre en 1990."@fr .
+
+fp:capc a crm:E74_Group ;
+    rdfs:label "CAPC Musée d'art contemporain de Bordeaux"@fr .
+
+fp:philippe_thomas a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" .
+
+#############################################
+# 9. Authorship multiple (AAAO)
+#############################################
+fp:attr_authorship_codebarre1 a aaao:ZE4_Classificatory_Status ;
+    aaao:ZP11_has_classificatory_subject fp:exhibit0001 ;
+    aaao:ZP12_ascribes_classification fp:role_signe ;
+    aaao:ZP4_holds_for fp:capc .
+
+fp:attr_authorship_codebarre2 a aaao:ZE4_Classificatory_Status ;
+    aaao:ZP11_has_classificatory_subject fp:exhibit0001 ;
+    aaao:ZP12_ascribes_classification fp:role_concu ;
+    aaao:ZP4_holds_for fp:philippe_thomas .
+
+fp:attr_authorship_codebarre3 a aaao:ZE4_Classificatory_Status ;
+    aaao:ZP11_has_classificatory_subject fp:exhibit0001 ;
+    aaao:ZP12_ascribes_classification fp:role_produit ;
+    aaao:ZP4_holds_for fp:agence_rmbe .
+
+fp:role_signe a crm:E55_Type ;
+    rdfs:label "signataire"@fr .
+
+fp:role_concu a crm:E55_Type ;
+    rdfs:label "concepteur"@fr .
+
+fp:role_produit a crm:E55_Type ;
+    rdfs:label "producteur"@fr .
+
+#############################################
+# 10. Lien avec le fictionnalisme
+#############################################
+fp:fictionnalisme a crm:E28_Conceptual_Object ;
+    rdfs:label "Fictionnalisme"@fr .
+
+fp:exhibit0001 crm:P129_is_about fp:fictionnalisme .
+fp:narrative_feuxPales crm:P129_is_about fp:fictionnalisme .

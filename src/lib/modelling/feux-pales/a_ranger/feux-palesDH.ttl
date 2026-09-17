@@ -1,0 +1,143 @@
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf: <http://www.ics.forth.gr/isl/CRMinf/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+### --- Classes et propriétés personnalisées ---
+ex:XX_AttributeMissing a owl:Class ;
+    rdfs:subClassOf crm:E13_Attribute_Assignment ;
+    rdfs:label "Attribute Missing"@en ;
+    rdfs:comment "An attribute assignment that records the documented absence of a value for a property after a search activity."@en .
+
+### --- Acteurs ---
+ex:chercheur_X a crm:E39_Actor ;
+    rdfs:label "Chercheur X"@fr .
+
+ex:institution_X a crm:E40_Legal_Body ;
+    rdfs:label "Institution X"@fr .
+
+ex:chercheur_provenance a crm:E39_Actor ;
+    rdfs:label "Chercheur en provenance"@fr .
+
+### --- Objets et œuvres ---
+ex:photo_1 a crm:E73_Information_Object ;
+    rdfs:label "Photographie 1"@fr .
+
+ex:notice_catalogue_42 a crm:E73_Information_Object ;
+    rdfs:label "Notice de catalogue 42"@fr .
+
+ex:oeuvre_hypothese a crm:E22_Man-Made_Object ;
+    rdfs:label "Œuvre hypothèse"@fr .
+
+ex:oeuvre_1 a crm:E22_Man-Made_Object ;
+    rdfs:label "Œuvre 1"@fr .
+
+ex:oeuvre_boite a crm:E22_Man-Made_Object ;
+    rdfs:label "Œuvre dans une boîte (non identifiée, salle 8)"@fr .
+
+ex:cadran_solaire a crm:E22_Man-Made_Object ;
+    rdfs:label "Cadran solaire"@fr .
+
+ex:dossier_spoliation_rothschild a crm:E73_Information_Object ;
+    rdfs:label "Dossier de spoliation Rothschild"@fr .
+
+### --- Valeurs et types ---
+ex:valeur_probable a crminf:I6_Belief_Value ;
+    rdfs:label "plausible"@fr .
+
+ex:valeur_inconnue a crm:E55_Type ;
+    rdfs:label "Lacune documentée"@fr .
+
+ex:titre_ancien a crm:E41_Appellation ;
+    rdfs:label "Ancien titre"@fr .
+
+ex:titre_nouveau a crm:E41_Appellation ;
+    rdfs:label "Nouveau titre"@fr .
+
+### --- Périodes ---
+ex:periode_1990_2015 a crm:E52_Time-Span ;
+    crm:P82a_begin_of_the_begin "1990-01-01"^^xsd:date ;
+    crm:P82b_end_of_the_end "2015-12-31"^^xsd:date .
+
+ex:periode_2015_aujourdhui a crm:E52_Time-Span ;
+    crm:P82a_begin_of_the_begin "2015-01-01"^^xsd:date ;
+    crm:P82b_end_of_the_end "2026-07-16"^^xsd:date .
+
+ex:periode_pre_2017 a crm:E52_Time-Span ;
+    crm:P82a_begin_of_the_begin "1900-01-01"^^xsd:date ;
+    crm:P82b_end_of_the_end "2016-12-31"^^xsd:date .
+
+ex:periode_2017_aujourdhui a crm:E52_Time-Span ;
+    crm:P82a_begin_of_the_begin "2017-01-01"^^xsd:date ;
+    crm:P82b_end_of_the_end "2026-07-16"^^xsd:date .
+
+### --- Activités ---
+ex:tentative_identif_titre a crm:E7_Activity ;
+    rdfs:label "Tentative d'identification du titre"@fr ;
+    crm:P14_carried_out_by ex:chercheur_X ;
+    crm:P16_used_specific_object ex:photo_1 .
+
+ex:recherche_titre_boite a crm:E7_Activity ;
+    rdfs:label "Recherche du titre de l'œuvre dans la boîte"@fr ;
+    crm:P14_carried_out_by ex:chercheur_X ;
+    crm:P16_used_specific_object ex:oeuvre_boite .
+
+ex:decision_renommage_2015 a crm:E7_Activity ;
+    rdfs:label "Décision de renommage 2015"@fr .
+
+### --- Attributions d'attributs (E13) ---
+### Cas 1: Information floue (CRMinf)
+ex:acte_identif_1 a crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to ex:photo_1 ;
+    crm:P141_assigned ex:notice_catalogue_42 ;
+    crm:P14_carried_out_by ex:chercheur_X .
+
+ex:croyance_1 a crminf:I2_Belief ;
+    crminf:J5_holds_to_be_true ex:acte_identif_1 ;
+    crminf:J6_adopted_a_belief_value ex:valeur_probable ;
+    crm:P14_carried_out_by ex:chercheur_X .
+
+### Cas 2: Lacune documentée
+ex:attrib_titre_absent a ex:XX_AttributeMissing ;
+    crm:P140_assigned_attribute_to ex:oeuvre_hypothese ;
+    crm:P141_assigned ex:valeur_inconnue ;
+    crm:P17_was_motivated_by ex:tentative_identif_titre ;
+    crm:P14_carried_out_by ex:chercheur_X .
+
+### Cas 3: Lacune dans le corpus (œuvre dans une boîte)
+ex:attrib_titre_absent_boite a ex:XX_AttributeMissing ;
+    crm:P140_assigned_attribute_to ex:oeuvre_boite ;
+    crm:P17_was_motivated_by ex:recherche_titre_boite ;
+    crm:P14_carried_out_by ex:chercheur_X .
+
+### Cas 4: Information obsolète ou contradictoire
+ex:attrib_titre_1990 a crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to ex:oeuvre_1 ;
+    crm:P141_assigned ex:titre_ancien ;
+    crm:P14_carried_out_by ex:institution_X ;
+    crm:P4_has_time-span ex:periode_1990_2015 .
+
+ex:attrib_titre_2015 a crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to ex:oeuvre_1 ;
+    crm:P141_assigned ex:titre_nouveau ;
+    crm:P14_carried_out_by ex:institution_X ;
+    crm:P4_has_time-span ex:periode_2015_aujourdhui ;
+    crm:P17_was_motivated_by ex:decision_renommage_2015 .
+
+### Cas 5: Changement de croyance (Belief Adoption)
+ex:croyance_proprietaire_1990 a crminf:I2_Belief ;
+    crminf:J5_holds_to_be_true ex:cadran_solaire ;
+    rdfs:label "Croyance : KHM Vienne, non contesté"@fr .
+
+ex:croyance_proprietaire_2017 a crminf:I2_Belief ;
+    crminf:J5_holds_to_be_true ex:cadran_solaire ;
+    rdfs:label "Croyance : KHM Vienne, contesté"@fr .
+
+ex:adoption_2017 a crminf:I3_Belief_Adoption ;
+    crminf:J1_adopted_belief ex:croyance_proprietaire_2017 ;
+    crminf:J2_abandoned_belief ex:croyance_proprietaire_1990 ;
+    crm:P14_carried_out_by ex:chercheur_provenance ;
+    crm:P16_used_specific_object ex:dossier_spoliation_rothschild ;
+    crm:P4_has_time-span ex:periode_2017_aujourdhui .

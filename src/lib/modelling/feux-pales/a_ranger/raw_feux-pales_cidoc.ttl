@@ -1,0 +1,891 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix crm: <http://http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix exhib: <http://zoerenaudie.com/data/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix aat: <http://vocab.getty.edu/aat/> . 
+@prefix wikidata: <https://www.wikidata.org/wiki/> .
+
+# c'est ici que je fais mes tests que je commente pour documenter mon fil de penser. voir fichier sans raw dans le titre pour le jeu de données final
+
+#############################################
+# Augmentation d'après le graphe de Nicolas Carboni
+#############################################
+
+# @todo : appliquer préco SARI
+
+exhib:exhib1 a crm:E7_Activity ;
+    rdfs:label "expo 1" ;
+    crm:P16_used_specific_object exhib:exhibit0001 ;
+    crm:P14_carried_out_by exhib:agent001 ;
+    crm:P7_took_place_at exhib:place001 ;
+    crm:P4_has_time_span exhib:timespan001 ;
+    crm:P2_has_type exhib:typo_ex ;
+    crm:P1_is_identified_by exhib:appela001 ;
+    crm:P16_used_specific_object exhib:accrochage_feuxPales. # E78_Curated_Holding pour chaque version de l’accrochage, é à l’événement via P16_used_specific_object.
+
+exhib:place001 a crm:E53_Place ;
+    rdf:value "Capc Musée d'art contemporain de Bordeaux" ;
+    crm:P168_place_is_defined_by "POINT(-0.572157 44.8486403)"^^geosparql:wktLiteral .
+
+exhib:timespan001 a crm:E52_Time_Span ;
+    rdfs:label "du 7/12/1990 au 03/03/1991" ;
+    rdf:value "du 7/12/1990 au 03/03/1991" ;
+    crm:P81a_begin_of_the_begin "1990-12-07T00:00:00"^^xsd:dateTime ;
+    crm:P81b_end_of_the_end "1991-03-03T00:00:00"^^xsd:dateTime .
+
+# ex de Carboni augmenté par SARI plus bas dans catégorie des expôts exhib:exhibit0001 a crm:E22_Man_Made_Object ;
+#    rdf:value "code-barre" ;
+#    crm:p108i_was_produced_by exhib:prod001 ;
+#    crm:P70i_is_documented_in exhib:trace0001 .
+
+exhib:prod001 a crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agent001 .
+
+exhib:agent001 a crm:E21_Person ;
+    rdfs:label "Philippe Thomas" ;
+    rdf:value "Les ready-made appartiennent à tout le monde (r)" .
+
+exhib:carry01 a crm:PC14_carried_out_by ; #pas certaine de la facon d'utiliser PC14. malgré la doc de SARI. dois-je déclarer des PC14 ou juste mettre par exemple :  exhib:exhib1  crm:P14.1_in_the_role_of exhib:role1 .
+    crm:P01_has_domain exhib:exhib01 ;
+    crm:P14.1_in_the_role_of exhib:role1 ;
+    crm:P02_has_range exhib:agent001 .
+
+exhib:carry02 a crm:PC14_carried_out_by ;
+    crm:P01_has_domain exhib:exhibit0001 ;
+    crm:P14.1_in_the_role_of  exhib:role2 ;
+    crm:P02_has_range exhib:agent001 .
+# me permet de declarer les différents rôles que peut avoir un Philippe Thomas dans l'expo.
+# @done01 comment montrer que Philippe Thomas est absent de exhib02 ?
+
+exhib:exhib01 crm:P20_had_specific_purpose exhib:prod001 .
+
+exhib:prod001 crm:P14_carried_out_by exhib:agent002 . 
+
+exhib:carry03 a crm:PC14_carried_out_by ;
+    crm:P01_has_domain exhib:prod001 ;
+    crm:P02_has_range  exhib:agent002 ;
+    crm:P14.1_in_the_role_of exhib:role3 .
+# je ne pense pas qu'un PC14 puisse avoir deux domaines donc je crée un autre "curation"
+
+exhib:trace0001 crm:129_is_about exhib:exhibit0001 ;
+    rdfs:label "catalogue" ;
+    rdf:value "Catalogue Feux pâles" ;
+    crm:P67i_is_referred_to_by exhib:ref001 ;
+# permet de dire que l'oeuvre est citée dans le catalogue
+# si elle est aussi dans le curatorial holding ca veut dire qu'elle est bien dans cette itération 1 de l'exposition @DH
+    a crm:E31_Document.
+
+exhib:ref001 a crm:E73_Information_Object ; 
+    rdf:value "https://www.worldcat.org/title/feux-pales/oclc/22208499" .
+
+# il manque le E31 P70i_is_documented_in exhib:ref001 pour relier le catalogue à l'artiste parce que Philippe thomas cache son nom.
+# @todo : déclarer comme partie du fictionalisme de FP  : Curate ? 
+
+# @todo : quid d'avoir des activations et les typer ? itinérance vs v1, v2 vs itération. 
+
+# au début je voulais déclarer feux pales comme top hierarchique de tout. Est ce vraiment necessaire vu que feux pales c'est l'exposition et pour sa documentation je documente tout le réseau de son activation
+
+exhib:exhib02 a crm:E7_Activity ;
+    rdfs:label "expo" ;
+    rdf:value "L'ombre du jaseur (d'après Feux Pâles)" ;
+    crm:P3_has_note "Philippe Thomas n'a pas participé à cette itération." . #done01
+
+# exhib02 est une transformation de 01 mais je ne peux utilser E81 Transformation et P124 transformed (was transformed by) que pour physical thing mais est ce que c'Est seulement le physique aui a changé ? Donc commet connecter les deux event. pas une oeuvre conceptuel Feux Pales?
+# E28 Conceptual Object have the ability to exist on more than one particular carrier at the same time, such as paper, electronic signals, marks, audio media, paintings, photos, human memories, etc.
+# declarons FP comme Oeuvre conceptuelle. J'aime l'idée qu'elle perdure tant qu'elle est dans la memoire humaine They cannot be destroyed. They exist as long as they can be found on at least one carrier or in at least one human memory. Their existence ends when the last carrier and the last memory are lost. @todo : lien examen de synthèse
+
+# exhib:concept01a a crm:E28_Conceptual_Object .
+
+# je crois pas pouvoir peux pas utiliser P67 refers to (is referred to by) si P129i is subject of parce que c'est pour E89 Propositional Object, mais je ne pense pas que FP soit un E89. 
+# mais c'est une sous classe de E71 Human-Made Thing. 
+# alors en tant qu'entité ? C'est frustrant de pas pouvoir en parler avec quelqu'un qui connait cidoc-crm. #rag. 
+
+# exhib:concept01b a crm:E1_Entity ;
+#    crm:P1_is_identified_by exhib:appela001 .
+    
+# exhib:appela001 a crm:E41_Appellation ;
+#    rdf:value "Feux Pâles" .
+
+# mais je ne peux pas non plus le connecter à la deuxieme exposition. @todo : trouver un moyen "Propriété Inspirer de ?"
+# je pourrais peut-etre utiliser P130 shows features of 
+# ou alors through Creation, was created by ? ou l'ombre du jaseur P136 comme creation was based on (supported type creation): E1 CRM Entity : FP
+
+# exhib:crea02 a crm:E83_Type_Creation ;
+#     crm:P136_was_based_on exhib:exhib01 .
+
+# @done02 : relier crea02 a l'ombre du jaseur. 
+
+# et en faisant une idée originale ? avec Creation ? E65 comprises events that result in the creation of conceptual items or immaterial products, such as legends, poems, texts, music, images, movies, laws, types etc.
+
+# exhib:origin01 a crm:E65_Creation ;
+#    crm:P94_has_created exhib:concept01a .
+
+# @done2 : 
+exhib:concept01 a crm:E28_Conceptual_Object ;
+    crm:P1_is_identified_by exhib:appela001 ;
+    rdfs:label "Feux Pâles" .
+
+exhib:appela001 a crm:E41_Appellation ;
+    rdf:value "Feux Pâles" .
+
+exhib:exhib01 crm:P129_is_about exhib:concept01 .  # exhib01 documente/active le concept "Feux Pâles"
+
+exhib:exhib02  crm:P136_was_based_on exhib:concept01 .  # exhib02 est basée sur le même concept. @done3 : Ca résout une partie du problème, si on considère que L'ombre du jaseur est une reproduction de feux pales. Mais dans ce cas on parle de l'accrochage donc on peut peut etre avoir un "s'inspire" du premier curating holding. 
+
+# @done3, je reprends l'idée de création :
+
+exhib:crea02 a crm:E65_Creation ;
+    crm:P136_was_based_on exhib:exhib01 ;  # exhib02 est créée à partir de exhib01
+    crm:P94_has_created exhib:exhib02 .
+
+# Et si on veut déclarer que L'ombre du jaseur s'est basé sur les archives du capc ? 
+exhib:exhib02 crm:P16_used_specific_object exhib:trace0002 .
+
+# je veux déclarer que exhib:trace0002 est une archive https://docs.swissartresearch.net/et/archival/
+
+exhib:trace0002 a crm:E78_Collection ;
+    crm:P129i_is_subject_of exhib:concept01 . #d'apres sari
+    # comment préciser que le sujet est l'évenement exhib01 ?
+
+exhib:trace0002 a crm:E33_Linguistic_Object ;
+    crm:P190_has_symbolic_content "content" ;
+    crm:P2_has_type exhib:typo_traces_01 ;
+    crm:P72_has_language exhib:lgfr ;
+    crm:P94i_was_created_by exhib:crea03 .
+
+# peut aussi etre déclarer comme curatorial holding
+exhib:archives_capc a crm:E78_Curated_Holding ;
+    crm:P1_is_identified_by crm:E41_Appellation ; 
+    crm:P190_has_symbolic_content "Archives de l'exposition Feux pâles, capc"^^xsd:string ;
+    crm:P70_documents exhib:trace0002 ;
+    crm:P3_has_note "Fiches de prêts, numérisation partielle des vues d'exposition. Accessible sur rdv avec justification."@fr .
+# je declare les archives generales puis la collection. @todo : verifier si correct. 
+
+# holding a une donnée de possetion qui fait que linked art a introduit SET. 
+# @todo : changer curating holding pour set , voir comment declarer l'enquête. 
+exhibt:trace0003 a crm:E73_Information_Object ;
+    rdfs:label "plan".
+
+exhib:crea03 a crm:E65_Creation ;
+    crm:P14_carried_out_by exhib:actor05 ;
+    crm:P4_has_time-span exhib:timespan002 ;
+    crm:P63_used_specific_object exhib:trace0003 . # ici ajouter les traces
+
+exhib:timespan002 a crm:E52_Time-span ;
+    crm:P81a_begin_of_the_begin "1990-05-07T00:00:00"^^xsd:dateTime . # @todo: date des premiers documents a confirmer FUZZINESS
+
+# documentation pour encore plus decrire les archives dans Sari. @todo à compléter
+# @todo : ajouter la source d'inspiration du titre de Feux pâles de nabokov. 
+
+exhib:archives_bk
+    rdf:type crm:E78_Curated_Holding ;
+    crm:P1_is_identified_by [ rdf:type crm:E41_Appellation ; crm:P190_has_symbolic_content "Fonds d'archives Philippe Thomas, Bibliothèque Kandinsky, MNAM-CCI"^^xsd:string ] ;
+    crm:P109_has_current_or_former_curator exhib:mnam_paris ;
+    crm:P49_has_former_or_current_keeper exhib:mnam_paris ;
+    crm:P3_has_note "Accessible sur rdv. Mention obligatoire : 'Centre Pompidou - MNAM-CCI - Bibliothèque Kandinsky / Claire Burrus'. URL : http://archivesetdocumentation.centrepompidou.fr"@fr .
+
+exhib:archives_mamco
+    rdf:type crm:E78_Curated_Holding ;
+    crm:P1_is_identified_by [ rdf:type crm:E41_Appellation ; crm:P190_has_symbolic_content "Archives de L'Ombre du jaseur, Mamco"^^xsd:string ] ;
+    crm:P109_has_current_or_former_curator exhib:mamco ;
+    crm:P3_has_note "Fiches de prêts et vues d'exposition numériques de L'Ombre du jaseur (d'après Feux pâles)."@fr .
+# mais ca les places au meme niveau que les accrochages d'objets. en emem temps ca peut etre considere comme la meme chose d'un pint de vue documentaire.
+
+# -------------------------------------------------------------------
+# Distinguer les objets exposés des objets sourcés
+# -------------------------------------------------------------------
+
+# @done5 : ajouter curatorial holding. @todo et pouvoir déclarer l'inspiration de feux pales sur l'ombre du jaseur peut etre de l'accrochage ? 
+
+exhib:accrochage_feuxPales a crm:E78_Curated_Holding ;
+    rdfs:label "Accrochage de l'exposition *Feux Pâles* (CAPC, 1990-1991)" ;
+    crm:P4_has_time-span exhib:timespan001 ;  # Même time-span que l'exposition
+    crm:P7_took_place_at exhib:place001 ;      # Même lieu que l'exposition
+    crm:P14_carried_out_by exhib:agent001 ;   # Commissaire : Philippe Thomas
+    crm:P14.1_in_the_role_of exhib:role1 ;     # Rôle : commissaire
+    crm:P53_has_former_or_current_owner exhib:capc ;  # Propriétaire : CAPC
+    crm:P3_has_note "À compléter avec le contenu de feux-pales_display."@fr .
+
+# --- Composition du Curated Holding ---
+exhib:accrochage_feuxPales crm:P46_is_composed_of exhib:exhibit0001 ;
+                          crm:P46_is_composed_of exhib:exhibit0002 .
+
+exhib:accrochage_feuxPales crm:P46_is_composed_of exhib:trace0001 . # pour dire que l'accrochage fait partie de l'exposition. 
+
+# --- Plusieurs versions de l'accrochage ---
+# Version 1 de l'accrochage (début de l'exposition)
+exhib:accrochage_v1 a crm:E78_Curated_Holding ;
+    crm:P46_is_composed_of exhib:exhibit0001 ;
+    crm:P4_has_time-span exhib:timespan_v1 .
+
+# Version 2 de l'accrochage (après modification)
+exhib:accrochage_v2 a crm:E78_Curated_Holding ;
+    crm:P46_is_composed_of exhib:exhibit0001 ;
+    crm:P46_is_composed_of exhib:exhibit0003 ;  # Nouvelle œuvre ajoutée
+    crm:P4_has_time-span exhib:timespan_v2 .
+
+# L'événement utilise les deux versions
+exhib:exhib01 crm:P16_used_specific_object exhib:accrochage_v1 ;
+            crm:P16_used_specific_object exhib:accrochage_v2 .
+
+# Les expôts peuvent etre dans les deux accrochages. 
+# @todo : # --- Curation FP ---
+exhib:curation_feuxpales rdf:type crm:E87_Curation_Activity ;
+    crm:P14_carried_out_by exhib:jlf_froment ;
+    crm:P147_curated exhib:capc ;
+    crm:P4_has_time-span exhib:timespan_feuxpales ;
+    crm:P3_has_note "Activité de commissariat et d'organisation de l'exposition Feux pâles. Inclut la gestion des prêts et la scénographie."@fr .
+
+
+# -------------------------------------------------------------------
+# Les Expôts et autres
+# -------------------------------------------------------------------
+# encodage improvisé à partir de sari
+
+# — Préambule —
+
+exhib:concept_oe_01 a crm:E28_Conceptual_Object ;
+    rdfs:label "(R)" ;
+    crm:P1_is_identified_by exhib:appela002 ;
+    crm:P3_has_note "Signature fictionnelle"@fr . #seul moyen de noter la fictionnalité pour l'instant. 
+
+exhib:appela002 a crm:E41_Appellation ;
+    rdf:value "(R)" .
+
+exhib:exhibit0001 a crm:E24_Physical_Human-Made_Thing ;
+    crm:P129i_is_subject_of exhib:obj01 ; # est-ce vraiment is subject ?
+    crm:P2_has_type exhib:obj_type01 ;
+    rdf:value "code-barre" ;
+    crm:p108i_was_produced_by exhib:prod001 ;
+    crm:P70i_is_documented_in exhib:trace0001 ;
+    crm:P94i_was_created_by exhib:prod002 ;
+    crm:P129_is_about exhib:concept_oe_01 ;  # Le code-barre incarne le concept "(R)"
+    crm:P129_is_about exhib:feuxPales .     # Le code-barre fait partie de l'exposition *Feux Pâles*. # @todo: verifier actor vs agent. 
+
+exhib:prod002 a crm:E65_Creation ;
+    crm:P14_carried_out_by exhib:actor04 .
+
+    crm:P1_is_identified_by rdf:type crm:E42_Identifier ; 
+    crm:P190_has_symbolic_content "N° Inv. 1991-20"^^xsd:string ;
+    crm:P2_has_type exhib:obj_type02 ;
+    crm:P108i_was_produced_by exhib:prod_oeuvre_01 ;
+    crm:P43_has_dimension exhib:dim_oeuvre_01 ;
+    crm:P50_has_current_keeper exhib:capc ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "acrylique sur toile"@fr ] .
+
+exhib:prod_oeuvre_01
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agence_rmbe ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] .
+
+exhib:dim_oeuvre_01 rdf:type crm:E54_Dimension ;
+    crm:P3_has_note "97 x 130 cm"@fr .
+
+# est-il possible de déclarer exhibit0001 comme un item de l'expo ET cmme une oeuvre d'art qui a sa propre vie ?
+# --- "code-barre" comme Item de Feux Pâles (LMRoo) ---
+exhib:exhibit0001 a lmroo:F5_Item ;
+    rdfs:label "code-barre" ;
+    lmroo:is_item_of exhib:feuxPales_accrochage_capc .  # Fait partie de l'accrochage
+
+# --- "code-barre" comme œuvre autonome (CIDOC-CRM) ---
+exhib:exhibit0001 a crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by exhib:appela_codebarre ;
+    crm:P108i_was_produced_by exhib:prod001 ;
+    crm:P70i_is_documented_in exhib:trace0001 .  # Documenté indépendamment
+
+# --- listes d'expots ---
+
+
+# — Salle 1 — Klappaltärchen n°2 —
+
+exhib:oeuvre_02_klappaltarchen
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by exhib:titre_02 ;
+    crm:P1_is_identified_by exhib:inv_02 ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "objet précieux / curiosité"@fr ] ;
+    crm:P43_has_dimension exhib:dim_02 ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "agent doré, cornaline, perle"@fr ] ;
+    crm:P50_has_current_keeper exhib:khm_vienne ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ;
+        crm:P3_has_note "Nuremberg, vers 1520"@fr ] .
+
+exhib:titre_02
+    rdf:type crm:E35_Title ;
+    crm:P190_has_symbolic_content "Klappaltärchen [Autel portatif]"^^xsd:string .
+
+exhib:inv_02
+    rdf:type crm:E42_Identifier ;
+    crm:P190_has_symbolic_content "Kunstkammer, 896"^^xsd:string .
+
+exhib:dim_02
+    rdf:type crm:E54_Dimension ;
+    crm:P3_has_note "9,2 x 7,5 cm (ouvert)"@fr .
+
+# — Salle 1 — Bezoar n°3 —
+
+exhib:oeuvre_03_bezoar
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Bezoar"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "Kunstkammer, 996"^^xsd:string ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "Bezoar, or"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "9 cm"@fr ] ;
+    crm:P50_has_current_keeper exhib:schloss_ambras ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P3_has_note "Allemagne, XVIIème siècle"@fr ] .
+
+# — Salle 1 — Klappensonnenuhr n°4 (restitution Rothschild) —
+# Cas épistémique : propriétaire actuel inconnu → E13_Attribute_Assignment
+
+exhib:oeuvre_04_klappensonnenuhr
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Klappensonnenuhr [Cadran solaire portatif]"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "KK 9826"^^xsd:string ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "ivoire, gravure colorée, garnitures bronze"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "2,2 x 12,8 x 9,6 cm"@fr ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P3_has_note "Nuremberg, XVIIème siècle"@fr ] .
+
+# Incertitude sur la propriété actuelle — modélisée par E13
+exhib:attr_propriete_04
+    rdf:type crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to exhib:oeuvre_04_klappensonnenuhr ;
+    crm:P177_assigned_property_of_type [ rdf:type crm:E55_Type ; rdfs:label "propriétaire actuel"@fr ] ;
+    crm:P141_assigned [ rdf:type crm:E55_Type ; rdfs:label "inconnu — restitution des biens pillés à Clarisse Rothschild"@fr ] ;
+    crm:P2_has_type exhib:type_incertitude ;
+    crm:P3_has_note "Figurai dans un rapport de 1999 de la commission de provenance autrichienne. Biens rendus aux héritiers Rothschild, puis partiellement vendus via Christie's Londres."@fr .
+
+# — Salle 1 — spécimens naturels (E20_Biological_Object) —
+
+exhib:oeuvre_24_ammonite
+    rdf:type crm:E20_Biological_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Ammonite (Acanthoras mantelli), Sillac (Charente)"^^xsd:string ] ;
+    crm:P50_has_current_keeper exhib:mnhn_bordeaux .
+
+exhib:oeuvre_25_cameleon
+    rdf:type crm:E20_Biological_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Caméléon"^^xsd:string ] ;
+    crm:P50_has_current_keeper exhib:mnhn_paris .
+
+# Incertitude : données manquantes pour le caméléon
+exhib:attr_incertitude_25
+    rdf:type crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to exhib:oeuvre_25_cameleon ;
+    crm:P2_has_type exhib:type_incertitude ;
+    crm:P3_has_note "Données incertaines : conservation actuelle au MNHN Paris non confirmée."@fr .
+
+# — Salle 3 — Duchamp, Fontaine —
+
+exhib:oeuvre_59_duchamp_fontaine
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Fontaine"^^xsd:string ] ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "readymade"@fr ] ;
+    crm:P108i_was_produced_by exhib:prod_fontaine ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "63 x 48 x 35 cm"@fr ] .
+
+exhib:prod_fontaine
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:marcel_duchamp ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ;
+        crm:P79_beginning_is_qualified_by "1917 (original) – 1964 (réplique Schwarz)"^^xsd:string ] .
+
+exhib:marcel_duchamp
+    rdf:type crm:E21_Person ;
+    crm:P1_is_identified_by [ rdf:type crm:E41_Appellation ; crm:P190_has_symbolic_content "Marcel Duchamp"^^xsd:string ] .
+
+# — Salle 5 — Richter, Miroir (cas modal : œuvre produite pour l'exposition) —
+
+exhib:oeuvre_73_richter_miroir
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Miroir"^^xsd:string ] ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "production version d'exposition"@fr ] ;
+    crm:P108i_was_produced_by exhib:prod_miroir ;
+    crm:P3_has_note "Richter a proposé de prendre un miroir aux bonnes dimensions, d'en faire un Richter le temps de l'exposition, qui redeviendrait un simple miroir au démontage."@fr .
+
+exhib:prod_miroir
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:gerhard_richter ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] .
+
+exhib:gerhard_richter
+    rdf:type crm:E21_Person ;
+    crm:P1_is_identified_by [ rdf:type crm:E41_Appellation ; crm:P190_has_symbolic_content "Gerhard Richter"^^xsd:string ] .
+
+# — Salle 8 — Venzano (cas : œuvre déguisée en document) —
+
+exhib:oeuvre_85_venzano
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "La Collection de Monsieur Georges Venzano"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. 1991-21"^^xsd:string ] ;
+    crm:P108i_was_produced_by exhib:prod_venzano ;
+    crm:P50_has_current_keeper exhib:capc ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "247,5 x 360 cm (3 panneaux 247,5 x 120 cm chaque)"@fr ] .
+
+exhib:prod_venzano
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agence_rmbe ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] .
+
+# Assignation de statut : présentée comme photographie documentaire, est en fait une œuvre
+exhib:attr_statut_venzano
+    rdf:type crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to exhib:oeuvre_85_venzano ;
+    crm:P177_assigned_property_of_type [ rdf:type crm:E55_Type ; rdfs:label "statut lors de l'exposition"@fr ] ;
+    crm:P141_assigned [ rdf:type crm:E55_Type ; rdfs:label "présentée comme photographie documentaire lors de l'exposition de 1990 ; reclassifiée œuvre par le capc après acquisition"@fr ] ;
+    crm:P14_carried_out_by exhib:capc ;
+    crm:P3_has_note "Changement de statut documenté dans le Tome II."@fr .
+
+# — Salle 10 — Jedermann, Propriété privée* —
+
+exhib:oeuvre_90_jedermann
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Propriété privée*"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. 1991-22"^^xsd:string ] ;
+    crm:P108i_was_produced_by exhib:prod_jedermann ;
+    crm:P50_has_current_keeper exhib:capc ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "parquet flottant, trépied"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "Parquet : 30,525 m². Trépied : 134 x 42 x 2 cm."@fr ] ;
+    crm:P3_has_note "Auteur : N.A. JEDERMANN. Parquet vendu à un particulier à la fin de l'exposition, reste dans les collections du capc. Installée sur deux salles (9 et 10)."@fr .
+
+exhib:prod_jedermann
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agence_rmbe ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] .
+
+# Transfert de propriété du parquet à la fin de l'exposition
+exhib:vente_parquet
+    rdf:type crm:E8_Acquisition ;
+    crm:P24_transferred_title_of exhib:oeuvre_90_jedermann ;
+    crm:P23_transferred_title_from exhib:agence_rmbe ;
+    crm:P3_has_note "Le parquet a été vendu à un particulier à la clôture de l'exposition."@fr .
+
+# — Salle 11 — Diaporama codes-barres (obsolescence technologique) —
+
+exhib:oeuvre_93_rmbe_diaporama
+    rdf:type crm:E73_Information_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Sans titre (diaporama codes-barres)"^^xsd:string ] ;
+    crm:P128i_is_carried_by exhib:support_disquette ;
+    crm:P108i_was_produced_by exhib:prod_diaporama ;
+    crm:P3_has_note "Diaporama de tous les codes-barres de l'agence RMBE®. 1990."@fr .
+
+exhib:support_disquette
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "disquette 3½"@fr ] ;
+    crm:P3_has_note "Problème d'obsolescence technologique : les moyens de lecture des disquettes 3½ ne sont plus en production."@fr .
+
+exhib:prod_diaporama
+    rdf:type crm:E12_Production ;
+    crm:P14_carried_out_by exhib:agence_rmbe ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] .
+
+# Artefacts supplémentaires (patron minimal)
+
+exhib:oeuvre_58_beuys
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Zwei Filzanzüge mit Filzwinkel (2 felt suits with felt angle)"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P79_beginning_is_qualified_by "1970-1979"^^xsd:string ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "feutre"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "200 x 200 x 65 cm (vitrine), 120 kg"@fr ] ;
+    crm:P3_has_note "Collection René Block, Berlin."@fr .
+
+exhib:oeuvre_60_manzoni_merda
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Merda d'artista"^^xsd:string ] ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "édition"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "5 x 6,4 cm. Édition n°14."@fr ] ;
+    crm:P3_has_note "1961. Courtesy Hirschl & Adler gallery, New York. Très difficile à obtenir en prêt (instabilité des composants)."@fr .
+
+exhib:oeuvre_63_dibbets
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Roodborst Territorium/Sculpture 1969, April-Juni"^^xsd:string ] ;
+    crm:P50_has_current_keeper exhib:capc ;
+    crm:P3_has_note "Édition. Ed. Seth Siegelaub, New York ; König, Cologne, 1970. Bibliothèque du capcMusée d'art contemporain."@fr .
+
+exhib:oeuvre_69_charlton
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Peinture"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. AM 1982-22"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1971"^^xsd:gYear ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "acrylique sur toile"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "229 x 397 cm"@fr ] ;
+    crm:P50_has_current_keeper exhib:mnam_paris .
+
+exhib:oeuvre_72_richter_grau
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Grau [Gris] n°365/2"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. 85.161"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1974"^^xsd:gYear ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "huile sur toile"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "250 x 200 cm"@fr ] ;
+    crm:P3_has_note "Collection Fonds Régional d'Art Contemporain, Rhône-Alpes."@fr .
+
+exhib:oeuvre_80_durand_ruel
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Souvenir-écran"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. 1989-4"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1988"^^xsd:gYear ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "46,5 x 309,5 x 200,5 cm"@fr ] ;
+    crm:P50_has_current_keeper exhib:mnam_paris .
+
+exhib:oeuvre_81_broodthaers_cartes
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "25 cartes postales encadrées ayant figuré au « Musée d'art moderne, département des aigles section XIXème siècle »"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1968"^^xsd:gYear ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "82 x 127 cm"@fr ] ;
+    crm:P3_has_note "Collection Maria Gilissen, Bruxelles."@fr .
+
+exhib:oeuvre_83_duchamp_valise
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "La boîte-en-valise"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "KBA 959"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P79_beginning_is_qualified_by "1949"^^xsd:string ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "41 x 38 x 10,5 cm, 69 répliques + 1 original"@fr ] ;
+    crm:P3_has_note "Collection Stedelijk Museum, Amsterdam."@fr .
+
+exhib:oeuvre_86_broodthaers_musee_vendre
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Musée à Vendre"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1971"^^xsd:gYear ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "collage avec photocopies et impressions typographiques, stylo feutre et stylo bille"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "81 x 130 cm"@fr ] ;
+    crm:P3_has_note "Collection Dr Speck, Cologne."@fr .
+
+exhib:oeuvre_87_duchamp_stoppages
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "3 stoppages étalon"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. AM 1986-287"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P79_beginning_is_qualified_by "1913 – 1964"^^xsd:string ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "28 x 129 x 23 cm"@fr ] ;
+    crm:P50_has_current_keeper exhib:mnam_paris .
+
+exhib:oeuvre_88_haacke
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Solomon R. Guggenheim Museum Board of trustees"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1974"^^xsd:gYear ] ;
+    crm:P45_consists_of [ rdf:type crm:E57_Material ; crm:P3_has_note "7 textes imprimés, cadre en cuivre"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "61,5 x 51,5 x 2,7 cm (chaque)"@fr ] .
+
+exhib:oeuvre_91_blondeau
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "11, rue de Miromesnil, 75008 Paris"^^xsd:string ] ;
+    crm:P1_is_identified_by [ rdf:type crm:E42_Identifier ; crm:P190_has_symbolic_content "N° Inv. 08.8.3.IN"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] ;
+    crm:P50_has_current_keeper exhib:musee_beaux_arts_nantes ;
+    crm:P3_has_note "3000 étiquettes autocollantes conditionnées dans carton ouvert posé sur palette + 4 cartons cerclés."@fr .
+
+exhib:musee_beaux_arts_nantes
+    rdf:type crm:E39_Actor ;
+    crm:P1_is_identified_by [ rdf:type crm:E41_Appellation ; crm:P190_has_symbolic_content "Musée des Beaux-Arts de Nantes"^^xsd:string ] .
+
+exhib:oeuvre_92_rmbe_planning
+    rdf:type crm:E73_Information_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Planning de l'agence"^^xsd:string ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "87 x 125 cm"@fr ] ;
+    crm:P3_has_note "1990. Auteur : les ready-made appartiennent à tout le monde®. Galerie Claire Burrus / Mamco."@fr .
+
+exhib:oeuvre_96_salomon
+    rdf:type crm:E22_Human-Made_Object ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Étude de cartel n°6"^^xsd:string ] ;
+    crm:P4_has_time-span [ rdf:type crm:E52_Time-Span ; crm:P82a_begin_of_the_begin "1990"^^xsd:gYear ] ;
+    crm:P2_has_type [ rdf:type crm:E55_Type ; rdfs:label "table lumineuse"@fr ] ;
+    crm:P43_has_dimension [ rdf:type crm:E54_Dimension ; crm:P3_has_note "60 x 127 cm"@fr ] ;
+    crm:P3_has_note "Données incertaines. Galerie Claire Burrus."@fr .
+
+
+# -------------------------------------------------------------------
+# Traces
+# -------------------------------------------------------------------
+# @todo : intégrer ma thèse comme source mais aussi comme evenement = activaton
+# catalogue est une partie de lExpo mais aussi un doument
+exhib:trace0001
+    rdf:type crm:E31_Document ;
+    crm:P1_is_identified_by exhib:titre_catalogue ;
+    crm:P1_is_identified_by exhib:isbn_catalogue ;
+    crm:P94i_was_created_by exhib:creation_catalogue ;
+    crm:P70_documents exhib:activite_feuxpales ;
+    crm:P3_has_note "176 p., ill. en noir et en coul., 28 cm. Bordeaux : CAPC-Musée d'art contemporain, 1990. Les textes signés Froment, Couderc, Simone de Cosi, Avrilla, Edelman et Salomon sont écrits par Philippe Thomas."@fr .
+
+exhib:titre_catalogue
+    rdf:type crm:E35_Title ;
+    crm:P190_has_symbolic_content "Feux pâles : une pièce à conviction"^^xsd:string .
+
+exhib:isbn_catalogue
+    rdf:type crm:E42_Identifier ;
+    crm:P190_has_symbolic_content "ISBN 2-87721-079-0"^^xsd:string .
+
+exhib:creation_catalogue
+    rdf:type crm:E65_Creation ;
+    crm:P14_carried_out_by exhib:philippe_thomas ;
+    crm:P14_carried_out_by exhib:capc ;
+    crm:P3_has_note "Élaboration intellectuelle par Philippe Thomas. Mise en page et couverture par Bertrand Bordier (graphiste capc)."@fr .
+
+exhib:journal_exposition
+    rdf:type crm:E31_Document ;
+    crm:P1_is_identified_by [ rdf:type crm:E35_Title ; crm:P190_has_symbolic_content "Feux pâles : journal de l'exposition"^^xsd:string ] ;
+    crm:P70_documents exhib:activite_feuxpales ;
+    crm:P3_has_note "Dépliant donnant le scénario de l'exposition au visiteur. Même charte graphique que le catalogue."@fr .
+
+exhib:documentation_photographique
+    rdf:type crm:E31_Document ;
+    crm:P94i_was_created_by exhib:creation_photos ;
+    crm:P70_documents exhib:activite_feuxpales ;
+    crm:P3_has_note "Vues d'exposition. Toute reproduction soumise à autorisation : 'Capc Musée d'art contemporain / Claire Burrus'."@fr .
+
+exhib:creation_photos
+    rdf:type crm:E65_Creation ;
+    crm:P14_carried_out_by exhib:frederic_delpech .
+
+# -------------------------------------------------------------------
+# Fictionnalisme
+# -------------------------------------------------------------------
+
+# Inspiration sur le fictionnalisme. 
+# Feu pale de Nabokov est un livre.  
+# Le livre a inspiré l'artiste dans son fictionalisme, et pour le choix du titre. C'est une clef pour résoudre l'enigme
+# E73 est tres interessant par ce que c'est une entité qui peut vivre sur differents supports. 
+# Et ce n'est pas le support livre qui nous interesse mais bien le recit. Est d'ailleurs subclass de Lrmoo manifestation et Expression
+
+# --- Œuvre littéraire : "Feux pâles" de Nabokov ---
+exhib:nabokov_feu_pale a crm:E73_Information_Object ;
+    rdfs:label "Feu pâle (Nabokov)" ;
+    crm:P1_is_identified_by exhib:nabokov_feu_pale_id ;
+    crm:P3_has_note "Roman de Vladimir Nabokov (1962), source d'inspiration pour Philippe Thomas (fictionnalisme et titre)."@fr ;
+    crm:P129_is_about exhib:fictionnalisme ; # utiliser is about pour relier au fictionnalisme. : ou P130_shows_features_of ? @done10 : ajouter une sorte de clef d'enquete
+    crm:P1_is_identified_by exhib:nabokov_feu_pale_appellation .  
+
+# --- Appellation (titre du livre) ---
+exhib:nabokov_feu_pale_appellation a crm:E41_Appellation ;
+    rdf:value "Feu pâle"@fr ;
+    crm:P3_has_note "Titre français du roman de Vladimir Nabokov (1962)."@fr .
+
+# --- Lien d'inspiration avec *Feux Pâles* de Philippe Thomas ---
+exhib:feuxPales crm:P15_was_influenced_by exhib:nabokov_feu_pale ;
+                crm:P3_has_note "Inspiration du titre et du concept de fictionnalisme."@fr .
+
+# --- Concept de "fictionnalisme" ---
+exhib:fictionnalisme a crm:E28_Conceptual_Object ;
+    rdfs:label "Fictionnalisme"@fr ;
+    crm:P1_is_identified_by exhib:fictionnalisme_id .
+
+exhib:fictionnalisme_id a crm:E41_Appellation ;
+    rdf:value "Fictionnalisme"@fr .
+    #@todo : lien avec la these de Jaret et d'autres livres. Donner une definition
+# @todo comment déclarer la clef de l'enquête, Jaret considere que ce n'est pas partie de son fictionnalisme. 
+
+# -------------------------------------------------------------------
+# Les acteurs
+# -------------------------------------------------------------------
+
+exhib:actor05 a crm:E39_Actor ;
+    rdf:value "Martine Paen" . # @todo : reviser quand il faut utiliser label, value ou identification
+
+exhib:carry04 a crm:PC14_carried_out_by ;
+    crm:P01_has_domain exhib:trace0001 ;
+    crm:P14.1_in_the_role_of  exhib:role9 ;
+    crm:P02_has_range exhib:actor05 .
+
+exhib:actor04 a crm:E30_Actor ;
+    crm:note "serigraphe inconnu".
+
+exhib:carry03 a crm:PC14_carried_out_by ;
+    crm:P01_has_domain exhib:exhibit0001 ;
+    crm:P14.1_in_the_role_of  exhib:role8 ;
+    crm:P02_has_range exhib:actor04 .
+
+# -------------------------------------------------------------------
+# Les types
+# -------------------------------------------------------------------
+# je range les types la pour une meilleure lisibilité humaine. 
+# @todo : comment insérer vocabulaire Getty
+
+# ref roles https://docs.swissartresearch.net/pattern/general/
+exhib:role1 a crm:E55_Type ;
+    rdfs:label "commissaire d'exposition"@fr .
+
+exhib:role2 a crm:E55_Type ;
+    rdfs:label "artiste" .
+
+exhib:role3 a crm:E55_Type ;
+    rdfs:label "directeur de musée"@fr .
+
+exhib:role4 a crm:E55_Type ;
+    rdfs:label "galeriste"@fr .
+
+exhib:role5 a crm:E55_Type ;
+    rdfs:label "photographe"@fr .
+
+exhib:role6 a crm:E55_Type ;
+    rdfs:label "historienne de l'art"@fr .
+
+exhib:role7 a crm:E55_Type ;
+    rdfs:label "agence artistique fictionnelle"@fr .
+
+exhib:role8 a crm:E55_Type ;
+    rdfs:label "sérigraphe"@fr.
+
+exhib:role9 a crm:E55_Type ;
+    rdfs:label "archiviste"@fr.
+
+exhib:role10 a crm:E55_Type ;
+    rdfs:label "ayant-droit"@fr .
+
+exhib:typo_ex a crm:E55_Type ;
+    rdfs:label "exposition temporaire"@fr .
+
+exhib:typo_traces_01 a crm:E55_Type ;
+    rdfs:label "archive".
+
+exhib:obj_type01 a crm:E55_Type ;
+    rdfs:label "oeuvre d'art"@fr.
+
+exhib:obj_type02 a crm:E55_Type ;
+    rdfs:label "peinture"@fr.
+
+# types à envisager : 
+
+exhib:alternative_name_01 a crm:type .
+# @todo: SARI : P1->E33_E41[10_1]->P190->rdf:Literal 
+
+exhib:titre
+    rdf:type crm:E55_Type ;
+    rdfs:label "titre de travail"@fr .
+
+# --- Enquete
+
+# @done10 :  plus qu'a ajouter   crm:P2_has_type exhib:type_cle_fictionnalisme mais en mme temps tout dans l'exposition est une clef d'equete....
+exhib:type_cle_fictionnalisme a crm:E55_Type ;
+    rdfs:label "clé pour l'enquête"@fr ;
+    crm:P3_has_note "Indique que l'entité est une clé pour comprendre ou résoudre l'enquête fictionnaliste."@fr .
+
+
+# comment exprimer la certitude des données avancé dans mon enquete ? 
+
+exhib:Verifie a skos:Concept ;
+    skos:prefLabel "Vérifié"@fr ;
+    skos:inScheme exhib:NiveauCertitude .
+
+exhib:Incertain a skos:Concept ;
+    skos:prefLabel "Incertain"@fr ;
+    skos:inScheme exhib:NiveauCertitude .
+
+exhib:Manquant a skos:Concept ;
+    skos:prefLabel "Manquant"@fr ;
+    skos:inScheme exhib:NiveauCertitude .
+
+exhib:NiveauCertitude a skos:ConceptScheme ;
+    skos:prefLabel "Niveaux de certitude documentaire"@fr .
+
+exhib:timespan002 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "1990-05-07T00:00:00"^^xsd:dateTime .
+
+exhib:assignation_ts002_debut a crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to exhib:timespan002 ;
+    crm:P177_assigned_property_of_type crm:P81a_begin_of_the_begin ;
+    crm:P141_assigned "1990-05-07T00:00:00"^^xsd:dateTime ;
+    ex:certitude exhib:Incertain ;
+    crm:P3_has_note "Date des premiers documents à confirmer."@fr .
+
+# ou type mais c'est pas facilement requetable et interoperable il me semble
+
+exhib:type_incertitude
+    rdf:type crm:E55_Type ;
+    rdfs:label "donnée incertaine"@fr .
+
+exhib:type_donnee_perimee
+    rdf:type crm:E55_Type ;
+    rdfs:label "donnée périmée"@fr .
+
+exhib:type_a_confirmer a crm:E55_Type ;
+    rdfs:label "à confirmer"@fr ;
+    crm:P3_has_note "Information nécessitant une vérification supplémentaire."@fr .
+
+exhib:type_incertain a crm:E55_Type ;
+    rdfs:label "incertain"@fr ;
+    crm:P3_has_note "Information dont la fiabilité est douteuse."@fr .
+
+exhib:type_estime a crm:E55_Type ;
+    rdfs:label "estimé"@fr ;
+    crm:P3_has_note "Information estimée, non confirmée."@fr .
+
+## Ajouter une propriété maison de fuzzyness .... pas top
+exhib:has_certainty_degree a rdf:Property ;
+    rdfs:label "a pour degré de certitude"@fr ;
+    rdfs:domain crm:E1_CRM_Entity ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Degré de certitude associé à une information (0.0 à 1.0)."@fr .
+
+### Date à confirmer
+exhib:timespan002 a crm:E52_Time-Span ;
+    crm:P81a_begin_of_the_begin "1990-05-07T00:00:00"^^xsd:dateTime ;
+    crm:P2_has_type exhib:type_a_confirmer ;
+    exhib:has_certainty_degree 0.3 ;  # 30% de certitude
+    crm:P3_has_note "Date des premiers documents à confirmer (source non vérifiée)."@fr .
+
+###  Œuvre avec attribution incertaine 
+exhib:exhibit0002 a crm:E22_Human-Made_Object ;
+    rdfs:label "Œuvre anonyme" ;
+    crm:P2_has_type exhib:type_incertain ;
+    exhib:has_certainty_degree 0.5 ;  # 50% de certitude
+    crm:P3_has_note "Attribution incertaine (degré de certitude = 0.5)."@fr .
+
+###  Document périmé 
+exhib:trace0003 a crm:E31_Document ;
+    rdfs:label "Ancien catalogue" ;
+    crm:P2_has_type exhib:type_perime ;
+    exhib:has_certainty_degree 0.0 ;  # 0% de certitude
+    crm:P3_has_note "Catalogue obsolète (degré de certitude = 0)."@fr .
+
+## ou une Fuzzy Ontology (OWL 2) mais complexe non ? 
+
+exhib:timespan002 a crm:E52_Time-Span ;
+    fuzzy:hasMembershipDegree 0.3 ;
+    crm:P3_has_note "Date incertaine (degré d'appartenance = 0.3)."@fr .
+
+
+# ou avec aaao ? en fait j'ai différents phenomenes. 
+
+
+# ou avec crm:E13_Attribute_Assignment 
+fp:attr_propriete_04 a crm:E13_Attribute_Assignment ;
+    crm:P140_assigned_attribute_to fp:oeuvre_04_klappensonnenuhr ;
+    crm:P177_assigned_property_of_type [ rdf:type crm:E55_Type ; rdfs:label "propriétaire actuel"@fr ] ;
+    crm:P141_assigned [ rdf:type crm:E55_Type ; rdfs:label "inconnu — restitution des biens pillés à Clarisse Rothschild"@fr ] ;
+    crm:P2_has_type fp:type_incertitude ;
+    crm:P3_has_note "Figurai dans un rapport de 1999 de la commission de provenance autrichienne..."@fr .
+
+
+
+
+
+
+
+
+exhib:type_augmentation
+    rdf:type crm:E55_Type ;
+    rdfs:label "augmentation de l'exposition"@fr .
+
+exhib:type_adaptation
+    rdf:type crm:E55_Type ;
+    rdfs:label "adaptation de l'exposition"@fr .
+
+exhib:type_cession_paternite
+    rdf:type crm:E55_Type ;
+    rdfs:label "cession de paternité artistique"@fr .
+
+
+# -------------------------------------------------------------------
+# Les langues
+# -------------------------------------------------------------------
+
+exhib:lgfr a crm:E56_Language ;
+    rdfs:label "français".
+
+# -------------------------------------------------------------------
+# Aligner les types avec Getty AAT 
+# -------------------------------------------------------------------
+
+# Exemple : exhib:role1 owl:sameAs <http://vocab.getty.edu/aat/300025105> .  # "curator"
+# Je choisis de conserver mes propres URIs locales plutôt que de remplacer systématiquement ces identifiants par les URIs brutes de l'AAT, car je privilégie la lisibilité et la maintenabilité de mon propre graphe de connaissances. 
+# Pour ne pas sacrifier l'interopérabilité et éviter les redondances, j'aligne ensuite ces identifiants locaux vers les entrées de l'AAT en utilisant la propriété skos:exactMatch, car cette méthode est sémantiquement plus précise pour les vocabulaires contrôlés que owl:sameAs et permet de distinguer clairement l'identité de la simple correspondance de sens. 
+# Si je rencontre un concept spécifique qui n'existe pas dans l'AAT, je maintiens mon URI locale tout en la reliant à un concept parent via skos:broader, assurant ainsi une structure cohérente qui reste ouverte aux standards internationaux sans m'y soumettre entièrement.
+# @todo : faire valider cette methodo par ontologiste.
