@@ -5,7 +5,7 @@ status: published
 tags:
   - case:feux-pales
   - type:modelling
-  - ontology:cidoccrm
+  - ontology:cidoc-crm
   - ontology:linkedart
   - lang:fr
 description: ""

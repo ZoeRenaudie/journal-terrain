@@ -6,7 +6,7 @@ tags:
   - case:feux-pales
   - type:modelling
   - ontology:lmroo
-  - ontology:cidoccrm
+  - ontology:cidoc-crm
   - ontology:linkedart
   - lang:fr
 description: ""
@@ -209,8 +209,8 @@ graph LR
     linkStyle default stroke-width:3px;
 ```
 <figcaption>{'@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/>'}</figcaption>
-<figcaption>{'@prefix x la: <https://linked.art/ns/terms/>'}</figcaption>
-<figcaption>{'@prefix x la: <http://iflastandards.info/ns/lrm/lrmoo/>'}</figcaption>
+<figcaption>{'@prefix la: <https://linked.art/ns/terms/>'}</figcaption>
+<figcaption>{'@prefix la: <http://iflastandards.info/ns/lrm/lrmoo/>'}</figcaption>
 </figure>
 
 ```mermaid

@@ -5,7 +5,7 @@ status: published
 tags:
   - case:feux-pales
   - type:modelling
-  - ontology:cidoccrm
+  - ontology:cidoc-crm
   - lang:fr
 description: "Distinguier «on ne sait pas» de «on a cherché et il n’y a rien» "
 ---

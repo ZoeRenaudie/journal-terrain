@@ -5,7 +5,7 @@ status: published
 tags:
   - case:feux-pales
   - type:modelling
-  - ontology:cidoccrm
+  - ontology:cidoc-crm
   - lang:fr
 description: ""
 ---
@@ -94,7 +94,7 @@ Il est crucial de distinguer cette contribution ontologique (le modèle des clas
 #### Validation des choix de modélisation
 Les vérifications ont confirmé que l'utilisation de `P141 assigned` doit être évitée pour ces deux classes, car il n'y a pas de valeur à assigner. Seuls `P140 assigned attribute to` et `P177 assigned property type` sont pertinents pour identifier la cible de l'absence. La raison de la rétention doit être attachée via un `E73 Information Object`, qui peut lui-même être conditionné, respectant ainsi le principe de Glissant sur le droit à l'opacité jusqu'au bout de la chaîne de justification. L'alignement avec les *TK Labels* de Local Contexts via `E55 Type` et SKOS est également validé comme une bonne pratique pour typer la nature de la rétention (culturelle, légale, etc.).
 
-#### Fermer un monde ouvert 
+#### Signaler l'opacité dans un monde ouvert 
 
 Cidoc-crm suit l'hypothèse du monde ouvert qui accepte que la connaissance soit incomplète. Il me semble important qu'apparaisse dans la documentation l'opacité permettant ainsi de donner les informations vérifiées et situées aux gestionnaires de diffusions d'une base de données. C'est cependant contradictoire avec l'introduction même de l'ontologie comme nous l'a fait remarqué Athina Kritsotaki (14 septembre 2026) dans l'issue 723 :
 
@@ -102,7 +102,7 @@ Cidoc-crm suit l'hypothèse du monde ouvert qui accepte que la connaissance soit
 > Je pense qu'il s'agit d'une question d'implémentation que le modèle ne prévoit pas. Ce type de validité de la connaissance relève du gestionnaire de connaissances. Les états peuvent être gérés par l'administrateur de base de données, qui devrait pouvoir vérifier la réalité correspondante à la dernière date de validité de la base. Dans l'introduction, on trouve ceci :
 > « ...Cela n'implique pas que la connaissance décrite dans la base de connaissances soit complète. Tant que l'information fait l'objet d'une gestion active, elle demeure continuellement ouverte à la révision et à l'amélioration à mesure que la recherche révèle de nouvelles compréhensions. Une base de connaissances ne représente pas une tranche de réalité, mais les croyances justifiées de ses gestionnaires à propos de cette réalité. Par simplicité, nous parlons d'une base de connaissances comme représentant une certaine réalité. [...] Les quantificateurs pour les propriétés sont fournis à des fins de clarification sémantique uniquement, et ne doivent pas être traités comme des recommandations d'implémentation. Le CIDOC CRM a été conçu pour accommoder des opinions alternatives et de l'information incomplète, et par conséquent toutes les propriétés devraient être implémentées comme optionnelles et répétables pour leur domaine et leur portée (« plusieurs-à-plusieurs (0,n:0,n) ») [...] Notez que si une propriété dépendante n'est pas spécifiée pour une instance du domaine ou de la portée concernée, cela signifie que la propriété existe, mais que la valeur d'un côté de la propriété est inconnue. Dans le cas des propriétés optionnelles, la méthodologie proposée par le CIDOC CRM ne distingue pas entre une valeur inconnue et la propriété n'étant pas applicable du tout. Par exemple, on peut savoir qu'un objet a un propriétaire, mais que ce propriétaire est inconnu. Dans une instance CIDOC CRM, ce cas ne peut être distingué du fait que l'objet n'a aucun propriétaire du tout. Bien entendu, de tels détails peuvent toujours être précisés par une note textuelle [...] » »
 
-Le droit à l'opacité de Glissant n'est pas un droit de ne pas exister mais un droit de choisir et maîtriser ce que l'on souhaite dévoiler. 
+Il me semble que le droit à l'opacité de Glissant n'est pas un droit de ne pas exister mais un droit de choisir et maîtriser ce que l'on souhaite dévoiler. comment faire alores ? Est-ce que cidoc rejette alors ces données ? ou est ce qu'il faut seulemeent les typer ? 
 
 ## Choix final
 
