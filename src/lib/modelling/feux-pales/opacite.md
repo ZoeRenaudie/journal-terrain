@@ -39,7 +39,7 @@ L’objectif est de dépasser l’hypothèse du monde ouvert du CRM, qui assimil
 
 L'enquête repose sur deux hypothèses centrales concernant la nature de l'information manquante dans les graphes de connaissances patrimoniaux :
 
-1.  **L'absence subie comme donnée :** Une lacune documentaire n'est pas un vide, mais le résultat d'un processus (une recherche) dont le bilan est négatif. Le CRM actuel ne permet pas de distinguer un oubli d'une recherche infructueuse, ce qui fausse l'interprétation des chaînes de provenance ou des états de conservation.
+1.  **L'absence subie comme donnée :** Une lacune documentaire n'est pas un vide, mais le résultat d'un processus (une recherche) dont le bilan est négatif. Le CRM actuel ne permet pas de distinguer un oubli d'une recherche infructueuse, ce qui fausse l'interprétation des chaînes de provenance ou des états de conservation.[^1]
 2.  **L'absence choisie comme droit :** Certains acteurs (artistes, communautés autochtones, institutions) ont le droit ou le devoir de ne pas divulguer certaines informations (identité, fonction, origine). Cette opacité n'est pas une erreur de modélisation, mais une caractéristique intrinsèque de l'objet ou de son contexte culturel.
 
 Les questions clés qui guident cette réflexion sont :
@@ -53,7 +53,6 @@ Les questions clés qui guident cette réflexion sont :
 #### L'attribution dans CIDOC-CRM
 
 !img[](../images/AttributeAssignment_V7.3.1.drawio.svg)
-
 
 
 #### Distinction entre absence subie et absence choisie
@@ -79,7 +78,7 @@ XX:XX_Undisclosed a owl:Class ;
     rdfs:comment "An attribute assignment that records the deliberate withholding of a value, motivated by ethical, legal, or cultural principles."@en .
 Concrètement, je sous-classe à nouveau E13_Attribute_Assignment, cette fois sous la forme XX:XX_Undisclosed, et j’y attache la raison documentée de la rétention comme un E73_Information_Object, plutôt que de laisser cette raison implicite. La classe se place délibérément à côté d’AttributeMissing : les deux résultent d’une recherche, mais l’une revient vide parce que l’information n’a réellement pas pu être trouvée, et l’autre revient vide parce que quelqu’un, nommé et daté, a choisi de ne pas la divulguer. 
 
-@verifier : permetterait d’appeler les TK label définis avec Skos 
+Permetterait d’appeler les TK label définis avec Skos 
 
 #### Alignement SIG CIDOC-CRM
 En consultant les travaux du SIG (Velios, Meghini, Doerr, Stead), il a été confirmé que la question de la modélisation de l'absence est un chantier actif depuis 2019. Leur proposition de *negative typed properties* (2023) fournit le socle pour la première classe. Pour respecter cette terminologie et la structure parente `E13_Attribute_Assignment`, il est préférable d'utiliser le nom **`Negative_Attribute_Assignment`** plutôt que `Attribute_Missing`. Ce terme est plus fidèle à la littérature existante et évite l'ambiguïté d'un "état" pour désigner un "événement".
@@ -94,6 +93,16 @@ Il est crucial de distinguer cette contribution ontologique (le modèle des clas
 
 #### Validation des choix de modélisation
 Les vérifications ont confirmé que l'utilisation de `P141 assigned` doit être évitée pour ces deux classes, car il n'y a pas de valeur à assigner. Seuls `P140 assigned attribute to` et `P177 assigned property type` sont pertinents pour identifier la cible de l'absence. La raison de la rétention doit être attachée via un `E73 Information Object`, qui peut lui-même être conditionné, respectant ainsi le principe de Glissant sur le droit à l'opacité jusqu'au bout de la chaîne de justification. L'alignement avec les *TK Labels* de Local Contexts via `E55 Type` et SKOS est également validé comme une bonne pratique pour typer la nature de la rétention (culturelle, légale, etc.).
+
+#### Fermer un monde ouvert 
+
+Cidoc-crm suit l'hypothèse du monde ouvert qui accepte que la connaissance soit incomplète. Il me semble important qu'apparaisse dans la documentation l'opacité permettant ainsi de donner les informations vérifiées et situées aux gestionnaires de diffusions d'une base de données. C'est cependant contradictoire avec l'introduction même de l'ontologie comme nous l'a fait remarqué Athina Kritsotaki (14 septembre 2026) dans l'issue 723 :
+
+> « Au niveau des données, nous ne pouvons pas imposer de contraintes de monde clos en raison de l'incomplétude de notre connaissance particulière à un moment donné. Il existe une directive dans les principes intitulée « Comment puis-je représenter les états caractéristiques du manque de connaissance dans ma modélisation » (et pour éviter les règles strictes du monde clos, nous nous rappelons le problème des valeurs et propriétés courantes).
+> Je pense qu'il s'agit d'une question d'implémentation que le modèle ne prévoit pas. Ce type de validité de la connaissance relève du gestionnaire de connaissances. Les états peuvent être gérés par l'administrateur de base de données, qui devrait pouvoir vérifier la réalité correspondante à la dernière date de validité de la base. Dans l'introduction, on trouve ceci :
+> « ...Cela n'implique pas que la connaissance décrite dans la base de connaissances soit complète. Tant que l'information fait l'objet d'une gestion active, elle demeure continuellement ouverte à la révision et à l'amélioration à mesure que la recherche révèle de nouvelles compréhensions. Une base de connaissances ne représente pas une tranche de réalité, mais les croyances justifiées de ses gestionnaires à propos de cette réalité. Par simplicité, nous parlons d'une base de connaissances comme représentant une certaine réalité. [...] Les quantificateurs pour les propriétés sont fournis à des fins de clarification sémantique uniquement, et ne doivent pas être traités comme des recommandations d'implémentation. Le CIDOC CRM a été conçu pour accommoder des opinions alternatives et de l'information incomplète, et par conséquent toutes les propriétés devraient être implémentées comme optionnelles et répétables pour leur domaine et leur portée (« plusieurs-à-plusieurs (0,n:0,n) ») [...] Notez que si une propriété dépendante n'est pas spécifiée pour une instance du domaine ou de la portée concernée, cela signifie que la propriété existe, mais que la valeur d'un côté de la propriété est inconnue. Dans le cas des propriétés optionnelles, la méthodologie proposée par le CIDOC CRM ne distingue pas entre une valeur inconnue et la propriété n'étant pas applicable du tout. Par exemple, on peut savoir qu'un objet a un propriétaire, mais que ce propriétaire est inconnu. Dans une instance CIDOC CRM, ce cas ne peut être distingué du fait que l'objet n'a aucun propriétaire du tout. Bien entendu, de tels détails peuvent toujours être précisés par une note textuelle [...] » »
+
+Le droit à l'opacité de Glissant n'est pas un droit de ne pas exister mais un droit de choisir et maîtriser ce que l'on souhaite dévoiler. 
 
 ## Choix final
 
@@ -113,3 +122,6 @@ Sur la base de cette analyse, les choix suivants sont retenus pour la propositio
     L'utilisation de `E55 Type` pour qualifier la nature de la rétention permet d'aligner le modèle sur des vocabulaires externes comme les *TK Labels* de Local Contexts, assurant une interopérabilité avec les pratiques de souveraineté des données autochtones et culturelles.
 
 Ce choix final permet de combler un angle mort du CRM en offrant un cadre formel pour documenter non seulement ce que nous ne savons pas, mais aussi ce que nous savons et choisissons de taire, en respectant à la fois l'intégrité des œuvres et les droits des communautés concernées.
+
+
+[^1]: MAJ : Nouvelle Issue CIDOC-CRM SIG : Documenting that a property value was sought and not obtained: declared absence in provenance records. ID: 723. Starting Date: 2026-09-14

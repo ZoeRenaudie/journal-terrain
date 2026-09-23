@@ -43,7 +43,7 @@ Visitors encountered what appeared to be a conventional thematic and chronologic
 | Exhibition, capcMusée de Bordeaux | Primary event | Dec. 1990 – Mar. 1991 |
 | Catalogue *Feux pâles : une pièce à conviction* | Co-constitutive | 1990 |
 | Cabinet d'amateur (work signed by capc) | Derived work | 1990 |
-| *L'Ombre du jaseur*, MAMCO Geneva | Reactivation | 2014 |
+| *L'Ombre du jaseur*, MAMCO Geneva | Interpretation | 2014 |
 | Renaudie conservation study | Documentary activation | 2017 |
 | Jaret doctoral thesis | Documentary activation | 2019 |
 | Lebovici critical text | Documentary activation | 2021 |
@@ -85,6 +85,18 @@ Les visiteurs rencontraient ce qui semblait être un parcours thématique et chr
 - **Temporalité récursive** : l'exposition a été réactivée, étudiée et documentée de façons qui modifient l'objet qu'elles décrivent
 - **Personnes et transactions fictives** : plusieurs œuvres impliquent des collectionneurs inventés, des circuits de vente fictifs et des attributions délibérément indécidables
 - **Provenance non résolue** : au moins un objet de l'exposition est une œuvre pillée dont la propriété est contestée
+
+### Éléments constitutifs du meshwork
+
+| Éléments | Type | Date |
+|---|---|---|
+| Exposition, capc Musée de Bordeaux | Événement primaire | Déc. 1990 – Mar. 1991 |
+| Catalogue *Feux pâles : une pièce à conviction* | Co-constituant | 1990 |
+| Cabinet d'amateur (œuvre signée par capc) | Œuvre dérivée | 1990 |
+| *L'Ombre du jaseur*, MAMCO Genève | Interprétation | 2014 |
+| Étude de conservation Renaudie | Activation documentaire | 2017 |
+| Thèse doctorale de Jaret | Activation documentaire | 2019 |
+| Texte critique de Lebovici | Activation documentaire | 2021 |
 
 ### Le proto-ontologie de 2017
 

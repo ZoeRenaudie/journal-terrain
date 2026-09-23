@@ -3,7 +3,10 @@ import { tagByPrefix } from '$lib/modelling/tags.js'
 export const load = async () => {
 	const docs = await Promise.all(
 		Object.entries(
-			import.meta.glob('/src/lib/modelling/**/*.md')
+			import.meta.glob([
+    			'/src/lib/modelling/**/*.md',
+    			'!/src/lib/modelling/**/a_ranger/**'
+  				])
 		).map(async ([path, resolver]) => {
 			const { metadata } = await resolver()
 			// Convert file path to slug: strip prefix and .md extension
