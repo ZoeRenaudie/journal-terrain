@@ -1,5 +1,5 @@
 import { parseTurtleToGraph } from '$lib/rdf/parseTtl.js';
-import ttlRaw from '$lib/modelling/feux-pales/feux-pales_full.ttl?raw';
+import ttlRaw from '../../../lib/modelling/feux-pales/feux-pale_full.ttl?raw';
 
 export const prerender = true;
 
