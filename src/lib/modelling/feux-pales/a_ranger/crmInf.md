@@ -482,8 +482,12 @@ graph LR
 
     linkStyle default stroke:#333,stroke-width:2px;
 ```
-<figcaption>{'@prefix crm:    <http://www.cidoc-crm.org/cidoc-crm/>'}</figcaption>
-<figcaption>{'@prefix crminf: <http://www.ics.forth.gr/isl/CRMinf/>'}</figcaption>
+<figcaption>
+```turtle
+@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf: <http://www.ics.forth.gr/isl/CRMinf/> .
+```
+</figcaption>
 </figure>
 
 /** Notes **/

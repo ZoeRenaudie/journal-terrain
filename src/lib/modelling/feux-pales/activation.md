@@ -205,9 +205,13 @@ graph LR
 
     linkStyle default stroke-width:3px;
 ```
-<figcaption>{'@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/>'}</figcaption>
-<figcaption>{'@prefix la: <https://linked.art/ns/terms/>'}</figcaption>
-<figcaption>{'@prefix la: <http://iflastandards.info/ns/lrm/lrmoo/>'}</figcaption>
+<figcaption>
+```turtle
+@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix la: <https://linked.art/ns/terms/> .
+@prefix lrmoo:   <http://iflastandards.info/ns/lrm/lrmoo/> .
+```
+</figcaption>
 </figure>
 
 ```mermaid

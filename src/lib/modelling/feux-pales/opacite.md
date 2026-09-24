@@ -124,7 +124,7 @@ Sur la base de cette analyse, les choix suivants sont retenus pour la propositio
 
 Ce choix final permet de combler un angle mort du CRM en offrant un cadre formel pour documenter non seulement ce que nous ne savons pas, mais aussi ce que nous savons et choisissons de taire, en respectant à la fois l'intégrité des œuvres et les droits des communautés concernées.
 
-
+Exemple de modélisation du fictionnalisme de Feux Pâles.
 
 
 [^1]: MAJ : Nouvelle Issue CIDOC-CRM SIG : Documenting that a property value was sought and not obtained: declared absence in provenance records. ID: 723. Starting Date: 2026-09-14
