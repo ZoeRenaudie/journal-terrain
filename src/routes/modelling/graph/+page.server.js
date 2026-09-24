@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ttlPath = path.resolve(__dirname, '../../../lib/modelling/feux-pales/data/feux-pales_full.ttl');
+const ttlPath = path.resolve(__dirname, '../../../lib/modelling/feux-pales/feux-pales_full.ttl');
 
 export const prerender = true;
 

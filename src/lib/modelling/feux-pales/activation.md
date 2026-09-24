@@ -138,7 +138,7 @@ As a Complex Work can be taken up by any creator who acquires the spirit of its 
 When the library community consolidated its standards into the IFLA Library Reference Model (IFLA LRM), it prioritized a higher-level, more compact hierarchy. The deprecation of F15 Complex Work comes down to three main architectural reasons:1. Radical Simplification of the HierarchyFRBRoo was frequently criticized for being too long and overly granular, containing 48 classes and 72 properties. LRMoo slashed this down to just 18 classes. To achieve this, the working group deprecated specialized subclasses of F1 Work (such as F14 Individual Work, F15 Complex Work, F16 Container Work, and F17 Aggregation Work).2. Redundancy and Inherited AttributesIn FRBRoo, a "Complex Work" was defined as a work that brings together other member works (like a series of novels, a multi-volume encyclopedia, or a work and its various adaptations).However, the semantic features, relationships, and properties of F15 Complex Work were essentially identical to its parent class, F1 Work. Because a general F1 Work is already fully capable of being realized in multiple expressions or having relationships with other works, maintaining a specific "Complex" subclass was structurally redundant.3. The Shift to General RelationshipsThe removal of the class does not mean LRMoo lost the ability to express complex relationships. Instead of sorting works into strict "individual" or "complex" pigeonholes at the class level, LRMoo handles complexity dynamically through properties.How to model it now: You simply use the base class F1 Work.If a work contains, adapts, or references another work, you express that "complexity" using general CIDOC CRM / LRMoo structural properties (such as R67 has part, R75 incorporates, or R20 text derivative of).
 
 
-Tentativs : 
+Tentatives : 
 
 <figure>
 
@@ -492,5 +492,97 @@ la réparatition entre ce qui serait une expression, manifestation, item est dis
 :Item_Display rdf:type crm:E22_Human_Made_Object ;
     rdfs:label "Display" ;
     lrmoo:has_item :Edition_1_2_Manifest .
+
+
+## Choix final
+
+1. *Feux pâles* as a chain of activations
+
+```mermaid
+timeline
+    title Selection of events in Feux pâles biography
+    section 1990-1991
+        Feux Pâles : Display - CapcMusée
+        Un cabinet d'amateur : Display - Galerie Burrus
+    section 2014
+        L'Ombre du jaseur : Display - MAMCO
+    section 2017
+        Conservation Study : Documentation - Zoë Renaudie
+    section 2025
+        Display Study : Documentation - Ouvroir
+```
+
+/** Notes **/
+
+First question : 
+Treated as a chain of activations rather than a static entity, *Feux pâles* extends from the original 1990 exhibition. Following Goodman's notion of worldmaking, exhibition documentation must support the coexistence of multiple epistemic perspectives without reducing them to a single unified interpretation.
+
+
+### Proposed mapping inspired by LRMoo
+
+<figure>
+
+
+```mermaid
+graph LR
+    classDef work fill:#fddc34,stroke:#333;
+    classDef expression fill:#fddc34,stroke:#333;
+    classDef manifestation fill:#fddc34,stroke:#333;
+    classDef item fill:#8b6815,stroke:#333;
+
+    direction LR
+    paleFires["Feux Pâles\n(F1_Work)"]:::work
+
+    expr1["Feux Pâles Scenography (1990)\n(F2_Expression)"]:::expression
+    expr2["Concept of L'Ombre du Jaseur\n(F2_Expression)"]:::expression
+    expr3["Plan/Structure of Cabinet d’amateur\n(F2_Expression)"]:::expression
+    expr4["Text of the Conservation Study\n(F2_Expression)"]:::expression
+
+    manif1("Specifications of the Feux Pâles Display\n(F3_Manifestation)"):::manifestation
+    manif2("Mockup/ISBN of the Catalog\n(F3_Manifestation)"):::manifestation
+    manif3("Specifications of L'Ombre du Jaseur\n(F3_Manifestation)"):::manifestation
+    manif5("Model of the Study Report\n(F3_Manifestation)"):::manifestation
+    manif6("Specifications of Edition 1/2\n(F3_Manifestation)"):::manifestation
+
+    item1["The Physical Installation in capc\n(F5_Item)"]:::item
+    item2["The Physical Installation in MAMCO\n(F5_Item)"]:::item
+    item5["The Signed Physical Copy\n(F5_Item)"]:::item
+    item6["The Paper Document of the Report\n(F5_Item)"]:::item
+    item7["The Physical Photographic Print\n(F5_Item)"]:::item
+
+    paleFires -->|lrmoo:R3_realises| expr1
+    paleFires -->|lrmoo:R3_realises| expr2
+    paleFires -->|lrmoo:R3_realises| expr3
+    paleFires -->|lrmoo:R3_realises| expr4
+
+    expr1 -->|lrmoo:R4_embodies| manif1
+    expr1 -->|lrmoo:R4_embodies| manif2
+    expr2 -->|lrmoo:R4_embodies| manif3
+    expr4 -->|lrmoo:R4_embodies| manif5
+    expr3 -->|lrmoo:R4_embodies| manif6
+
+    manif1 -->|lrmoo:R7 exemplifies| item1
+    manif2 -->|lrmoo:R7 exemplifies| item5
+    manif3 -->|lrmoo:R7 exemplifies| item2
+    manif5 -->|lrmoo:R7 exemplifies| item6
+    manif6 -->|lrmoo:R7 exemplifies| item7
+
+    linkStyle default stroke-width:3px;
+
+```
+<figcaption>@prefix crm:     <"http://www.cidoc-crm.org/cidoc-crm/">   </figcaption>
+<figcaption>@prefix la: <"https://linked.art/ns/terms/">   </figcaption>
+<figcaption>@prefix lrmoo:   <"http://iflastandards.info/ns/lrm/lrmoo/"> .   </figcaption>
+</figure>
+
+
+
+Thanks to Carboni and SARI I can map a lot of information on the exhibition with CIDOC-CRM. ButI argue that LRMoo adds a proper four-level hierarchy on top, from Work down to Item to express the activations we mentionned.
+
+*Feux pâles* here as the Work, with each activation descending as an Expression, itself carrying a Manifestation and items. 
+
+Faire une comparaison avec les definitions de LMROO parce que mon probleme c'est que chacune des instance peut a son tour devenir oeuvre conceptuel qui a des decoulants. 
+
+Donc je peux pas utiliser lmro mais proposer une nouvelle solution de representation ? 
 
 [^1]: Dans [Display](#REFlien), les expositions sont traitées comme des événements, des activités qui ont le type AAT Activité d’exposition. Toujours le patron utilisé par LinkedArt. `E7 type` avec AAT le terme « activité d’exposition »
