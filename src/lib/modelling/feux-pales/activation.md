@@ -496,7 +496,7 @@ la réparatition entre ce qui serait une expression, manifestation, item est dis
 :Item_Display rdf:type crm:E22_Human_Made_Object ;
     rdfs:label "Display" ;
     lrmoo:has_item :Edition_1_2_Manifest .
-
+```
 
 ## Choix final
 
@@ -525,7 +525,6 @@ Treated as a chain of activations rather than a static entity, *Feux pâles* ext
 ### Proposed mapping inspired by LRMoo
 
 <figure>
-
 
 ```mermaid
 graph LR
@@ -574,9 +573,13 @@ graph LR
     linkStyle default stroke-width:3px;
 
 ```
-<figcaption>@prefix crm:     <"http://www.cidoc-crm.org/cidoc-crm/">   </figcaption>
-<figcaption>@prefix la: <"https://linked.art/ns/terms/">   </figcaption>
-<figcaption>@prefix lrmoo:   <"http://iflastandards.info/ns/lrm/lrmoo/"> .   </figcaption>
+<figcaption>
+```turtle
+@prefix crm:     &lt;http://www.cidoc-crm.org/cidoc-crm&lt; .
+@prefix la: &lt;https://linked.art/ns/terms/&lt; .
+@prefix lrmoo:   &lt;http://iflastandards.info/ns/lrm/lrmoo/&lt; .
+```
+</figcaption>
 </figure>
 
 
