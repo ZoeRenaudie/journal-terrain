@@ -51,10 +51,7 @@ L’exposition *Feux Pâles* (1990-1991) est à la fois :
 - un événement (une activité temporelle, `E7_Activity`),
 - un concept (une œuvre qui persiste dans la mémoire collective et les archives, au-delà de sa manifestation physique).
 
-Le CIDOC CRM distingue clairement les **entités temporelles** (`E2_Temporal_Entity`, comme les événements) des **entités persistantes** (`E77_Persistent_Item`, comme les objets ou concepts). Or, *Feux Pâles* semble dépasser cette dichotomie :
-- Elle est documentée (via des catalogues, des archives),
-- Elle inspire d’autres expositions (ex. *L’Ombre du jaseur*),
-- Elle existe tant qu’elle est mémorisée (par des acteurs, des documents, ou des œuvres dérivées).
+Le CIDOC CRM distingue clairement les **entités temporelles** (`E2_Temporal_Entity`, comme les événements) des **entités persistantes** (`E77_Persistent_Item`, comme les objets ou concepts). Or, *Feux Pâles* semble dépasser cette dichotomie. Elle existe via son activation par : sa documentation (via des catalogues, des archives), d’autres expositions (ex. *L’Ombre du jaseur*), tant qu’elle est mémorisée (par des acteurs, des documents, ou des œuvres dérivées).
 
 Je choisis donc de représenter feux pâles sous deux formes : 
 
@@ -63,8 +60,8 @@ Cette classe permet de représenter des entités immatérielles (ex. une idée, 
 `E28` peut être lié à des activités via `P129_is_about` (pour dire qu’une exposition *traite* de ce concept) ou `P136_was_based_on` (pour dire qu’une exposition *s’inspire* de ce concept).
 
 2. `E7_Activity` pour les expositions individuelles :
-Chaque itération (*Feux Pâles* au CAPC, *L’Ombre du jaseur*) est modélisée comme une activité distincte, liée au concept *Feux Pâles* via `P129_is_about` ou `P136_was_based_on`.
-Dans Display, les expositions sont traitées comme des événements, des activités qui ont le type AAT Activité d’exposition. Toujours le patron utilisé par LinkedArt. `E7 type` avec AAT le terme « activité d’exposition »
+Chaque itération (*Feux Pâles* au CAPC, *L’Ombre du jaseur*) est modélisée comme une activité distincte, liée au concept *Feux Pâles* via `P129_is_about` ou `P136_was_based_on`.[^1]
+
 
 3. Quid des autres activations ?
 
@@ -495,3 +492,5 @@ la réparatition entre ce qui serait une expression, manifestation, item est dis
 :Item_Display rdf:type crm:E22_Human_Made_Object ;
     rdfs:label "Display" ;
     lrmoo:has_item :Edition_1_2_Manifest .
+
+[^1]: Dans [Display](#REFlien), les expositions sont traitées comme des événements, des activités qui ont le type AAT Activité d’exposition. Toujours le patron utilisé par LinkedArt. `E7 type` avec AAT le terme « activité d’exposition »
