@@ -207,9 +207,9 @@ graph LR
 ```
 <figcaption>
 ```turtle
-@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
-@prefix la: <https://linked.art/ns/terms/> .
-@prefix lrmoo:   <http://iflastandards.info/ns/lrm/lrmoo/> .
+@prefix crm:     &lt;http://www.cidoc-crm.org/cidoc-crm&lt; .
+@prefix la: &lt;https://linked.art/ns/terms/&lt; .
+@prefix lrmoo:   &lt;http://iflastandards.info/ns/lrm/lrmoo/&lt; .
 ```
 </figcaption>
 </figure>

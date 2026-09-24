@@ -484,8 +484,8 @@ graph LR
 ```
 <figcaption>
 ```turtle
-@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
-@prefix crminf: <http://www.ics.forth.gr/isl/CRMinf/> .
+@prefix crm:     &lt;http://www.cidoc-crm.org/cidoc-crm/&gt; .
+@prefix crminf: &lt;http://www.ics.forth.gr/isl/CRMinf/&gt; .
 ```
 </figcaption>
 </figure>
